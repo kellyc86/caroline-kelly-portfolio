@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geographic Demand Analysis – Caroline Kelly</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/case-study.css">
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="nav__inner">
+            <a href="index.html" class="nav__logo">CK</a>
+            <div class="nav__links">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="cv.html">CV</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="cs-main">
+        <section class="cs-hero-split">
+            <div class="cs-hero-split__left">
+                <img src="images/case1_main_insight.png" alt="Birmingham shows 22.1× demand ratio" loading="lazy">
+                <a href="#methodology" class="cs-hero-split__code-btn">View Analysis →</a>
+            </div>
+            <div class="cs-hero-split__right">
+                <div class="cs-hero-split__content">
+                    <p class="cs-hero-split__number">01 GEOGRAPHIC DEMAND ANALYSIS</p>
+
+                    <h1 class="cs-hero-split__heading">Where Should We Expand First?</h1>
+                    
+                    <p class="cs-hero-split__text">
+                        An event discovery platform with £500K expansion budget needed to decide which UK city to enter first. 
+                        The VP of Partnerships wanted data on where users were searching but couldn't find events.
+                    </p>
+                    
+                    <p class="cs-hero-split__text">
+                        I calculated demand-to-supply ratios across 8 cities using 6 months of search and listing data. 
+                        Birmingham emerged with 22.1 searches per listed event—17% above the 18.9 platform average and 26% 
+                        higher than London (17.6).
+                    </p>
+
+                    <img src="images/case1_opportunities.png" alt="Top 5 expansion opportunities" style="width: 100%; margin: 20px 0;">
+
+                    <p class="cs-hero-split__text">
+                        This gap persisted across Techno (24.3×), House (21.8×), and Electronic (20.1×) genres, ruling out 
+                        temporary spikes or genre-specific anomalies. The pattern suggests structural undersupply: Birmingham 
+                        has the audience appetite but lacks local promoter relationships.
+                    </p>
+
+                    <h2 class="cs-hero-split__heading">Why Ratio Analysis?</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        <strong>Alternative considered:</strong> Rank by absolute search volume. London would win with 5,640 
+                        monthly searches vs Birmingham's 2,210.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Problem:</strong> London already has 320 events competing for those searches. Birmingham's 2,210 
+                        searches are spread across only 100 events. The ratio normalizes for market size and reveals relative 
+                        underservice.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Tradeoff:</strong> Ratio analysis assumes searches convert to tickets at similar rates across 
+                        cities. If Birmingham users search more but buy less, the ratio overstates opportunity. We can't validate 
+                        conversion without testing.
+                    </p>
+
+                    <img src="images/case1_genre_gaps.png" alt="Genre-specific gaps" style="width: 100%; margin: 20px 0;">
+
+                    <h2 class="cs-hero-split__heading">Commercial Impact</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        At 12% search-to-ticket conversion (platform average) and £35 average ticket price, Birmingham's 2,210 
+                        monthly searches represent £9.3K monthly revenue potential. Over 12 months: <strong>£111K</strong>.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        If we close the gap to platform-average ratio (18.9×), we'd need 117 events instead of 100—17 additional 
+                        monthly events. At £400 average revenue per event: <strong>£81K additional annual revenue</strong>.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Required investment:</strong> Partnership fees (£8K), localized marketing (£12K), promoter 
+                        outreach (£6K). Total: £26K. Payback in 4 months if conversion matches platform average.
+                    </p>
+
+                    <h2 class="cs-hero-split__heading">What I'd Do</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        <strong>Phase 1 (Months 1-2):</strong> Test with 20 Birmingham events via 3-5 local promoters
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li>Measure: Search → ticket conversion, repeat purchase rate, CAC</li>
+                        <li>Success criteria: >10% conversion (vs 8% baseline), <£18 CAC, >20% repeat rate</li>
+                        <li>Cost: £8K (promoter partnerships + local ads)</li>
+                    </ul>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Phase 2 (Months 3-6):</strong> If Phase 1 hits targets, scale to 50 events/month
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Phase 3 (Months 7-12):</strong> Expand to Liverpool (18.9×) and Manchester (19.0×) using 
+                        Birmingham playbook
+                    </p>
+
+                    <h2 class="cs-hero-split__heading">What Could Go Wrong</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        <strong>Assumption:</strong> High search volume means unmet demand.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Alternative explanations:</strong> (1) Birmingham users search more but don't buy (low intent), 
+                        (2) they're searching for event types not in our catalog (genre mismatch), (3) prices are too high 
+                        relative to local income levels.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        We observe correlation between searches and supply gap. Causation unproven without A/B testing. 
+                        Phase 1 pilot de-risks by limiting initial investment to £8K before scaling.
+                    </p>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Methodology Section -->
+        <section id="methodology" style="max-width: 1200px; margin: 60px auto; padding: 0 40px;">
+            <h2 style="font-size: 28px; font-weight: 700; margin-bottom: 40px; color: #1a1a1a;">Analytical Method</h2>
+            
+            <h3 style="font-size: 20px; font-weight: 600; margin: 30px 0 15px; color: #333;">Data Sources</h3>
+            <ul style="font-size: 16px; line-height: 1.8; color: #666; margin-bottom: 30px;">
+                <li><strong>Search logs:</strong> 6 months (Jan-Jun 2024), 47,000 unique search queries, deduplicated by user ID</li>
+                <li><strong>Event listings:</strong> All ticketed events with >50 capacity, matched to city via venue geocoding</li>
+                <li><strong>Transaction data:</strong> Used to validate platform-wide conversion baseline (12%)</li>
+            </ul>
+
+            <h3 style="font-size: 20px; font-weight: 600; margin: 30px 0 15px; color: #333;">Ratio Calculation</h3>
+            <pre style="background: #f5f5f5; padding: 20px; border-radius: 8px; overflow-x: auto; font-size: 14px; line-height: 1.6;">
+<code>demand_ratio = monthly_searches / events_listed
+
+Platform average: 47,000 total searches / 2,500 total events = 18.9×
+Birmingham: 2,210 searches / 100 events = 22.1×
+Gap: 22.1 - 18.9 = 3.2× (17% above average)</code></pre>
+
+            <h3 style="font-size: 20px; font-weight: 600; margin: 30px 0 15px; color: #333;">Statistical Validation</h3>
+            <p style="font-size: 16px; line-height: 1.8; color: #666; margin-bottom: 15px;">
+                <strong>Stability check:</strong> Ratio remained between 21.5-22.8× across all 6 months (CV = 2.4%). 
+                Not a temporary spike.
+            </p>
+            <p style="font-size: 16px; line-height: 1.8; color: #666; margin-bottom: 15px;">
+                <strong>Genre consistency:</strong> All 3 major genres showed above-average ratios (Techno: 24.3×, House: 21.8×, 
+                Electronic: 20.1×). Not genre-specific.
+            </p>
+            <p style="font-size: 16px; line-height: 1.8; color: #666;">
+                <strong>Bootstrap confidence interval:</strong> 95% CI for Birmingham ratio: [21.2×, 23.1×]. 
+                Consistently above platform average with high confidence.
+            </p>
+
+            <h3 style="font-size: 20px; font-weight: 600; margin: 30px 0 15px; color: #333;">Why Not Regression?</h3>
+            <p style="font-size: 16px; line-height: 1.8; color: #666; margin-bottom: 15px;">
+                Considered: Poisson regression predicting event supply as function of population, income, venue count, 
+                existing listings.
+            </p>
+            <p style="font-size: 16px; line-height: 1.8; color: #666; margin-bottom: 15px;">
+                <strong>Rejected because:</strong> (1) Small sample size (n=8 cities) limits model reliability, 
+                (2) ratio analysis is more interpretable for stakeholders, (3) regression would require additional data 
+                collection on local demographics.
+            </p>
+            <p style="font-size: 16px; line-height: 1.8; color: #666;">
+                Tradeoff: Ratios are simpler but ignore city-specific factors like venue availability or local scene maturity.
+            </p>
+
+            <h3 style="font-size: 20px; font-weight: 600; margin: 30px 0 15px; color: #333;">Limitations</h3>
+            <p style="font-size: 16px; line-height: 1.8; color: #666; margin-bottom: 15px;">
+                <strong>Correlation ≠ Causation:</strong> High searches correlate with low supply. Cannot conclude that 
+                adding supply will capture those searches without testing.
+            </p>
+            <p style="font-size: 16px; line-height: 1.8; color: #666; margin-bottom: 15px;">
+                <strong>Selection bias:</strong> Only analyzed users already on platform. Unregistered Birmingham residents 
+                not captured.
+            </p>
+            <p style="font-size: 16px; line-height: 1.8; color: #666;">
+                <strong>Conversion assumption:</strong> Applied 12% platform-wide conversion rate to Birmingham. 
+                Local rate may differ due to price sensitivity, competition, or user demographics.
+            </p>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

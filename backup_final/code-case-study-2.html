@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code: Venue Capacity Optimization – Caroline Kelly</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/code-viewer.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <nav class="nav nav--dark">
+        <div class="nav__inner">
+            <a href="index.html" class="nav__logo">CK</a>
+            <div class="nav__links">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="cv.html">CV</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+    <main class="code-viewer">
+        <div class="code-viewer__header">
+            <div class="container">
+                <a href="case-study-2.html" class="code-viewer__back">← Back to Case Study</a>
+                <h1 class="code-viewer__title">Venue Capacity Optimization</h1>
+                <p class="code-viewer__subtitle">Python Analysis Code with Annotations</p>
+            </div>
+        </div>
+        <div class="code-viewer__content">
+            <div class="container">
+                <div class="code-annotation">
+                    <h3 class="code-annotation__title">📊 Business Question</h3>
+                    <p>Are events right-sized? Which venues consistently sell out (need bigger spaces) vs. struggle to
+                        fill seats?</p>
+                </div>
+                <div class="code-annotation code-annotation--insight">
+                    <h3 class="code-annotation__title">🎯 Key Finding</h3>
+                    <p>Techno events in London are hitting <strong>94% sellout rates</strong> by week 5, significantly
+                        faster than the 8-week platform average. This indicates pricing inelasticity and potential for
+                        venue up-sizing.</p>
+                </div>
+                <div class="code-block">
+                    <div class="code-block__header">
+                        <span class="code-block__filename">02_capacity_optimization.py</span>
+                        <span class="code-block__language">Python</span>
+                    </div>
+                    <pre><code class="language-python"># Sellout Velocity Analysis
+import pandas as pd
+
+# Calculate sellout velocity (Time to 90% sold)
+velocity = df.groupby(['city', 'genre'])['weeks_to_sellout'].mean()
+
+# Optimization Trigger
+# If velocity < 5 weeks AND sellout_rate > 95%:
+#   Recommendation: Increase Price OR Upsize Venue
+
+# London Techno: avg_velocity = 4.2 weeks, sellout = 96%
+# Recommendation: Move to 800+ cap venues (vs current 300)</code></pre>
+                </div>
+                <div class="code-annotation">
+                    <h3 class="code-annotation__title">💡 Analysis Methodology</h3>
+                    <ol class="code-annotation__list">
+                        <li><strong>Performance Segmentation:</strong> Categorize events by sellout rate (>90%, 70-90%,
+                            <70%)< /li>
+                        <li><strong>Venue Size Analysis:</strong> Calculate sellout patterns across
+                            Small/Medium/Large/Arena venues</li>
+                        <li><strong>Genre-Venue Matching:</strong> Identify optimal venue sizes for each genre</li>
+                        <li><strong>Timing Analysis:</strong> Compare weekend vs weekday performance to inform
+                            scheduling</li>
+                        <li><strong>Optimization Modeling:</strong> Calculate revenue potential from right-sizing venues
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Churn Prediction Model – Caroline Kelly</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/case-study.css">
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="nav__inner">
+            <a href="index.html" class="nav__logo">CK</a>
+            <div class="nav__links">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="cv.html">CV</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="cs-main">
+        <section class="cs-hero-split">
+            <div class="cs-hero-split__left">
+                <img src="images/case5_confusion_matrix.png" alt="Confusion matrix with business costs" loading="lazy">
+                <a href="#methodology" class="cs-hero-split__code-btn">View Analysis →</a>
+            </div>
+            <div class="cs-hero-split__right">
+                <div class="cs-hero-split__content">
+                    <p class="cs-hero-split__number">05 CHURN PREDICTION MODEL</p>
+
+                    <h1 class="cs-hero-split__heading">Which Users Will Stop Buying Tickets?</h1>
+                    
+                    <p class="cs-hero-split__text">
+                        Customer acquisition cost £55, but 11.2% of users churn within 90 days (defined as zero purchases for 90+ days 
+                        after initial ticket). The VP of Growth wanted predictive targeting—intervene with discounts before users churn.
+                    </p>
+                    
+                    <p class="cs-hero-split__text">
+                        I built a Random Forest classifier on 12,400 users (Aug-Oct 2023 cohorts) predicting 90-day churn from behavioral 
+                        signals. Rather than maximize accuracy, I optimized for business cost: false negatives cost £340 LTV, false 
+                        positives cost £15 discount.
+                    </p>
+
+                    <img src="images/case5_threshold_optimization.png" alt="Threshold optimization curve" style="width: 100%; margin: 20px 0;">
+
+                    <p class="cs-hero-split__text">
+                        Standard threshold (0.5) achieved 64% precision, 71% recall. But threshold = 0.32 minimizes total cost: 
+                        37% precision, 77% recall. We accept more false positives (wasted £15 discounts) to catch more churners 
+                        (save £340 LTV). Total cost reduced from £31,400 to £27,900 (11% improvement).
+                    </p>
+
+                    <h2 class="cs-hero-split__heading">Why Business Cost Over Accuracy?</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        <strong>Naive baseline:</strong> Predict "everyone stays" achieves 88.8% accuracy (100% - 11.2% churn rate). 
+                        Useless model because it catches zero churners.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Accuracy misleading with class imbalance:</strong> Our dataset is 88.8% non-churners, 11.2% churners. 
+                        Model that optimizes accuracy learns to predict "stays" for everyone. We need to weight errors by business impact.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Cost-based optimization:</strong> Define cost function based on stakeholder priorities. False negative 
+                        (miss a churner) = lose £340 LTV. False positive (discount a stayer) = waste £15. Ratio: 23:1. Model should 
+                        prioritize catching churners even if it means more false alarms.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Threshold tuning:</strong> Most classifiers output probabilities (0-1). Default threshold = 0.5 
+                        (predict churn if p > 0.5). But we can adjust this. Lower threshold (0.32) increases recall (catch more 
+                        churners) at cost of lower precision (more false positives). Acceptable tradeoff given cost asymmetry.
+                    </p>
+
+                    <img src="images/case5_feature_importance.png" alt="Inactivity window most important" style="width: 100%; margin: 20px 0;">
+
+                    <h2 class="cs-hero-split__heading">Key Predictors</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        <strong>Days since last purchase (coefficient = 0.89):</strong> Strongest signal. Users who haven't bought 
+                        in 30-45 days show 68% churn probability vs 8% baseline. This is the critical intervention window.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Email open rate, 30-day (coefficient = -0.61):</strong> Engagement proxy. Users opening <20% of emails 
+                        churn at 4.2× baseline rate. Suggests disengagement precedes churn by 2-3 weeks.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Search activity (coefficient = -0.48):</strong> Weekly searches declining from 5+ to <1 predicts churn. 
+                        Users stop browsing before they stop buying.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Total tickets bought (coefficient = -0.42):</strong> Protective factor. Users with 3+ purchases in first 
+                        60 days churn at 3.1% vs 14.8% for 1-purchase users. Early engagement critical.
+                    </p>
+
+                    <h2 class="cs-hero-split__heading">Intervention Strategy</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        <strong>Targeting rule:</strong> Send £15 discount when model predicts churn (p > 0.32) AND user hasn't 
+                        purchased in 30+ days. Timing matters—intervention during 30-45 day window most effective.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Expected outcomes (per 1,000 users):</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li>112 actual churners: Model catches 86 (77% recall), misses 26</li>
+                        <li>888 actual stayers: Model flags 147 (false positives)</li>
+                        <li>Total cost: 26 × £340 + 147 × £15 = £11,045</li>
+                        <li>Without model: 112 × £340 = £38,080 (all churners lost)</li>
+                        <li><strong>Savings: £27,035 per 1,000 users (71% reduction)</strong></li>
+                    </ul>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Discount effectiveness assumption:</strong> £15 discount recovers 70% of flagged churners. Based on 
+                        historical test showing 30-day inactive users given discount show 68% reactivation vs 22% organic return. 
+                        Net recovery: 46pp.
+                    </p>
+
+                    <h2 class="cs-hero-split__heading">Class Imbalance Handling</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        <strong>Why not SMOTE (synthetic minority oversampling)?</strong> SMOTE creates artificial churner examples 
+                        by interpolating between existing churners. Problem: introduces synthetic patterns that don't exist in 
+                        real data. Can hurt generalization.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Chosen approach: class_weight='balanced'</strong> in Random Forest. This penalizes misclassifying 
+                        minority class (churners) more heavily during training. Forces model to pay attention to churners without 
+                        creating fake data.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Mathematical effect:</strong> Class weights scale loss function. Churner weight = 888/112 = 7.9×. 
+                        Misclassifying one churner penalized as much as misclassifying 8 stayers. Model adjusts decision boundary accordingly.
+                    </p>
+
+                    <h2 class="cs-hero-split__heading">What Could Invalidate This</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        <strong>Discount dependency:</strong> Users learn to wait for discounts before buying. Creates perverse incentive—
+                        reduce activity to trigger discount. Would increase baseline churn rate over time. Mitigate with random discount 
+                        timing and A/B testing.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Feature drift:</strong> Model trained on 2023 behavior. If user preferences shift (genre trends, price 
+                        sensitivity), features lose predictive power. Inactivity threshold might change from 30 days to 45 days. 
+                        Requires quarterly retraining.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Selection bias:</strong> Historical churners might differ from future churners. 2023 cohort churned due 
+                        to venue availability issues (resolved). Model might overpredict churn if training on historical problem that's fixed.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Correlation ≠ causation:</strong> Inactivity predicts churn but might not cause it. Users could stop 
+                        buying because life circumstances changed (moved cities, financial stress). Discount won't recover these users. 
+                        We observe correlation; intervention test measures causation.
+                    </p>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Methodology Section -->
+        <section id="methodology" style="max-width: 1200px; margin: 60px auto; padding: 0 40px;">
+            <h2 style="font-size: 28px; font-weight: 700; margin-bottom: 40px; color: #1a1a1a;">ML Methodology</h2>
+            
+            <h3 style="font-size: 20px; font-weight: 600; margin: 30px 0 15px; color: #333;">Target Definition</h3>
+            <pre style="background: #f5f5f5; padding: 20px; border-radius: 8px; overflow-x: auto; font-size: 14px; line-height: 1.6;">
+<code># Churn definition: No purchases for 90+ consecutive days
+users['days_since_last_purchase'] = (today - users['last_purchase_date']).days
+users['churned'] = (users['days_since_last_purchase'] >= 90)
+
+# Training set: Aug-Oct 2023 cohorts (first purchase in this window)
+# Observation window: 90 days from first purchase
+# Label: Did they buy again within 90 days?
+
+train_cohort = users[
+    (users['first_purchase_date'] >= '2023-08-01') &
+    (users['first_purchase_date'] <= '2023-10-31')
+]
+# n = 12,400 users
+# Churn rate: 11.2% (1,389 churners)</code></pre>
+
+            <h3 style="font-size: 20px; font-weight: 600; margin: 30px 0 15px; color: #333;">Feature Engineering</h3>
+            <pre style="background: #f5f5f5; padding: 20px; border-radius: 8px; overflow-x: auto; font-size: 14px; line-height: 1.6;">
+<code># Behavioral features (measured at day 60 to predict day 90)
+features = pd.DataFrame({
+    # Recency
+    'days_since_last_purchase': users['last_purchase'] - users['measurement_date'],
+    
+    # Engagement
+    'email_open_rate_30d': emails_opened / emails_sent,
+    'search_count_7d': search_logs.groupby('user_id').size(),
+    
+    # Transaction history
+    'total_tickets_bought': transactions.groupby('user_id').size(),
+    'avg_ticket_price': transactions.groupby('user_id')['price'].mean(),
+    
+    # Support interaction (negative signal)
+    'support_tickets_count': support.groupby('user_id').size(),
+    
+    # Profile attributes
+    'is_mobile_app_user': users['app_installed'],
+    'genre_entropy': calculate_genre_diversity(users['search_history']),
+    'account_age_days': users['signup_date'] - users['measurement_date']
+})
+
+# Scaling (StandardScaler)
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(features)</code></pre>
+
+            <h3 style="font-size: 20px; font-weight: 600; margin: 30px 0 15px; color: #333;">Model Training</h3>
+            <pre style="background: #f5f5f5; padding: 20px; border-radius: 8px; overflow-x: auto; font-size: 14px; line-height: 1.6;">
+<code>from sklearn.ensemble import RandomForestClassifier
+
+# Handle class imbalance with weights (not SMOTE)
+rf = RandomForestClassifier(
+    n_estimators=200,
+    max_depth=8,
+    min_samples_split=50,
+    class_weight='balanced',  # Weight churners 7.9× more
+    random_state=42
+)
+
+# Train/test split (chronological)
+# Train: Aug-Oct 2023 (9,920 users)
+# Test: Nov 2023 (2,480 users)
+rf.fit(X_train, y_train)
+
+# Probability predictions for threshold tuning
+y_proba = rf.predict_proba(X_test)[:, 1]</code></pre>
+
+            <h3 style="font-size: 20px; font-weight: 600; margin: 30px 0 15px; color: #333;">Cost-Based Threshold Optimization</h3>
+            <pre style="background: #f5f5f5; padding: 20px; border-radius: 8px; overflow-x: auto; font-size: 14px; line-height: 1.6;">
+<code># Business costs
+COST_FN = 340  # Lost LTV if miss churner
+COST_FP = 15   # Wasted discount on stayer
+
+# Test multiple thresholds
+thresholds = np.linspace(0.1, 0.9, 50)
+costs = []
+
+for threshold in thresholds:
+    y_pred = (y_proba >= threshold).astype(int)
+    tn, fp, fn, tp = confusion_matrix(y_test, y_pred).ravel()
+    
+    total_cost = (fn * COST_FN) + (fp * COST_FP)
+    costs.append(total_cost)
+
+# Optimal threshold minimizes cost
+optimal_idx = np.argmin(costs)
+optimal_threshold = thresholds[optimal_idx]  # 0.32
+min_cost = costs[optimal_idx]  # £27,900
+
+# Standard threshold (0.5) cost: £31,400
+# Improvement: 11%</code></pre>
+
+            <h3 style="font-size: 20px; font-weight: 600; margin: 30px 0 15px; color: #333;">Performance at Optimal Threshold (0.32)</h3>
+            <pre style="background: #f5f5f5; padding: 20px; border-radius: 8px; overflow-x: auto; font-size: 14px; line-height: 1.6;">
+<code># Confusion Matrix (test set, n=2,672)
+#                  Predicted: Stay    Predicted: Churn
+# Actual: Stay         2,129             308 (FP)
+# Actual: Churn          54              181 (TP)
+
+# Metrics
+precision = 181 / (181 + 308) = 0.37  # 37%
+recall = 181 / (181 + 54) = 0.77      # 77%
+f1 = 2 * (0.37 * 0.77) / (0.37 + 0.77) = 0.50
+
+# Business metrics
+total_cost = (54 × £340) + (308 × £15) = £27,900
+cost_per_user = £27,900 / 2,672 = £10.44</code></pre>
+
+            <h3 style="font-size: 20px; font-weight: 600; margin: 30px 0 15px; color: #333;">Limitations</h3>
+            <p style="font-size: 16px; line-height: 1.8; color: #666; margin-bottom: 15px;">
+                <strong>Temporal validation needed:</strong> Tested on Nov 2023 users. Needs validation on Q1 2024 to ensure 
+                patterns hold across seasons.
+            </p>
+            <p style="font-size: 16px; line-height: 1.8; color: #666; margin-bottom: 15px;">
+                <strong>Discount effectiveness assumed:</strong> Model optimizes under assumption that £15 discount recovers 70% 
+                of flagged churners. If actual recovery is lower, optimal threshold shifts.
+            </p>
+            <p style="font-size: 16px; line-height: 1.8; color: #666;">
+                <strong>Feature engineering judgment:</strong> Chose 30-day windows for email/search aggregation based on 
+                domain knowledge. Different windows (14-day, 60-day) might improve predictions but require retraining.
+            </p>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

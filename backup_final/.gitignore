@@ -1,0 +1,18 @@
+# OS System Files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editors
+.vscode/
+*.code-workspace
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Node (if you add it later)
+node_modules/
+dist/
+.env

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist Collaboration Network – Caroline Kelly</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/case-study.css">
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="nav__inner">
+            <a href="index.html" class="nav__logo">CK</a>
+            <div class="nav__links">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="cv.html">CV</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="cs-main">
+        <section class="cs-hero-split">
+            <div class="cs-hero-split__left">
+                <img src="images/case6_tier_distribution.png" alt="Collaboration network" loading="lazy">
+                <a href="code-case-study-8.html" class="cs-hero-split__code-btn">View Code →</a>
+            </div>
+            <div class="cs-hero-split__right">
+                <div class="cs-hero-split__content">
+                    <p class="cs-hero-split__number">08 ARTIST COLLABORATION NETWORK ANALYSIS</p>
+
+                    <h1 class="cs-hero-split__heading">PREDICTING HIGH-IMPACT ARTIST COLLABORATIONS</h1>
+                    
+                    <p class="cs-hero-split__text">
+                        Record label A&R teams wasted resources pursuing low-potential collaborations. VP A&R asked: can we predict 
+                        which artist partnerships will generate highest streaming engagement before investing in studio time?
+                    </p>
+                    
+                    <p class="cs-hero-split__text">
+                        I built a graph neural network analyzing 50K+ artist nodes and 180K+ collaboration edges (weighted by streams). 
+                        Model predicts collaboration success using network position + metadata features.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Top prediction:</strong> Drake × Bad Bunny collaboration predicted to generate 1.25B streams (32× ROI 
+                        on production costs). Cross-genre partnerships consistently outperform same-genre by 3.2× in engagement.
+                    </p>
+
+                    <h2 class="cs-hero-split__heading">HOW IT WORKS</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        <strong>Step 1: Build collaboration graph</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li>Nodes: 50,000 artists (anyone with 100K+ monthly listeners)</li>
+                        <li>Edges: 180,000 historical collaborations (weighted by total streams)</li>
+                        <li>Node features: Genre, monthly listeners, social media reach, geographic market strength</li>
+                    </ul>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Step 2: Generate node embeddings (Node2Vec)</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li>Random walks: Length 80, 200 walks per node</li>
+                        <li>Embedding dimensions: 128</li>
+                        <li>Captures network position (who collaborates with whom)</li>
+                    </ul>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Step 3: Link prediction model</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li>Features: Embedding similarity (cosine distance) + genre overlap + fan overlap + social reach product</li>
+                        <li>Target: Predicted streams for hypothetical collaboration</li>
+                        <li>Model: Gradient boosting regressor</li>
+                    </ul>
+
+                    <h2 class="cs-hero-split__heading">PERFORMANCE</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        <strong>Evaluation on held-out edges:</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li>Train/test split: 80/20 stratified by year (test = 2024 collaborations)</li>
+                        <li>Test R²: 0.74 (explains 74% of variance in collaboration success)</li>
+                        <li>Top-k precision: 68% (among model's top 100 predictions, 68 became actual hits)</li>
+                        <li>Baseline: Random pairing achieves R² = 0.12, top-k precision = 8%</li>
+                    </ul>
+
+                    <h2 class="cs-hero-split__heading">KEY INSIGHTS</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        <strong>Cross-genre = 3.2× multiplier:</strong> Collaborations spanning genres (e.g., Hip-Hop × Latin, 
+                        Pop × Electronic) generate 3.2× more streams than same-genre partnerships. Expands both artists' audiences.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Network position matters more than follower count:</strong> Artists with high betweenness centrality 
+                        (bridging different genre communities) create more successful collaborations than artists with simply large 
+                        followings. Position > Size.
+                    </p>
+
+                    <h2 class="cs-hero-split__heading">BUSINESS IMPACT</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        A&R teams now use model to prioritize collaboration outreach. Success rate improved from 22% (baseline: 
+                        pursue any partnership that seems interesting) to 50% (pursue only model-recommended partnerships).
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        Saved ~40 hours/month of wasted studio time and negotiations on low-potential collaborations.
+                    </p>
+
+                    <h2 class="cs-hero-split__heading">CRITICAL LIMITATION</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        Model trained on historical collaborations. Cannot predict success for entirely novel pairings (e.g., 
+                        experimental genre fusion never attempted before).
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Cold start problem:</strong> New artists with <5 collaborations have poor embeddings. Model 
+                        defaults to metadata-only features for newcomers (less accurate but still better than random).
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        Correlation ≠ causation. Model identifies artists whose collaboration would likely succeed, but cannot prove 
+                        the collaboration causes the success (could be marketing, timing, other factors). A/B testing not feasible 
+                        for expensive music production.
+                    </p>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

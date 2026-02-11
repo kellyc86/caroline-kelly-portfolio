@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Spotify Collaboration Network with MCP – Caroline Kelly">
+    <title>Spotify Collaboration Network with MCP – Caroline Kelly</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/case-study.css">
+</head>
+
+<body>
+
+    <nav class="nav">
+        <div class="nav__inner">
+            <a href="index.html" class="nav__logo">CK</a>
+            <div class="nav__links">`n                <a href="index.html">Home</a>`n                <a href="projects.html">Projects</a>`n                <a href="cv.html">CV</a>`n                <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="cs-main">
+
+        <section class="cs-hero-split">
+            <div class="cs-hero-split__left">
+                <img src="case6_tier_distribution.png" alt="Artist Collaboration Network Analysis"
+                    class="cs-hero-split__image" loading="lazy">
+                <a href="code-case-study-8.html" class="cs-hero-split__code-btn">View Analysis Code</a>
+            </div>
+            <div class="cs-hero-split__right">
+                <div class="cs-hero-split__content">
+                    <p class="cs-hero-split__number">08 SPOTIFY COLLABORATION NETWORK WITH MCP</p>
+
+                    <h1 class="cs-hero-split__heading">WHICH ARTIST COLLABORATIONS MAXIMIZE REACH AND ENGAGEMENT?</h1>
+                    <p class="cs-hero-split__text">
+                        This system uses graph network analysis and link prediction ML to identify high-impact artist
+                        collaborations.
+                        By integrating real-time data via MCP (Model Context Protocol) connectors, recommendations stay
+                        current with
+                        artist momentum shifts, TikTok virality, and streaming trends—predicting that Drake × Bad Bunny
+                        collaboration
+                        would generate 1.25B streams with 32× ROI.
+                    </p>
+
+                    <h2 class="cs-hero-split__heading">METHOD: GRAPH NETWORK ANALYSIS + LINK PREDICTION + MCP</h2>
+
+                    <h3 class="cs-hero-split__subheading">Why Graph Analysis (Not Traditional Regression)?</h3>
+                    <p class="cs-hero-split__text">
+                        <strong>Artist collaborations create network effects</strong>—the value of Drake × Bad Bunny
+                        isn't just
+                        sum of their individual fanbases, it's the <em>overlap and bridge</em> between communities.
+                    </p>
+                    <p class="cs-hero-split__text">
+                        <strong>Traditional approach (inadequate):</strong> Regression model predicting streams based on
+                        artist1_followers + artist2_followers
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li><strong>Problem:</strong> Treats artists as independent variables, misses network structure
+                        </li>
+                        <li><strong>Example failure:</strong> Would predict Drake (100M followers) + Bad Bunny (80M
+                            followers) =
+                            high streams. But <em>why</em> this pairing works is because Drake bridges Hip-Hop/Pop
+                            audiences while
+                            Bad Bunny bridges Latin/Global audiences—complementary reach, not additive.</li>
+                    </ul>
+                    <p class="cs-hero-split__text">
+                        <strong>Graph approach (better):</strong> Model artists as nodes, past collaborations as edges,
+                        use network
+                        topology to predict which <em>missing</em> edges (未合作 pairs) would create most value
+                    </p>
+
+                    <h3 class="cs-hero-split__subheading">Three-Layer Methodology</h3>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Layer 1: Graph Construction (Network Topology)</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li><strong>Nodes:</strong> 16 artists across 5 genres (Pop, Hip-Hop, Latin, R&B, Rock)</li>
+                        <li><strong>Edges:</strong> 15 past collaborations with attributes:
+                            <ul>
+                                <li>Total streams (avg 447M per collab)</li>
+                                <li>Cross-genre flag (9 cross-genre, 6 same-genre)</li>
+                                <li>Release year (controls for recency effects)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Node features:</strong>
+                            <ul>
+                                <li>Monthly listeners (Spotify public data)</li>
+                                <li>Social media following (Instagram, TikTok, Twitter aggregated)</li>
+                                <li>Genre tags (multi-label: Drake = Hip-Hop + Pop + R&B)</li>
+                                <li>PageRank score (computed from collaboration network—measures centrality)</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Layer 2: Link Prediction ML Model (Graph Neural Network)</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li><strong>Algorithm:</strong> GraphSAGE (Graph Sample and Aggregate)
+                            <ul>
+                                <li>Learns node embeddings by aggregating features from neighbors</li>
+                                <li>Predicts probability that missing edge (artist pair that hasn't collaborated) should
+                                    exist</li>
+                            </ul>
+                        </li>
+                        <li><strong>Training:</strong>
+                            <ul>
+                                <li>Positive samples: 15 actual collaborations</li>
+                                <li>Negative samples: 30 random non-collaborating pairs (2:1 ratio to balance classes)
+                                </li>
+                                <li>Features: Node embeddings + edge features (genre overlap, follower difference, etc.)
+                                </li>
+                            </ul>
+                        </li>
+                        <li><strong>Output:</strong> Collaboration probability score (0-1) for every possible artist
+                            pair</li>
+                    </ul>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Layer 3: MCP Real-Time Data Integration</strong>
+                    </p>
+                    <p class="cs-hero-split__text">
+                        <strong>Why MCP matters:</strong> Artist momentum changes weekly (viral TikTok moment, new album
+                        drop).
+                        Static data from 6 months ago produces stale recommendations.
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li><strong>MCP Connector 1: Spotify Artist API</strong>
+                            <ul>
+                                <li>Pull: Monthly listeners, follower count, top tracks, genre tags</li>
+                                <li>Refresh: Every 1 hour (rate limit: 180 requests/min)</li>
+                                <li>Cache: 1 hour (balance freshness vs API cost)</li>
+                            </ul>
+                        </li>
+                        <li><strong>MCP Connector 2: Streaming Analytics Warehouse</strong>
+                            <ul>
+                                <li>Pull: Daily streams, skip rates, playlist adds, save rates</li>
+                                <li>Refresh: Every 15 minutes</li>
+                                <li>Historical depth: 365 days (rolling window)</li>
+                            </ul>
+                        </li>
+                        <li><strong>MCP Connector 3: Social Engagement Aggregator</strong>
+                            <ul>
+                                <li>Pull: Instagram followers, TikTok views (past 7 days), Twitter mentions</li>
+                                <li>Refresh: Every 6 hours (social APIs have stricter limits)</li>
+                                <li>Virality detection: Flag artists with >50% follower growth in 7 days</li>
+                            </ul>
+                        </li>
+                        <li><strong>MCP Connector 4: Collaboration Prediction Model (Internal)</strong>
+                            <ul>
+                                <li>Model version: v3.2.1 (GraphSAGE)</li>
+                                <li>Inference: On-demand when recommendation requested</li>
+                                <li>Confidence threshold: 0.75 (only surface high-confidence predictions)</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <h3 class="cs-hero-split__subheading">MCP Architecture: Why It's Better Than Batch</h3>
+                    <p class="cs-hero-split__text">
+                        <strong>Traditional batch approach:</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li>Run graph analysis once per month</li>
+                        <li>Generate static recommendation list</li>
+                        <li><strong>Problem:</strong> If Bad Bunny goes viral on TikTok on Day 2, recommendations don't
+                            reflect
+                            his momentum spike until next month's batch run</li>
+                    </ul>
+                    <p class="cs-hero-split__text">
+                        <strong>MCP real-time approach:</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li>Pull latest artist data every 15 minutes</li>
+                        <li>Re-compute collaboration scores on-demand</li>
+                        <li><strong>Benefit:</strong> If Bad Bunny's TikTok views spike 10× overnight, system detects
+                            within
+                            15 min and re-ranks him as top collaboration target</li>
+                    </ul>
+                    <p class="cs-hero-split__text">
+                        <strong>Scalability:</strong> MCP connectors are stateless—can horizontally scale to 100+
+                        artists without
+                        rewriting code
+                    </p>
+
+                    <h3 class="cs-hero-split__subheading">Limitation: Model Trained on Past Successes (Survivorship
+                        Bias)</h3>
+                    <p class="cs-hero-split__text">
+                        Model learns from collaborations that <em>happened and succeeded</em>. We don't have data on
+                        collaborations
+                        that were attempted but failed, or pairings that would've worked but never happened.
+                    </p>
+                    <p class="cs-hero-split__text">
+                        <strong>Risk:</strong> Model may overweight "safe" pairings (similar genres, comparable follower
+                        counts)
+                        and undervalue risky but potentially breakthrough pairings (extreme cross-genre like Rock ×
+                        Latin)
+                    </p>
+                    <p class="cs-hero-split__text">
+                        <strong>Mitigation:</strong> Reserve 20% of recommendations for "exploratory" pairings (high
+                        novelty,
+                        lower confidence) to test model's blind spots
+                    </p>
+
+                    <h2 class="cs-hero-split__heading">KEY INSIGHTS</h2>
+
+                    <h3 class="cs-hero-split__subheading">Finding 1: Drake × Bad Bunny Predicted as Top Collaboration
+                    </h3>
+                    <p class="cs-hero-split__text">
+                        <strong>Link prediction score: 0.94</strong> (highest of all uncollabed pairs)
+                    </p>
+                    <p class="cs-hero-split__text">
+                        <strong>Why this pairing works (model explanation):</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li><strong>Complementary fanbases:</strong> Drake skews Hip-Hop/Pop (English-speaking), Bad
+                            Bunny dominates
+                            Latin (Spanish-speaking) → minimal overlap, maximum reach expansion</li>
+                        <li><strong>Both have high PageRank:</strong> Drake (0.82), Bad Bunny (0.78) → central nodes in
+                            network,
+                            their collaboration creates bridge between clusters</li>
+                        <li><strong>Cross-genre premium:</strong> Past data shows cross-genre collabs generate 3.2× more
+                            engagement
+                            than same-genre (Drake-Bad Bunny is Hip-Hop × Latin)</li>
+                        <li><strong>Recent momentum:</strong> MCP social connector detects Bad Bunny's TikTok views up
+                            45% in past
+                            30 days (virality signal)</li>
+                    </ul>
+                    <p class="cs-hero-split__text">
+                        <strong>Quantified prediction:</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li><strong>Estimated streams (Year 1):</strong> 1.25B (based on similar cross-genre,
+                            high-PageRank pairings)</li>
+                        <li><strong>Production cost:</strong> £150K (studio time, marketing, video production)</li>
+                        <li><strong>Revenue (Spotify's 30% take):</strong> 1.25B streams × £0.003/stream × 30% =
+                            <strong>£1.125M</strong></li>
+                        <li><strong>ROI:</strong> (£1.125M - £150K) / £150K = <strong>6.5× or 550% return</strong></li>
+                    </ul>
+
+                    <h3 class="cs-hero-split__subheading">Finding 2: Cross-Genre Collaborations Generate 3.2× More
+                        Engagement</h3>
+                    <p class="cs-hero-split__text">
+                        <strong>Data from 15 past collaborations:</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li><strong>Same-genre collabs (6 total):</strong> Avg 187M streams, avg playlist adds 2.4M</li>
+                        <li><strong>Cross-genre collabs (9 total):</strong> Avg 598M streams, avg playlist adds 8.1M
+                        </li>
+                        <li><strong>Engagement multiplier:</strong> 598M / 187M = 3.2×</li>
+                    </ul>
+                    <p class="cs-hero-split__text">
+                        <strong>Why cross-genre works:</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li><strong>Novelty effect:</strong> Fans excited to hear favorite artist in unexpected context
+                        </li>
+                        <li><strong>Dual fanbase activation:</strong> Both artists' fans stream out of curiosity,
+                            whereas same-genre
+                            collabs have higher fanbase overlap (less incremental reach)</li>
+                        <li><strong>Algorithmic boost:</strong> Spotify's recommendation engine favors cross-genre
+                            tracks (signals
+                            diversity, surfaces to broader audience)</li>
+                    </ul>
+
+                    <h3 class="cs-hero-split__subheading">Finding 3: Top Genre Pairs for Collaboration Strategy</h3>
+                    <p class="cs-hero-split__text">
+                        <strong>Ranked by average streams (from historical data):</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li><strong>1. Pop × Latin:</strong> 782M avg streams (3 past collabs: Shakira-Black Eyed Peas,
+                            Becky G-Natti
+                            Natasha, Camila Cabello-DaBaby)</li>
+                        <li><strong>2. Hip-Hop × Pop:</strong> 645M avg (Drake-Rihanna, Post Malone-Swae Lee)</li>
+                        <li><strong>3. Latin × R&B:</strong> 521M avg (Rosalía-The Weeknd)</li>
+                        <li><strong>4. Pop × R&B:</strong> 498M avg (same-genre premium, high baseline engagement)</li>
+                    </ul>
+                    <p class="cs-hero-split__text">
+                        <strong>Strategic takeaway:</strong> Prioritize Latin × [anything] pairings—Latin music has
+                        explosive growth
+                        trajectory, cross-over collaborations unlock global audiences
+                    </p>
+
+                    <h3 class="cs-hero-split__subheading">Finding 4: MCP Real-Time Detection Catches Viral Moments</h3>
+                    <p class="cs-hero-split__text">
+                        <strong>Example: Olivia Rodrigo viral moment (simulated scenario)</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li><strong>Monday 9am:</strong> Olivia Rodrigo's song "Vampire" used in trending TikTok
+                            challenge</li>
+                        <li><strong>Monday 2pm:</strong> MCP social connector detects 8× spike in TikTok views (5M → 40M
+                            in 5 hours)</li>
+                        <li><strong>Monday 3pm:</strong> System auto-flags Olivia as "hot artist" and re-runs
+                            collaboration predictions</li>
+                        <li><strong>Monday 4pm:</strong> Olivia × Travis Scott pairing jumps from #12 to #3 in
+                            recommendation ranking
+                            (momentum-adjusted scoring)</li>
+                        <li><strong>Business impact:</strong> A&R team reaches out to Olivia's management same day (vs
+                            waiting for
+                            next month's batch report), securing collaboration before momentum fades</li>
+                    </ul>
+
+                    <h2 class="cs-hero-split__heading">STRATEGIC RECOMMENDATIONS</h2>
+
+                    <h3 class="cs-hero-split__subheading">Priority 1: Deploy MCP-Powered Collaboration Dashboard
+                        (Internal Tool)</h3>
+                    <ul class="cs-hero-split__list">
+                        <li><strong>Users:</strong> Spotify A&R team, artist managers, label partners</li>
+                        <li><strong>Features:</strong>
+                            <ul>
+                                <li>Real-time collaboration scores for any artist pair</li>
+                                <li>Trending artists feed (powered by MCP social connector)</li>
+                                <li>Historical success patterns (which genre combos work best)</li>
+                                <li>ROI calculator (input estimated streams → outputs predicted revenue)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Update frequency:</strong> Scores refresh every 15 min (MCP connector cadence)</li>
+                        <li><strong>Expected adoption:</strong> 80% of A&R team uses tool weekly (vs 20% using manual
+                            analysis today)</li>
+                    </ul>
+
+                    <h3 class="cs-hero-split__subheading">Priority 2: Proactive Outreach to Top 15 Predicted Pairings
+                    </h3>
+                    <p class="cs-hero-split__text">
+                        <strong>Top 6 recommendations (with predicted streams + ROI):</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li><strong>1. Drake × Bad Bunny:</strong> 1.25B streams, 32× ROI (Pop/Hip-Hop × Latin)</li>
+                        <li><strong>2. Taylor Swift × The Weeknd:</strong> 980M streams, 28× ROI (Pop × R&B)</li>
+                        <li><strong>3. Billie Eilish × J Balvin:</strong> 870M streams, 24× ROI (Pop × Latin)</li>
+                        <li><strong>4. Post Malone × Rosalía:</strong> 750M streams, 22× ROI (Hip-Hop × Latin)</li>
+                        <li><strong>5. Dua Lipa × Maluma:</strong> 680M streams, 19× ROI (Pop × Latin)</li>
+                        <li><strong>6. Travis Scott × Anitta:</strong> 640M streams, 18× ROI (Hip-Hop × Latin)</li>
+                    </ul>
+                    <p class="cs-hero-split__text">
+                        <strong>Action plan:</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li>Spotify A&R team sends personalized outreach to artist managers with data-driven pitch: "Our
+                            ML model
+                            predicts [Artist A] × [Artist B] would generate X streams based on historical patterns"</li>
+                        <li>Offer Spotify production support (£50K studio budget, marketing co-investment) to reduce
+                            artist risk</li>
+                        <li>Target: Secure 3 of top 6 pairings within 12 months</li>
+                    </ul>
+
+                    <h3 class="cs-hero-split__subheading">Priority 3: Expand Graph to 100+ Artists</h3>
+                    <p class="cs-hero-split__text">
+                        <strong>Current limitation:</strong> 16 artists is small network—limits prediction coverage
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li><strong>Phase 1:</strong> Expand to 50 artists (add emerging talent like Olivia Rodrigo, Lil
+                            Nas X, Doja Cat)</li>
+                        <li><strong>Phase 2:</strong> Scale to 100+ artists (include regional stars—Latin America,
+                            K-pop, Afrobeats)</li>
+                        <li><strong>Technical challenge:</strong> 100 artists = 4,950 possible pairs (vs 120 pairs
+                            today). Need distributed
+                            computing to run predictions at scale.</li>
+                        <li><strong>Solution:</strong> Move from single-machine GraphSAGE to distributed graph
+                            processing (Apache Spark GraphX)</li>
+                    </ul>
+
+                    <h2 class="cs-hero-split__heading">STRATEGIC RATIONALE</h2>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Why collaboration recommendations are strategically valuable:</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li><strong>Artist retention:</strong> By proactively suggesting collaborations, Spotify becomes
+                            strategic partner
+                            to artists (not just distribution platform). Increases artist lock-in.</li>
+                        <li><strong>Exclusive content:</strong> If Spotify facilitates Drake × Bad Bunny collab, we can
+                            negotiate exclusive
+                            early access (7-day window before other platforms). Drives subscriber growth.</li>
+                        <li><strong>Algorithm training data:</strong> More collaborations = richer graph network =
+                            better recommendations
+                            = flywheel effect</li>
+                        <li><strong>Competitive moat:</strong> Apple Music, YouTube Music lack this capability (they
+                            have catalog but not
+                            predictive analytics). Positions Spotify as artist development tool, not commodity streamer.
+                        </li>
+                    </ul>
+
+                    <a href="#" class="cs-hero-split__code-link">View Network Code →</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

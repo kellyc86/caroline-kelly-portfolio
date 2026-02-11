@@ -1,0 +1,184 @@
+/* ======================================================================
+   CV PAGE — Visual Card Layout
+   White background with brand-colored image cards for each role
+   ====================================================================== */
+
+.cv-page {
+    padding-top: var(--nav-height);
+    background: var(--bg);
+}
+
+/* Hero */
+.cv-hero {
+    padding: clamp(4rem, 10vh, 6rem) 0 clamp(2rem, 5vh, 3rem);
+    border-bottom: 1px solid var(--border);
+}
+
+.cv-hero__label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+}
+
+.cv-hero__title {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    color: var(--text);
+}
+
+/* Visual Sections */
+.cv-visual-section {
+    padding: clamp(4rem, 8vh, 6rem) 0;
+}
+
+.cv-visual-section--skills {
+    background: #fafafa;
+    border-top: 1px solid var(--border);
+}
+
+.cv-visual-section__heading {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+}
+
+/* Visual Cards */
+.cv-visual-card {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 3rem;
+    margin-bottom: 4rem;
+    align-items: start;
+}
+
+.cv-visual-card:last-child {
+    margin-bottom: 0;
+}
+
+.cv-visual-card__image {
+    display: block;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cv-visual-card__image:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.cv-visual-card__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+}
+
+.cv-visual-card__logo-text {
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.cv-visual-card__tagline {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 0.05em;
+}
+
+/* Card Content */
+.cv-visual-card__content {
+    padding-top: 0.5rem;
+}
+
+.cv-visual-card__date {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+}
+
+.cv-visual-card__title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+}
+
+.cv-visual-card__org {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+    transition: opacity 0.2s ease;
+}
+
+.cv-visual-card__org:hover {
+    opacity: 0.6;
+}
+
+.cv-visual-card__desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+    font-style: italic;
+}
+
+.cv-visual-card__list {
+    list-style: none;
+    padding: 0;
+}
+
+.cv-visual-card__list li {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    padding: 0.3rem 0 0.3rem 1.5rem;
+    position: relative;
+}
+
+.cv-visual-card__list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.cv-visual-card__list li strong {
+    color: var(--text);
+    font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .cv-visual-card {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .cv-visual-card__image {
+        aspect-ratio: 16 / 9;
+    }
+}

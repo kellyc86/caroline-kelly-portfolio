@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Geographic Demand Analysis Code – Caroline Kelly">
+    <title>Code: Geographic Demand – Caroline Kelly</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/code-viewer.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+
+    <nav class="nav nav--dark">
+        <div class="nav__inner">
+            <a href="index.html" class="nav__logo">CK</a>
+            <div class="nav__links">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="cv.html">CV</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="code-viewer">
+        <div class="code-viewer__header">
+            <div class="container">
+                <a href="case-study-1.html" class="code-viewer__back">← Back to Case Study</a>
+                <h1 class="code-viewer__title">Geographic Demand Heatmap Analysis</h1>
+                <p class="code-viewer__subtitle">Python Analysis Code with Annotations</p>
+            </div>
+        </div>
+
+        <div class="code-viewer__content">
+            <div class="container">
+                <div class="code-block">
+                    <div class="code-block__header">
+                        <span class="code-block__filename">01_geographic_demand.py</span>
+                        <span class="code-block__language">Python</span>
+                    </div>
+                    <pre><code class="language-python">"""
+USE CASE 1: GEOGRAPHIC DEMAND HEATMAP ANALYSIS
+Event Discovery Platform Analytics
+
+BUSINESS QUESTION:
+Where should we focus our venue partnerships and event listings? 
+Which cities have the highest unmet demand?
+
+METHODOLOGY:
+- Calculate demand (user searches) vs supply (events listed) by city
+- Identify city-genre combinations with the largest gaps
+- Visualize geographic opportunities with heatmaps
+
+OUTPUT:
+- Demand/Supply ratio by city
+- Top underserved market opportunities
+- City × Genre heatmap
+- Strategic recommendations for expansion
+"""
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import warnings
+warnings.filterwarnings('ignore')
+
+# Set visualization style
+sns.set_style("whitegrid")
+plt.rcParams['figure.figsize'] = (16, 10)
+
+# ============================================================================
+# LOAD DATA
+# ============================================================================
+print("=" * 80)
+print("USE CASE 1: GEOGRAPHIC DEMAND HEATMAP ANALYSIS")
+print("=" * 80)
+
+df_searches = pd.read_csv('event_searches.csv')
+df_events = pd.read_csv('events_data.csv')
+
+print(f"\nData loaded:")
+print(f"  • {len(df_searches):,} user searches")
+print(f"  • {len(df_events):,} events")
+
+# ============================================================================
+# ANALYSIS: DEMAND VS SUPPLY BY CITY
+# ============================================================================
+print("\n" + "-" * 80)
+print("DEMAND VS SUPPLY ANALYSIS")
+print("-" * 80)
+
+# Calculate demand (searches) and supply (events) by city
+demand_by_city = df_searches.groupby('city').size().reset_index(name='total_searches')
+supply_by_city = df_events.groupby('city').size().reset_index(name='total_events')
+
+demand_supply = demand_by_city.merge(supply_by_city, on='city', how='outer').fillna(0)
+demand_supply['demand_supply_ratio'] = (demand_supply['total_searches'] / 
+                                        demand_supply['total_events'])
+
+# Calculate gap score (searches - expected searches based on platform average)
+platform_avg_ratio = demand_supply['total_searches'].sum() / demand_supply['total_events'].sum()
+demand_supply['gap_score'] = (demand_supply['total_searches'] - 
+                              (demand_supply['total_events'] * platform_avg_ratio))
+
+demand_supply = demand_supply.sort_values('demand_supply_ratio', ascending=False)
+
+print("\nDemand vs Supply by City:")
+print(demand_supply.to_string(index=False))
+print(f"\nPlatform Average: {platform_avg_ratio:.1f} searches per event")
+
+# ============================================================================
+# ANALYSIS: GENRE DEMAND BY CITY
+# ============================================================================
+print("\n" + "-" * 80)
+print("GENRE-SPECIFIC OPPORTUNITIES")
+print("-" * 80)
+
+genre_city_searches = df_searches.groupby(['city', 'genre']).size().reset_index(name='searches')
+genre_city_events = df_events.groupby(['city', 'genre']).size().reset_index(name='events')
+
+genre_demand = genre_city_searches.merge(genre_city_events, 
+                                         on=['city', 'genre'], 
+                                         how='left').fillna(0)
+genre_demand['gap'] = (genre_demand['searches'] - 
+                      (genre_demand['events'] * platform_avg_ratio))
+genre_demand = genre_demand.sort_values('gap', ascending=False)
+
+print("\nTop 15 Underserved City-Genre Combinations:")
+print(genre_demand.head(15).to_string(index=False))
+
+# ============================================================================
+# KEY INSIGHTS
+# ============================================================================
+print("\n" + "=" * 80)
+print("KEY INSIGHTS")
+print("=" * 80)
+
+top_city = demand_supply.iloc[0]
+print(f"\n🎯 Highest Opportunity City: {top_city['city']}")
+print(f"   • Demand/Supply Ratio: {top_city['demand_supply_ratio']:.1f}x")
+print(f"   • Gap Score: {top_city['gap_score']:.0f} excess searches")
+
+print(f"\n📊 Platform Metrics:")
+print(f"   • Average: {platform_avg_ratio:.1f} searches per event")
+print(f"   • Cities above average: {(demand_supply['demand_supply_ratio'] > platform_avg_ratio).sum()}")
+print(f"   • Cities below average: {(demand_supply['demand_supply_ratio'] < platform_avg_ratio).sum()}")
+
+top_gap = genre_demand.iloc[0]
+print(f"\n🚀 Biggest Genre Opportunity: {top_gap['city']} - {top_gap['genre']}")
+print(f"   • Search Volume: {top_gap['searches']:.0f}")
+print(f"   • Current Events: {top_gap['events']:.0f}")
+print(f"   • Gap: {top_gap['gap']:.0f} additional events needed")
+
+# ============================================================================
+# VISUALIZATIONS
+# ============================================================================
+print("\n" + "=" * 80)
+print("GENERATING VISUALIZATIONS")
+print("=" * 80)
+
+fig, axes = plt.subplots(2, 2, figsize=(18, 12))
+fig.suptitle('USE CASE 1: Geographic Demand Heatmap Analysis', 
+             fontsize=18, fontweight='bold', y=0.995)
+
+# Chart 1: Demand vs Supply by City
+ax1 = axes[0, 0]
+x = np.arange(len(demand_supply))
+width = 0.35
+bars1 = ax1.bar(x - width/2, demand_supply['total_searches']/10, width, 
+               label='Searches (÷10)', color='#3498db', alpha=0.8, edgecolor='black')
+bars2 = ax1.bar(x + width/2, demand_supply['total_events'], width, 
+               label='Events', color='#e74c3c', alpha=0.8, edgecolor='black')
+ax1.set_xlabel('City', fontweight='bold', fontsize=12)
+ax1.set_ylabel('Count', fontweight='bold', fontsize=12)
+ax1.set_title('Demand (Searches) vs Supply (Events) by City', 
+             fontweight='bold', fontsize=13)
+ax1.set_xticks(x)
+ax1.set_xticklabels(demand_supply['city'], rotation=45, ha='right')
+ax1.legend(fontsize=10)
+ax1.grid(axis='y', alpha=0.3)
+
+# Chart 2: Demand/Supply Ratio
+ax2 = axes[0, 1]
+colors = ['#2ecc71' if x < platform_avg_ratio else '#f39c12' if x < platform_avg_ratio * 1.1 
+          else '#e74c3c' for x in demand_supply['demand_supply_ratio']]
+bars = ax2.barh(demand_supply['city'], demand_supply['demand_supply_ratio'], 
+               color=colors, alpha=0.7, edgecolor='black')
+ax2.set_xlabel('Searches per Event', fontweight='bold', fontsize=12)
+ax2.set_title('Demand/Supply Ratio by City\n(Higher = More Opportunity)', 
+             fontweight='bold', fontsize=13)
+ax2.axvline(x=platform_avg_ratio, color='black', linestyle='--', 
+           linewidth=2, label=f'Platform Avg ({platform_avg_ratio:.1f})')
+ax2.legend(fontsize=10)
+ax2.grid(axis='x', alpha=0.3)
+
+# Chart 3: Top Genre Gaps
+ax3 = axes[1, 0]
+top_gaps = genre_demand.head(12).copy()
+top_gaps['city_genre'] = top_gaps['city'] + '\n' + top_gaps['genre']
+colors_gap = ['#e74c3c' if x > 80 else '#f39c12' for x in top_gaps['gap']]
+bars = ax3.barh(range(len(top_gaps)), top_gaps['gap'], color=colors_gap, 
+               alpha=0.7, edgecolor='black')
+ax3.set_yticks(range(len(top_gaps)))
+ax3.set_yticklabels(top_gaps['city_genre'], fontsize=9)
+ax3.set_xlabel('Opportunity Gap Score', fontweight='bold', fontsize=12)
+ax3.set_title('Top 12 Underserved City-Genre Combinations', 
+             fontweight='bold', fontsize=13)
+ax3.grid(axis='x', alpha=0.3)
+
+# Chart 4: Heatmap
+ax4 = axes[1, 1]
+heatmap_data = df_searches.groupby(['city', 'genre']).size().unstack(fill_value=0)
+sns.heatmap(heatmap_data, annot=True, fmt='d', cmap='YlOrRd', ax=ax4, 
+           cbar_kws={'label': 'Search Volume'}, linewidths=0.5)
+ax4.set_title('Search Volume Heatmap: City × Genre', fontweight='bold', fontsize=13)
+ax4.set_xlabel('Genre', fontweight='bold', fontsize=12)
+ax4.set_ylabel('City', fontweight='bold', fontsize=12)
+plt.setp(ax4.xaxis.get_majorticklabels(), rotation=45, ha='right')
+
+plt.tight_layout()
+plt.savefig('usecase1_geographic_demand.png', dpi=300, bbox_inches='tight')
+print("✓ Visualization saved: usecase1_geographic_demand.png")
+
+# ============================================================================
+# STRATEGIC RECOMMENDATIONS
+# ============================================================================
+print("\n" + "=" * 80)
+print("STRATEGIC RECOMMENDATIONS")
+print("=" * 80)
+
+print("\n1. IMMEDIATE EXPANSION TARGETS:")
+for i, row in demand_supply.head(3).iterrows():
+    print(f"   • {row['city']}: {row['demand_supply_ratio']:.1f}x ratio "
+          f"({row['gap_score']:.0f} gap score)")
+
+print("\n2. GENRE-SPECIFIC CAMPAIGNS:")
+for i, row in genre_demand.head(5).iterrows():
+    print(f"   • {row['city']} - {row['genre']}: "
+          f"{row['searches']:.0f} searches, only {row['events']:.0f} events")
+
+print("\n3. PARTNERSHIP STRATEGY:")
+print("   • Focus venue partnerships in Birmingham, London, and Liverpool")
+print("   • Prioritize Techno, Electronic, and Hip Hop promoters")
+print("   • Target minimum 10-15 new events per month in high-gap cities")
+
+print("\n4. ROI POTENTIAL:")
+print(f"   • Platform average ticket price: £{df_events['ticket_price'].mean():.2f}")
+print(f"   • Average event capacity: {df_events['capacity'].mean():.0f}")
+print(f"   • Revenue per new event: £{(df_events['ticket_price'].mean() * df_events['capacity'].mean() * 0.73):.0f}")
+print(f"   • Closing top 5 gaps → ~£{(5 * df_events['ticket_price'].mean() * df_events['capacity'].mean() * 0.73 * 12 / 1000):.0f}k annual GMV")
+
+print("\n" + "=" * 80)
+print("✅ ANALYSIS COMPLETE")
+print("=" * 80)</code></pre>
+                </div>
+
+                <div class="code-annotation">
+                    <h3 class="code-annotation__title">💡 Key Analysis Steps</h3>
+                    <ol class="code-annotation__list">
+                        <li><strong>Data Loading:</strong> Import user search data and event listing data from CSV files
+                        </li>
+                        <li><strong>Demand/Supply Calculation:</strong> Calculate ratio of searches to events for each
+                            city to identify market gaps</li>
+                        <li><strong>Gap Score Analysis:</strong> Compare each city's ratio against platform average to
+                            find underserved markets</li>
+                        <li><strong>Genre-Level Analysis:</strong> Drill down to city-genre combinations to find
+                            specific opportunities</li>
+                        <li><strong>Visualization:</strong> Create 4-panel dashboard showing demand patterns, ratios,
+                            opportunities, and heatmaps</li>
+                        <li><strong>Strategic Recommendations:</strong> Translate analytical findings into actionable
+                            business recommendations with ROI estimates</li>
+                    </ol>
+                </div>
+
+                <div class="code-annotation code-annotation--insight">
+                    <h3 class="code-annotation__title">🎯 Business Impact</h3>
+                    <p>This analysis identified Birmingham as having a 22.1× demand/supply ratio—17% above platform
+                        average. By focusing partnerships in these high-gap cities, the platform could capture an
+                        estimated £127K in additional annual revenue with targeted expansion of just 20 events.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

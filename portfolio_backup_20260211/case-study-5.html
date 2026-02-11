@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Churn Prediction Model – Caroline Kelly">
+    <title>Churn Prediction Model – Caroline Kelly</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/case-study.css">
+</head>
+
+<body>
+
+    <nav class="nav">
+        <div class="nav__inner">
+            <a href="index.html" class="nav__logo">CK</a>
+            <div class="nav__links">`n                <a href="index.html">Home</a>`n                <a href="projects.html">Projects</a>`n                <a href="cv.html">CV</a>`n                <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="cs-main">
+
+        <section class="cs-hero-split">
+            <div class="cs-hero-split__left">
+                <img src="case5_churn_prediction.png" alt="Churn Prediction Model Performance Visualization"
+                    class="cs-hero-split__image" loading="lazy">
+                <a href="code-case-study-5.html" class="cs-hero-split__code-btn">View Analysis Code</a>
+            </div>
+            <div class="cs-hero-split__right">
+                <div class="cs-hero-split__content">
+                    <p class="cs-hero-split__number">05 CHURN PREDICTION MODEL</p>
+
+                    <h1 class="cs-hero-split__heading">WHICH USERS ARE AT HIGHEST RISK OF CHURNING?</h1>
+                    <p class="cs-hero-split__text">
+                        This ML classifier predicts 30-day churn probability based on engagement patterns, enabling
+                        proactive retention campaigns targeted at high-risk users before they disengage. By identifying
+                        the top 15% highest-risk users, we enable 3.2× more efficient retention spend vs broadcast
+                        campaigns.
+                    </p>
+
+                    <h2 class="cs-hero-split__heading">METHOD: RANDOM FOREST CLASSIFICATION</h2>
+
+                    <h3 class="cs-hero-split__subheading">Why Random Forest Classification?</h3>
+                    <p class="cs-hero-split__text">
+                        <strong>Chosen because:</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li><strong>Handles class imbalance well:</strong> Only 12% of users churn (88% retained),
+                            creating
+                            severe class imbalance. Random Forest can weight classes and use stratified sampling to
+                            prevent
+                            model from simply predicting "everyone stays" and achieving 88% accuracy while missing all
+                            churners.</li>
+                        <li><strong>Reveals feature importance:</strong> Shows <em>which</em> behaviors predict churn
+                            most
+                            strongly, informing both model interpretation and intervention design.</li>
+                        <li><strong>Captures non-linear patterns:</strong> Churn risk doesn't increase linearly with
+                            inactivity.
+                            Example: "0-7 days since last search = 8% churn risk, 14+ days = 68% churn risk"
+                            (exponential,
+                            not linear).</li>
+                        <li><strong>Robust to overfitting:</strong> Ensemble of trees averages predictions, reducing
+                            variance
+                            and improving generalization to new users.</li>
+                    </ul>
+
+                    <h3 class="cs-hero-split__subheading">Alternatives Considered</h3>
+                    <p class="cs-hero-split__text">
+                        <strong>1. Logistic regression</strong><br>
+                        <em>Rejected because:</em> Assumes linear relationship between features and log-odds of churn.
+                        Can't capture threshold effects (e.g., "14 days of inactivity is qualitatively different from 13
+                        days").
+                        Would require extensive manual feature engineering (interaction terms, polynomial features) that
+                        Random
+                        Forest discovers automatically.
+                    </p>
+                    <p class="cs-hero-split__text">
+                        <strong>2. Gradient boosting (XGBoost)</strong><br>
+                        <em>Rejected because:</em> Marginally higher accuracy (~2% AUC improvement) but significantly
+                        harder
+                        to explain to non-technical stakeholders. Also more prone to overfitting on behavioral data with
+                        many
+                        correlated features (app sessions, email opens, searches all correlate with engagement).
+                    </p>
+                    <p class="cs-hero-split__text">
+                        <strong>3. Neural networks</strong><br>
+                        <em>Rejected because:</em> Requires far more training data (we have 45,000 users, enough for
+                        Random
+                        Forest but marginal for deep learning). Black-box nature makes it impossible to explain
+                        predictions to
+                        retention team ("why is user X flagged as high-risk?"). Explainability is critical for
+                        intervention design.
+                    </p>
+
+                    <h3 class="cs-hero-split__subheading">Model Training Details</h3>
+                    <ul class="cs-hero-split__list">
+                        <li><strong>Training data:</strong> 45,000 users with 3 months of behavioral history</li>
+                        <li><strong>Target variable:</strong> Binary churn flag (1 = churned within 30 days, 0 =
+                            retained)</li>
+                        <li><strong>Class distribution:</strong> 12% churned (5,400 users), 88% retained (39,600 users)
+                        </li>
+                        <li><strong>Features engineered (14 total):</strong>
+                            <ul>
+                                <li><strong>Recency:</strong> Days since last search, days since last app open, days
+                                    since last email open</li>
+                                <li><strong>Frequency:</strong> Searches per week, app sessions per week, tickets
+                                    purchased (lifetime)</li>
+                                <li><strong>Engagement depth:</strong> Avg session duration, favorite genres saved,
+                                    events saved to calendar</li>
+                                <li><strong>Email behavior:</strong> Email open rate (past 30 days), email click rate
+                                </li>
+                                <li><strong>Account characteristics:</strong> Account age (months), user location
+                                    (city), device type (iOS/Android/web)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Train/test split:</strong> 70% train (31,500 users), 30% test (13,500 users),
+                            stratified by churn status</li>
+                        <li><strong>Class weights:</strong> Weighted 7:1 (churner:retained) to penalize missing churners
+                            more than false alarms</li>
+                        <li><strong>Hyperparameters:</strong> 200 trees, max depth 12, min samples per leaf 50 (tuned
+                            via grid search)</li>
+                    </ul>
+
+                    <h3 class="cs-hero-split__subheading">Critical Design Decision: Prioritize Recall Over Precision
+                    </h3>
+                    <p class="cs-hero-split__text">
+                        <strong>Class weights adjusted to favor recall</strong> (catching churners) over precision
+                        (avoiding false alarms).
+                    </p>
+                    <p class="cs-hero-split__text">
+                        <strong>Rationale:</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li><strong>Cost of false positive (send retention email to loyal user):</strong> ~£0.50 (minor
+                            annoyance,
+                            small discount wasted, potential unsubscribe)</li>
+                        <li><strong>Cost of false negative (miss a churner):</strong> ~£187 (lost lifetime value)</li>
+                        <li><strong>Cost asymmetry:</strong> Missing a churner costs 374× more than a false alarm</li>
+                    </ul>
+                    <p class="cs-hero-split__text">
+                        <strong>Implication:</strong> Model errs on side of flagging users as at-risk. Better to send
+                        100 retention
+                        emails (£50 cost) and prevent 1 churn (£187 value saved) than to miss churners by being too
+                        conservative.
+                    </p>
+
+                    <h3 class="cs-hero-split__subheading">Critical Limitation: This Is Prediction, Not Causation</h3>
+                    <p class="cs-hero-split__text">
+                        Model identifies <strong>who</strong> is at risk but cannot tell us <strong>why</strong> they're
+                        churning
+                        or <strong>what</strong> intervention will work.
+                    </p>
+                    <p class="cs-hero-split__text">
+                        <strong>Example of correlation ≠ causation:</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li><strong>Observation:</strong> Low email engagement (0% open rate) correlates strongly with
+                            churn</li>
+                        <li><strong>We CANNOT conclude:</strong> "Sending more emails will prevent churn"</li>
+                        <li><strong>Confound:</strong> Users who've already decided to leave ignore emails (reverse
+                            causation).
+                            Email disengagement is <em>symptom</em> of churn intent, not <em>cause</em>.</li>
+                    </ul>
+                    <p class="cs-hero-split__text">
+                        <strong>To establish causality:</strong> Would need randomized controlled trial (A/B test) where
+                        we intervene
+                        on high-risk users and measure whether intervention actually prevents churn vs control group.
+                        Model provides
+                        <em>targeting</em> for experiments, not proof of intervention effectiveness.
+                    </p>
+
+                    <h2 class="cs-hero-split__heading">KEY INSIGHTS</h2>
+
+                    <h3 class="cs-hero-split__subheading">Model Performance</h3>
+                    <p class="cs-hero-split__text">
+                        <strong>ROC-AUC = 0.89</strong> on held-out test set, meaning model correctly ranks users by
+                        churn risk
+                        89% of the time.
+                    </p>
+                    <p class="cs-hero-split__text">
+                        <strong>Translated to plain language:</strong> If we randomly select one user who churned and
+                        one user who
+                        stayed, the model assigns a higher churn score to the actual churner 89% of the time (vs 50% for
+                        random guessing).
+                    </p>
+                    <p class="cs-hero-split__text">
+                        <strong>Performance breakdown by threshold:</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li><strong>Conservative threshold (churn score > 0.70):</strong> 78% recall, 82% precision
+                            <ul>
+                                <li>Catches 78% of actual churners</li>
+                                <li>82% of users flagged actually churn (low false alarm rate)</li>
+                                <li>Misses 22% of churners (acceptable given precision gains)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Aggressive threshold (churn score > 0.40):</strong> 91% recall, 58% precision
+                            <ul>
+                                <li>Catches 91% of actual churners (fewer missed opportunities)</li>
+                                <li>But 42% of users flagged don't actually churn (higher waste)</li>
+                                <li>Still profitable due to cost asymmetry (£0.50 false positive cost vs £187 value
+                                    saved)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p class="cs-hero-split__text">
+                        <strong>Recommendation:</strong> Use tiered thresholds (high/medium/low risk) rather than single
+                        cutoff.
+                        Enables differentiated interventions matched to risk level and cost tolerance.
+                    </p>
+
+                    <h3 class="cs-hero-split__subheading">Feature Importance: What Predicts Churn?</h3>
+                    <p class="cs-hero-split__text">
+                        <strong>1. Days since last search (41% importance)</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li>Dominant predictor by far</li>
+                        <li><strong>Threshold effects observed:</strong>
+                            <ul>
+                                <li>0-7 days: 8% churn probability (baseline)</li>
+                                <li>8-14 days: 22% churn probability (2.75× baseline)</li>
+                                <li>14-21 days: 45% churn probability (5.6× baseline)</li>
+                                <li>21+ days: 68% churn probability (8.5× baseline)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Actionable insight:</strong> 14 days is critical threshold—churn risk doubles after
+                            this point.
+                            Intervention window is 8-14 days (risk elevated but not yet critical).</li>
+                    </ul>
+
+                    <p class="cs-hero-split__text">
+                        <strong>2. App sessions per week (28% importance)</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li><strong>Usage pattern:</strong>
+                            <ul>
+                                <li>
+                                    <1 session/week: 45% churn probability</li>
+                                <li>1-3 sessions/week: 18% churn probability</li>
+                                <li>4+ sessions/week: 5% churn probability (highly engaged)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Insight:</strong> Weekly active users (4+ sessions) almost never churn. Habit
+                            formation appears
+                            protective.</li>
+                    </ul>
+
+                    <p class="cs-hero-split__text">
+                        <strong>3. Email engagement (19% importance)</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li>0% open rate: 52% churn probability</li>
+                        <li>1-20% open rate: 24% churn probability</li>
+                        <li>>20% open rate: 9% churn probability</li>
+                        <li><strong>Caveat:</strong> Direction of causation unclear. Email disengagement may be symptom,
+                            not cause.</li>
+                    </ul>
+
+                    <p class="cs-hero-split__text">
+                        <strong>4. Tickets purchased (lifetime) (8% importance)</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li>0 purchases: 38% churn probability</li>
+                        <li>1-2 purchases: 15% churn probability</li>
+                        <li>3+ purchases: 6% churn probability</li>
+                        <li><strong>Insight:</strong> First purchase creates significant lock-in (switching cost of
+                            leaving platform
+                            where you have purchase history/saved payment methods).</li>
+                    </ul>
+
+                    <h3 class="cs-hero-split__subheading">Targeting Efficiency: Why Top 15% Matters</h3>
+                    <p class="cs-hero-split__text">
+                        <strong>Concentration of churn risk:</strong> Top 15% highest-risk users (churn score >0.60)
+                        represent
+                        <strong>73% of actual churn volume</strong>.
+                    </p>
+                    <p class="cs-hero-split__text">
+                        <strong>Efficiency gain:</strong> Targeting this 15% segment enables <strong>3.2× more efficient
+                            retention
+                            spend</strong> vs broadcast campaigns (sending retention offers to all users).
+                    </p>
+                    <p class="cs-hero-split__text">
+                        <strong>Example:</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li><strong>Broadcast approach:</strong> Email 45,000 users → prevent 648 churns (12% of 5,400)
+                            →
+                            £22,500 cost (£0.50/email) → £34.72 cost per churn prevented</li>
+                        <li><strong>Targeted approach:</strong> Email 6,750 users (top 15%) → prevent 473 churns (73% of
+                            648) →
+                            £3,375 cost → <strong>£7.14 cost per churn prevented</strong></li>
+                        <li><strong>Result:</strong> Prevent 73% as many churns at 15% of the cost (4.9× efficiency
+                            improvement)</li>
+                    </ul>
+
+                    <h2 class="cs-hero-split__heading">STRATEGIC RECOMMENDATIONS</h2>
+
+                    <h3 class="cs-hero-split__subheading">Tiered Intervention Strategy</h3>
+                    <p class="cs-hero-split__text">
+                        Different risk levels warrant different intervention intensity. Match intervention cost to
+                        expected value saved.
+                    </p>
+
+                    <h3 class="cs-hero-split__subheading">Tier 1: Critical Risk (Churn Score >0.70, ~5% of users)</h3>
+                    <p class="cs-hero-split__text">
+                        <strong>Profile:</strong> 14+ days since last search, 0 app sessions, 0 email opens, <1 ticket
+                            purchased </p>
+                            <p class="cs-hero-split__text">
+                                <strong>Intervention: Personal Outreach (NOT Automated)</strong>
+                            </p>
+                            <ul class="cs-hero-split__list">
+                                <li><strong>Action:</strong> CRM team manually emails each user with personalized
+                                    message
+                                    <ul>
+                                        <li>Reference saved events: "We noticed you saved [Artist X] for [Date]—tickets
+                                            still available"</li>
+                                        <li>Mention upcoming relevant events based on past searches</li>
+                                        <li>Human touch: "We miss seeing you—is there anything we could improve?"</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Offer:</strong> 20% discount on next ticket purchase (expires in 7 days)
+                                </li>
+                                <li><strong>Cost per user:</strong> £5 (staff time ~£3 + discount value ~£2)</li>
+                                <li><strong>Expected lift:</strong> 15% prevented churn (vs 0% baseline without
+                                    intervention)</li>
+                                <li><strong>Break-even LTV:</strong> £33 (far below actual avg LTV of £187)</li>
+                                <li><strong>Rationale for personal touch:</strong> Critical-risk users need more than
+                                    generic email—they're
+                                    already ignoring our automated messages. Personal outreach signals we value them.
+                                </li>
+                            </ul>
+
+                            <h3 class="cs-hero-split__subheading">Tier 2: High Risk (Churn Score 0.50-0.70, ~10% of
+                                users)</h3>
+                            <p class="cs-hero-split__text">
+                                <strong>Profile:</strong> 8-14 days since last search, <1 app session/week, some email
+                                    engagement </p>
+                                    <p class="cs-hero-split__text">
+                                        <strong>Intervention: Automated Re-Engagement</strong>
+                                    </p>
+                                    <ul class="cs-hero-split__list">
+                                        <li><strong>Action:</strong> Triggered email sequence
+                                            <ul>
+                                                <li>Day 1: "We miss you" email with personalized event recommendations
+                                                    (based on past searches/genres)</li>
+                                                <li>Day 3: Highlight new events in favorite genres since last login</li>
+                                                <li>Day 5: Social proof ("Your friends are attending [Event X]" if we
+                                                    detect Facebook connections)</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Offer:</strong> Free ticket to low-cost event (£10 value) OR 15%
+                                            discount on any event</li>
+                                        <li><strong>Cost per user:</strong> £1 (email + subsidized ticket/discount)</li>
+                                        <li><strong>Expected lift:</strong> 8% prevented churn</li>
+                                        <li><strong>Break-even LTV:</strong> £12 (comfortably profitable)</li>
+                                    </ul>
+
+                                    <h3 class="cs-hero-split__subheading">Tier 3: Medium Risk (Churn Score 0.30-0.50,
+                                        ~20% of users)</h3>
+                                    <p class="cs-hero-split__text">
+                                        <strong>Profile:</strong> 7-10 days since last search, 1-2 app sessions/week,
+                                        decent email engagement
+                                    </p>
+                                    <p class="cs-hero-split__text">
+                                        <strong>Intervention: Reminder + Social Proof (No Discount)</strong>
+                                    </p>
+                                    <ul class="cs-hero-split__list">
+                                        <li><strong>Action:</strong> Single targeted email
+                                            <ul>
+                                                <li>"This weekend's top events in [User's City]"</li>
+                                                <li>Emphasize scarcity: "Selling out fast" for popular events</li>
+                                                <li>Social proof: "X friends are going" or "Trending in your network"
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Offer:</strong> None (risk level doesn't justify discount—users
+                                            still engaged enough to respond
+                                            to content alone)</li>
+                                        <li><strong>Cost per user:</strong> £0.10 (email only)</li>
+                                        <li><strong>Expected lift:</strong> 3% prevented churn</li>
+                                        <li><strong>Break-even LTV:</strong> £3 (always profitable)</li>
+                                        <li><strong>Rationale for no discount:</strong> Avoid training users to
+                                            disengage intentionally to receive offers
+                                            (discount conditioning). Medium-risk users respond to content/FOMO, not just
+                                            discounts.</li>
+                                    </ul>
+
+                                    <h3 class="cs-hero-split__subheading">Tier 4: Low Risk (Churn Score <0.30, ~65% of
+                                            users)</h3>
+                                            <p class="cs-hero-split__text">
+                                                <strong>DO NOT TARGET with retention campaigns.</strong>
+                                            </p>
+                                            <p class="cs-hero-split__text">
+                                                <strong>Rationale:</strong> Intervention costs exceed expected benefit.
+                                                These users are already engaged—retention
+                                                campaigns would be wasteful and risk annoying loyal users (high false
+                                                positive rate at low thresholds).
+                                            </p>
+                                            <p class="cs-hero-split__text">
+                                                <strong>Exception:</strong> Continue standard marketing emails (new
+                                                event announcements, genre newsletters) but
+                                                don't send churn-specific retention offers.
+                                            </p>
+
+                                            <h3 class="cs-hero-split__subheading">Testing & Validation Protocol</h3>
+                                            <p class="cs-hero-split__text">
+                                                <strong>Before full rollout, validate interventions via A/B
+                                                    test:</strong>
+                                            </p>
+                                            <ul class="cs-hero-split__list">
+                                                <li><strong>Month 1: Pilot (50% of each risk tier)</strong>
+                                                    <ul>
+                                                        <li>Treatment: Receive risk-appropriate intervention</li>
+                                                        <li>Control: No intervention (status quo)</li>
+                                                        <li>Measure: Actual 30-day churn rate (treatment vs control)
+                                                        </li>
+                                                        <li>Success criteria: >10% relative reduction in churn rate for
+                                                            treatment group</li>
+                                                    </ul>
+                                                </li>
+                                                <li><strong>Month 2-3: Refine based on results</strong>
+                                                    <ul>
+                                                        <li>If Tier 1 (personal outreach) shows <10% lift → increase
+                                                                offer value or change messaging</li>
+                                                        <li>If Tier 3 (no discount) shows 0% lift → test adding small
+                                                            discount (£5 off)</li>
+                                                        <li>Track unsubscribe rates—if >5%, dial back frequency</li>
+                                                    </ul>
+                                                </li>
+                                                <li><strong>Month 4+: Full rollout</strong>
+                                                    <ul>
+                                                        <li>Apply interventions to 100% of users in each tier</li>
+                                                        <li>Re-train model monthly with new data (capture behavior
+                                                            changes)</li>
+                                                        <li>Monitor drift: If AUC drops below 0.85, investigate and
+                                                            retrain with more recent data</li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+
+                                            <h3 class="cs-hero-split__subheading">Early Warning System for High-Value
+                                                Users</h3>
+                                            <p class="cs-hero-split__text">
+                                                <strong>Special handling for users with LTV >£200:</strong>
+                                            </p>
+                                            <ul class="cs-hero-split__list">
+                                                <li><strong>Real-time alerting:</strong> When high-value user enters
+                                                    high-risk segment (churn score >0.60),
+                                                    immediately alert CRM team via Slack</li>
+                                                <li><strong>Escalated intervention:</strong> Personal phone call or
+                                                    premium concierge email (not standard template)</li>
+                                                <li><strong>Rationale:</strong> Losing £200+ LTV user costs 40× more
+                                                    than average user. Justify higher touch
+                                                    intervention cost.</li>
+                                                <li><strong>Success metric:</strong> Prevent >30% of high-value churn
+                                                    (vs 15% for average users)</li>
+                                            </ul>
+
+                                            <h2 class="cs-hero-split__heading">STRATEGIC RATIONALE (PORTER'S FIVE
+                                                FORCES)</h2>
+                                            <p class="cs-hero-split__text">
+                                                <strong>Churn intervention reduces buyer power</strong> by increasing
+                                                switching costs (psychological and practical).
+                                            </p>
+                                            <ul class="cs-hero-split__list">
+                                                <li><strong>Psychological switching cost:</strong> Personal outreach to
+                                                    high-risk users creates sense of
+                                                    relationship ("they noticed I left and reached out"). Users feel
+                                                    valued, raising emotional cost of switching
+                                                    to competitor.</li>
+                                                <li><strong>Practical switching cost:</strong> Re-engagement campaigns
+                                                    remind users of sunk costs (saved events,
+                                                    payment methods on file, social connections on platform). Inertia
+                                                    favors staying.</li>
+                                                <li><strong>Differentiation from substitutes:</strong> Proactive
+                                                    retention signals higher service quality vs
+                                                    competitors (Eventbrite, Dice don't do personalized churn
+                                                    intervention). Creates perceived differentiation
+                                                    beyond product features.</li>
+                                            </ul>
+
+                                            <p class="cs-hero-split__text">
+                                                <strong>Risk: Over-Discounting Creates Perverse Incentives</strong>
+                                            </p>
+                                            <p class="cs-hero-split__text">
+                                                If users learn that disengaging = receiving discounts, we train them to
+                                                churn intentionally (moral hazard).
+                                                This is why:
+                                            </p>
+                                            <ul class="cs-hero-split__list">
+                                                <li><strong>Tier 1 (critical risk) gets discounts:</strong> These users
+                                                    are genuinely leaving—no gaming risk</li>
+                                                <li><strong>Tier 3 (medium risk) gets NO discounts:</strong> These users
+                                                    are still engaged—discounting would
+                                                    train bad behavior</li>
+                                                <li><strong>Monitoring required:</strong> Track repeat churn patterns
+                                                    (users who churn, get offer, return,
+                                                    then churn again). Flag and exclude from future offers if gaming
+                                                    detected.</li>
+                                            </ul>
+
+                                            <a href="#" class="cs-hero-split__code-link">View Model Code →</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

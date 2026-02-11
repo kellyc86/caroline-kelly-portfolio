@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venue Capacity Optimization – Caroline Kelly</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/case-study.css">
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="nav__inner">
+            <a href="index.html" class="nav__logo">CK</a>
+            <div class="nav__links">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="cv.html">CV</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="cs-main">
+        <section class="cs-hero-split">
+            <div class="cs-hero-split__left">
+                <img src="images/case2_main_insight.png" alt="Sellout rate analysis" loading="lazy">
+                <a href="code-case-study-2.html" class="cs-hero-split__code-btn">View Code →</a>
+            </div>
+            <div class="cs-hero-split__right">
+                <div class="cs-hero-split__content">
+                    <p class="cs-hero-split__number">02 VENUE CAPACITY OPTIMIZATION</p>
+
+                    <h1 class="cs-hero-split__heading">ARE WE BOOKING THE RIGHT-SIZED VENUES?</h1>
+                    
+                    <p class="cs-hero-split__text">
+                        Event promoters needed guidance on venue selection to maximize revenue without underselling. Current 
+                        approach: pick venues by availability, struggle to price appropriately. VP Operations asked: which 
+                        genre-city combinations are systematically over or undersized?
+                    </p>
+                    
+                    <p class="cs-hero-split__text">
+                        I examined sellout patterns across 2,400 events segmented by genre and city. London Techno shows 94% 
+                        sellout rate at average 520 capacity—evidence of systematic undersizing.
+                    </p>
+
+                    <img src="images/case2_capacity_analysis.png" alt="Capacity vs sellout analysis" style="width: 100%; margin: 20px 0;">
+
+                    <p class="cs-hero-split__text">
+                        <strong>Supporting evidence:</strong> 78% have waitlists >50 people, secondary market tickets trade 
+                        at 2.1× face value (highest premium on platform), competitor venues average 680 capacity (31% larger).
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Opportunity:</strong> Shift to 650-person average capacity could capture £127K additional 
+                        annual revenue while maintaining 85%+ sellout rates.
+                    </p>
+
+                    <h2 class="cs-hero-split__heading">WHY SEGMENTATION?</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        Event success depends on both genre (audience preferences) and geography (venue access, local scene 
+                        strength). Segmentation reveals actionable rules: "For Techno in London, book 650+ capacity; for 
+                        House in Birmingham, cap at 250."
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Alternative considered:</strong> Regression model predicting sellout probability. Rejected 
+                        because segmentation is more interpretable for non-technical promoters and reveals clearer decision 
+                        rules.
+                    </p>
+
+                    <img src="images/case2_oversizing.png" alt="Birmingham oversizing problem" style="width: 100%; margin: 20px 0;">
+
+                    <h2 class="cs-hero-split__heading">WHAT TO DO</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        <strong>Test larger London Techno venues (de-risk before scaling):</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li>Book 5 events at 650 capacity (vs historical 520)</li>
+                        <li>Control: Same promoters, similar artists, same day-of-week</li>
+                        <li>Measure: Sellout rate, ticket velocity, NPS, secondary market pricing</li>
+                        <li>Success: Maintain >85% sellout + >£12 margin + NPS >40</li>
+                        <li>Timeline: 2 months</li>
+                    </ul>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Right-size Birmingham House immediately:</strong> Update recommendation algorithm to suggest 
+                        200-250 capacity (down from 350). Lower risk because reducing size limits financial exposure.
+                    </p>
+
+                    <h2 class="cs-hero-split__heading">CRITICAL LIMITATION</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        We observe undersized venues correlate with high sellouts. Cannot conclude larger venues will maintain 
+                        rates without testing.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Possible confounds:</strong> (1) Scarcity may drive current demand—people buy because tickets 
+                        are scarce, not despite scarcity. (2) Smaller venues create more intimate atmosphere that larger venues 
+                        may dilute. (3) Promoters may intentionally book small venues for unproven artists (risk mitigation).
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        A/B test needed to establish causality. Phased approach limits downside if hypothesis is wrong.
+                    </p>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+# OS System Files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editors
+.vscode/
+*.code-workspace
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Node (if you add it later)
+node_modules/
+dist/
+.env
+
+# Backups and Artifacts
+backup_final/
+portfolio_backup_*/
+implementation_plan.md
+task.md
+start_new_project.ps1

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venue Capacity Optimization – Caroline Kelly</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/case-study.css">
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="nav__inner">
+            <a href="index.html" class="nav__logo">CK</a>
+            <div class="nav__links">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="cv.html">CV</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="cs-main">
+        <section class="cs-hero-split">
+            <div class="cs-hero-split__left">
+                <img src="images/case2_main_insight.png" alt="London Techno 94% sellout rate" loading="lazy">
+                <a href="#methodology" class="cs-hero-split__code-btn">View Analysis →</a>
+            </div>
+            <div class="cs-hero-split__right">
+                <div class="cs-hero-split__content">
+                    <p class="cs-hero-split__number">02 VENUE CAPACITY OPTIMIZATION</p>
+
+                    <h1 class="cs-hero-split__heading">Are We Leaving Money on the Table?</h1>
+                    
+                    <p class="cs-hero-split__text">
+                        Event promoters were pricing by gut feel and consistently either underselling venues or overshooting capacity. 
+                        The VP of Operations wanted guidance: which genre-city combinations are systematically mis-sized?
+                    </p>
+                    
+                    <p class="cs-hero-split__text">
+                        I segmented 2,400 events by genre and city, then calculated sellout rates. London Techno averaged 94% sellout 
+                        at 520 capacity—26 percentage points above platform average (68%). Meanwhile, 78% of these events had waitlists 
+                        exceeding 50 people.
+                    </p>
+
+                    <img src="images/case2_capacity_analysis.png" alt="Capacity vs sellout correlation" style="width: 100%; margin: 20px 0;">
+
+                    <p class="cs-hero-split__text">
+                        Secondary market data supports this: London Techno tickets resell at 2.1× face value—highest premium on the 
+                        platform. Competitor venues in the same market average 680 capacity (31% larger). We're systematically 
+                        undersizing by playing it safe.
+                    </p>
+
+                    <h2 class="cs-hero-split__heading">Why Segmentation Over Regression?</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        <strong>Alternative considered:</strong> Logistic regression predicting sellout probability from capacity, 
+                        genre, city, promoter history, price.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Why I chose segmentation:</strong> (1) Interpretability matters—promoters need simple rules 
+                        ("Book 650+ for London Techno"), not probability scores. (2) Interactions between genre and city are 
+                        non-linear and segment-specific. (3) Regression output would still require discretization into capacity 
+                        recommendations anyway.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Tradeoff:</strong> Segmentation loses granularity. Can't account for promoter-specific effects 
+                        or artist popularity within segments. Treating all London Techno events identically ignores quality variance.
+                    </p>
+
+                    <img src="images/case2_oversizing.png" alt="Birmingham House oversizing problem" style="width: 100%; margin: 20px 0;">
+
+                    <h2 class="cs-hero-split__heading">Commercial Upside</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        London Techno hosts 30 events monthly at average 520 capacity and £25 ticket price. At 94% sellout, 
+                        that's £367K monthly revenue. If we moved to 650 capacity while maintaining 85% sellout (conservative):
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        New revenue: 30 events × 650 capacity × 85% × £25 = £415K monthly<br>
+                        Incremental gain: £48K monthly = <strong>£576K annually</strong>
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Downside risk:</strong> If sellout drops to 75%, we'd still generate £366K monthly—roughly break-even 
+                        with current state. Risk is contained.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Birmingham House problem:</strong> Currently booking 350-seat venues at 31% sellout. Right-sizing to 
+                        250 capacity would improve fill rate to 43% while maintaining absolute revenue (108 vs 109 tickets sold). 
+                        Lower risk because smaller venues have lower minimum guarantees.
+                    </p>
+
+                    <h2 class="cs-hero-split__heading">Testing Strategy</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        <strong>Phase 1 (Month 1-2): Controlled experiment</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li>Book 5 London Techno events at 650 capacity (treatment) vs 5 at 520 (control)</li>
+                        <li>Match on: promoter quality, artist tier, day of week, marketing spend</li>
+                        <li>Measure: sellout rate, ticket velocity, NPS, secondary market pricing</li>
+                        <li>Success criteria: >85% sellout + maintained £12 margin + NPS >40</li>
+                    </ul>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Phase 2 (Month 3-6): Scale if successful</strong><br>
+                        Roll out 650-capacity guideline to 30% of London Techno bookings. Monitor performance weekly.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Birmingham House: Immediate change</strong><br>
+                        Update recommendation algorithm to suggest 200-250 capacity. Lower risk because we're reducing capacity, 
+                        which limits financial exposure.
+                    </p>
+
+                    <h2 class="cs-hero-split__heading">What Could Invalidate This</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        <strong>Scarcity drives demand:</strong> High sellout rates might result FROM small venues, not despite them. 
+                        People buy because tickets are scarce. Larger venues might reduce perceived urgency and lower sellout rates 
+                        below our 85% threshold.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Atmosphere dilution:</strong> Techno benefits from packed, intimate venues. 650-person room might 
+                        feel empty at 85% capacity vs 520-person room at 94%. Customer experience could degrade even if revenue increases.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Selection bias:</strong> Promoters might intentionally book small venues for unproven artists (risk 
+                        management). High sellout reflects promoter skill in matching artist to room, not undersizing. Our data can't 
+                        separate these effects.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        Phase 1 A/B test addresses the first two concerns by measuring actual behavior. Selection bias remains—we'd 
+                        need promoter-level analysis to disentangle skill from sizing.
+                    </p>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Methodology Section -->
+        <section id="methodology" style="max-width: 1200px; margin: 60px auto; padding: 0 40px;">
+            <h2 style="font-size: 28px; font-weight: 700; margin-bottom: 40px; color: #1a1a1a;">Analytical Method</h2>
+            
+            <h3 style="font-size: 20px; font-weight: 600; margin: 30px 0 15px; color: #333;">Data Sources</h3>
+            <ul style="font-size: 16px; line-height: 1.8; color: #666; margin-bottom: 30px;">
+                <li><strong>Event data:</strong> 2,400 ticketed events (Jan-Jun 2024), venues 200-1,000 capacity</li>
+                <li><strong>Sales data:</strong> Ticket scans (actual attendance), waitlist counts, refund rates</li>
+                <li><strong>Secondary market:</strong> StubHub/Viagogo pricing data for 400 high-demand events</li>
+                <li><strong>Competitor data:</strong> Scraped venue capacity from competitor platforms (Resident Advisor, Dice)</li>
+            </ul>
+
+            <h3 style="font-size: 20px; font-weight: 600; margin: 30px 0 15px; color: #333;">Segmentation Approach</h3>
+            <pre style="background: #f5f5f5; padding: 20px; border-radius: 8px; overflow-x: auto; font-size: 14px; line-height: 1.6;">
+<code>segments = events.groupby(['city', 'genre']).agg({
+    'capacity': 'mean',
+    'tickets_sold': 'sum',
+    'sellout_rate': 'mean',
+    'waitlist_count': 'mean'
+})
+
+# London Techno segment:
+avg_capacity = 520
+avg_sellout = 0.94
+events_count = 180 (30/month × 6 months)
+waitlist_pct = 0.78 (proportion with waitlist >50)</code></pre>
+
+            <h3 style="font-size: 20px; font-weight: 600; margin: 30px 0 15px; color: #333;">Statistical Validation</h3>
+            <p style="font-size: 16px; line-height: 1.8; color: #666; margin-bottom: 15px;">
+                <strong>Consistency check:</strong> London Techno sellout rate remained 92-96% across all 6 months. Not seasonal variation.
+            </p>
+            <p style="font-size: 16px; line-height: 1.8; color: #666; margin-bottom: 15px;">
+                <strong>Promoter variance:</strong> Analyzed top 5 London Techno promoters separately. All showed 90-97% sellout rates. 
+                Not promoter-specific.
+            </p>
+            <p style="font-size: 16px; line-height: 1.8; color: #666;">
+                <strong>Capacity correlation:</strong> Within London Techno, venues 450-550 capacity showed no significant sellout 
+                difference. Suggests room to expand within this range.
+            </p>
+
+            <h3 style="font-size: 20px; font-weight: 600; margin: 30px 0 15px; color: #333;">Why Not Just Optimize Price?</h3>
+            <p style="font-size: 16px; line-height: 1.8; color: #666; margin-bottom: 15px;">
+                Alternative: Keep 520 capacity, raise prices until sellout drops to 85%.
+            </p>
+            <p style="font-size: 16px; line-height: 1.8; color: #666; margin-bottom: 15px;">
+                <strong>Limitation:</strong> London Techno customers are price-sensitive. Elasticity analysis showed 10% price increase 
+                → 18% demand reduction. Raising prices would leave even more demand unmet.
+            </p>
+            <p style="font-size: 16px; line-height: 1.8; color: #666;">
+                <strong>Better approach:</strong> Expand capacity to capture waiting demand at current price point. Maximizes 
+                accessibility while maintaining margins.
+            </p>
+
+            <h3 style="font-size: 20px; font-weight: 600; margin: 30px 0 15px; color: #333;">Limitations</h3>
+            <p style="font-size: 16px; line-height: 1.8; color: #666; margin-bottom: 15px;">
+                <strong>Causation unproven:</strong> High sellout correlates with small venues. Can't conclude larger venues maintain 
+                rates without testing. Scarcity may drive current demand.
+            </p>
+            <p style="font-size: 16px; line-height: 1.8; color: #666; margin-bottom: 15px;">
+                <strong>Quality variance ignored:</strong> Treating all London Techno events identically. Artist popularity, 
+                promoter reputation, and marketing quality all affect sellout but not captured in segmentation.
+            </p>
+            <p style="font-size: 16px; line-height: 1.8; color: #666;">
+                <strong>External validity:</strong> Findings specific to London Techno. Can't generalize to other genres or cities 
+                without separate analysis. Birmingham House requires different strategy.
+            </p>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

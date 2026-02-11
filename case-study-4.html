@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Discovery Gap Analysis – Caroline Kelly</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/case-study.css">
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="nav__inner">
+            <a href="index.html" class="nav__logo">CK</a>
+            <div class="nav__links">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="cv.html">CV</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="cs-main">
+        <section class="cs-hero-split">
+            <div class="cs-hero-split__left">
+                <img src="images/case4_main_gap.png" alt="Wellness + Music gap analysis" loading="lazy">
+                <a href="#methodology" class="cs-hero-split__code-btn">View Analysis →</a>
+            </div>
+            <div class="cs-hero-split__right">
+                <div class="cs-hero-split__content">
+                    <p class="cs-hero-split__number">04 EVENT DISCOVERY GAP ANALYSIS</p>
+
+                    <h1 class="cs-hero-split__heading">What Are Users Searching For That We Don't Offer?</h1>
+                    
+                    <p class="cs-hero-split__text">
+                        Platform engagement was declining despite growing event supply. The VP of Product suspected a catalog 
+                        mismatch—users searching for event types we don't list. She wanted to identify high-demand categories 
+                        with low supply.
+                    </p>
+                    
+                    <p class="cs-hero-split__text">
+                        I clustered 47,000 monthly search queries using TF-IDF vectorization and K-means (k=25 clusters). 
+                        "Wellness + Music" emerged with the largest gap—892 monthly searches but only 3 events listed. 
+                        That's a 297:1 search-to-event ratio vs platform average of 18.9:1.
+                    </p>
+
+                    <img src="images/case4_revenue_opportunity.png" alt="Revenue opportunity by theme" style="width: 100%; margin: 20px 0;">
+
+                    <p class="cs-hero-split__text">
+                        Search intent analysis revealed users want yoga sessions with live ambient music, meditation with DJ 
+                        performances, sound healing workshops in club settings, and "sober raves" (wellness-oriented dance, 
+                        no alcohol). Demographics skew 73% female, age 25-40, median income £45K (vs £32K platform average).
+                    </p>
+
+                    <h2 class="cs-hero-split__heading">Why Text Mining Over Simple Counting?</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        <strong>Previous approach:</strong> Count searches with no matching events. Problem: tells us gaps exist 
+                        but not what users actually want. "Electronic music" could mean techno, house, ambient, or IDM—each 
+                        requires different programming.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Clustering approach:</strong> Groups similar search queries by semantic meaning. Discovers latent 
+                        themes users don't explicitly name. For example, searches like "yoga rave," "sound bath club," and 
+                        "mindful dancing" cluster together as "Wellness + Music" even though users used different words.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Technical implementation:</strong> TF-IDF captures word importance (not just frequency). 
+                        "Wellness" appears in 2% of searches but signals strong intent. Simple word counts would miss this 
+                        because common words like "music" dominate.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Tradeoff:</strong> Clustering requires analyst judgment to label themes. Different analysts might 
+                        label "Wellness + Music" as "Mindfulness Events" or "Holistic Experiences." I validated with 3-person 
+                        review team achieving 85% label agreement.
+                    </p>
+
+                    <h2 class="cs-hero-split__heading">Commercial Sizing</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        At 15% search-to-ticket conversion (higher than platform 12% due to niche specificity) and £45 average 
+                        ticket price (premium vs platform £35):
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        892 monthly searches × 15% conversion × £45 ticket = <strong>£6,021 monthly revenue</strong><br>
+                        Annual opportunity: <strong>£72K</strong>
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Why higher price point?</strong> Wellness demographic shows higher willingness to pay. 
+                        Comparable wellness events (yoga classes, meditation workshops) charge £25-60. Our £45 sits mid-range.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Investment required:</strong> Partner with 2 wellness-focused promoters (£4K partnership fees), 
+                        Instagram ads targeting yoga/meditation communities (£3K), 10 test events over 3 months. Total: £7K. 
+                        Payback in 14 months if conversion hits 15%.
+                    </p>
+
+                    <h2 class="cs-hero-split__heading">Testing Plan</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        <strong>Phase 1 (Months 1-3): Demand validation pilot</strong>
+                    </p>
+                    <ul class="cs-hero-split__list">
+                        <li>Partner with 2 established wellness promoters for 10 events</li>
+                        <li>Measure: Search → ticket conversion, attendee NPS, repeat attendance rate</li>
+                        <li>Success criteria: >15% conversion (vs 8% standard), NPS >60 (wellness audience expects high quality)</li>
+                        <li>Cost: £7K (partnerships + targeted marketing)</li>
+                    </ul>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Phase 2 (Months 4-6): Scale if validated</strong><br>
+                        Expand to 30 annual events if Phase 1 hits targets. Capture full £72K opportunity.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Alternative if conversion low:</strong> Survey non-converters to understand barriers. Potential 
+                        issues: (1) search intent is for free community events not ticketed experiences, (2) price point too 
+                        high for wellness audience, (3) venue type mismatch (users want studios not clubs).
+                    </p>
+
+                    <h2 class="cs-hero-split__heading">What Could Be Wrong</h2>
+                    
+                    <p class="cs-hero-split__text">
+                        <strong>Search volume ≠ purchase intent:</strong> Users may browse wellness content without intent to buy 
+                        tickets. High searches could reflect curiosity not demand. Can't distinguish until we test conversion.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Format mismatch:</strong> Users might want free community gatherings (park yoga with music) not 
+                        £45 ticketed club events. Our platform optimized for ticketed events may not suit wellness community 
+                        expectations.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Cluster validity:</strong> "Wellness + Music" is analyst-defined label. Users might perceive these 
+                        as separate categories (yoga vs meditation vs dance). Grouping could obscure distinct demand patterns.
+                    </p>
+
+                    <p class="cs-hero-split__text">
+                        <strong>Competition blind spot:</strong> Low supply on our platform doesn't mean low supply overall. 
+                        Wellness events might happen on specialized platforms (Mindbody, Eventbrite wellness sections) we didn't 
+                        check. Users search our platform first but book elsewhere.
+                    </p>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Methodology Section -->
+        <section id="methodology" style="max-width: 1200px; margin: 60px auto; padding: 0 40px;">
+            <h2 style="font-size: 28px; font-weight: 700; margin-bottom: 40px; color: #1a1a1a;">Text Mining Method</h2>
+            
+            <h3 style="font-size: 20px; font-weight: 600; margin: 30px 0 15px; color: #333;">Data Preparation</h3>
+            <pre style="background: #f5f5f5; padding: 20px; border-radius: 8px; overflow-x: auto; font-size: 14px; line-height: 1.6;">
+<code># Query corpus (1 month sample)
+queries = search_logs['query_text']  # 47,000 unique queries
+queries_clean = queries.str.lower().str.strip()
+
+# Remove queries with matching events (focus on gaps)
+unmatched = queries_clean[~queries_clean.isin(event_keywords)]
+# Result: 12,400 orphan queries (26% of total)</code></pre>
+
+            <h3 style="font-size: 20px; font-weight: 600; margin: 30px 0 15px; color: #333;">TF-IDF Vectorization</h3>
+            <pre style="background: #f5f5f5; padding: 20px; border-radius: 8px; overflow-x: auto; font-size: 14px; line-height: 1.6;">
+<code>from sklearn.feature_extraction.text import TfidfVectorizer
+
+vectorizer = TfidfVectorizer(
+    max_features=500,      # Limit vocabulary
+    min_df=5,              # Word must appear in 5+ queries
+    max_df=0.3,            # Ignore if in >30% (too common)
+    ngram_range=(1, 3)     # Capture 1-3 word phrases
+)
+
+tfidf_matrix = vectorizer.fit_transform(unmatched)
+# Shape: (12,400 queries × 500 features)</code></pre>
+
+            <h3 style="font-size: 20px; font-weight: 600; margin: 30px 0 15px; color: #333;">K-Means Clustering</h3>
+            <pre style="background: #f5f5f5; padding: 20px; border-radius: 8px; overflow-x: auto; font-size: 14px; line-height: 1.6;">
+<code>from sklearn.cluster import KMeans
+
+# Elbow method suggested k=20-30
+inertias = []
+for k in range(10, 40, 5):
+    kmeans = KMeans(n_clusters=k, random_state=42)
+    kmeans.fit(tfidf_matrix)
+    inertias.append(kmeans.inertia_)
+    
+# Chose k=25 (elbow point)
+kmeans_final = KMeans(n_clusters=25, random_state=42, n_init=20)
+clusters = kmeans_final.fit_predict(tfidf_matrix)</code></pre>
+
+            <h3 style="font-size: 20px; font-weight: 600; margin: 30px 0 15px; color: #333;">Cluster Labeling</h3>
+            <p style="font-size: 16px; line-height: 1.8; color: #666; margin-bottom: 15px;">
+                <strong>Manual review process:</strong> For each cluster, extracted top 20 representative queries and top 10 
+                TF-IDF terms. Three analysts independently labeled clusters. Consensus required for final label.
+            </p>
+            <p style="font-size: 16px; line-height: 1.8; color: #666; margin-bottom: 15px;">
+                <strong>Example - Cluster 7 (Wellness + Music):</strong>
+            </p>
+            <ul style="font-size: 16px; line-height: 1.8; color: #666; margin-bottom: 15px; padding-left: 25px;">
+                <li>Top queries: "yoga rave london," "sound bath club," "meditation techno," "mindful dancing"</li>
+                <li>Top terms: wellness (TF-IDF=0.42), yoga (0.38), meditation (0.31), sound (0.28)</li>
+                <li>Analyst labels: "Wellness Events" (A), "Mindful Music" (B), "Wellness + Music" (C)</li>
+                <li>Final: "Wellness + Music" (2/3 agreement)</li>
+            </ul>
+            <p style="font-size: 16px; line-height: 1.8; color: #666;">
+                <strong>Inter-rater reliability:</strong> Cohen's kappa = 0.82 (substantial agreement). Resolved disagreements 
+                through discussion.
+            </p>
+
+            <h3 style="font-size: 20px; font-weight: 600; margin: 30px 0 15px; color: #333;">Gap Calculation</h3>
+            <pre style="background: #f5f5f5; padding: 20px; border-radius: 8px; overflow-x: auto; font-size: 14px; line-height: 1.6;">
+<code># For each cluster
+cluster_size = len(queries_in_cluster)      # 892 for Wellness + Music
+matching_events = catalog.search(cluster_keywords)  # 3 events
+
+gap_score = cluster_size / max(matching_events, 1)
+# Wellness + Music: 892 / 3 = 297.3
+
+# Compare to platform baseline
+platform_avg = total_searches / total_events  # 18.9
+relative_gap = gap_score / platform_avg       # 297.3 / 18.9 = 15.7×</code></pre>
+
+            <h3 style="font-size: 20px; font-weight: 600; margin: 30px 0 15px; color: #333;">Limitations</h3>
+            <p style="font-size: 16px; line-height: 1.8; color: #666; margin-bottom: 15px;">
+                <strong>Clustering subjectivity:</strong> K-means requires choosing k. Different k values produce different 
+                clusters. k=20 merged wellness with meditation. k=30 split into yoga-music vs meditation-music.
+            </p>
+            <p style="font-size: 16px; line-height: 1.8; color: #666; margin-bottom: 15px;">
+                <strong>Label interpretation:</strong> "Wellness + Music" is analyst judgment. Users might not think of these 
+                as unified category. Validation via user surveys would strengthen labels.
+            </p>
+            <p style="font-size: 16px; line-height: 1.8; color: #666;">
+                <strong>Search intent ambiguity:</strong> Can't distinguish "yoga rave london" as browsing curiosity vs 
+                purchase intent without conversion testing.
+            </p>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
