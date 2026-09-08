@@ -97,19 +97,38 @@ body.desktop { background: #3a7bd5; overflow: hidden; height: 100vh; margin: 0; 
 @keyframes load { to { width: 100%; } }
 .splash .lbl { font-family: var(--pixel); font-size: 20px; letter-spacing: .3em; margin-top: 8px; }
 
-/* Mobile: windows stack */
+/* Mobile: home screen of icons, windows stack below, close works */
 @media (max-width: 760px) {
-  body.desktop { overflow: auto; height: auto; }
-  .win[hidden] { display: flex !important; }
-  .desk { position: static; padding: 16px 12px 60px; display: grid; gap: 14px; }
-  .icons { display: none; }
-  .win { position: static !important; width: auto !important; min-width: 0; }
-  .win.min { display: flex; }
+  body.desktop { overflow: auto; height: auto; min-height: 100vh; }
+  .desk { position: relative; z-index: 1; padding: 12px 10px 70px; display: block; }
+  .hint { position: static; margin: 0 0 12px; max-width: none; }
+  .hint::before, .hint::after { display: none; }
+  .icons { position: static; width: auto; grid-template-columns: repeat(4, 1fr); gap: 10px 4px; margin-bottom: 14px; }
+  .icon { font-size: 10px; padding: 2px; }
+  .icon .ic { width: 40px; height: 40px; margin-bottom: 4px; }
+  .icon .ic.disc { width: 46px; height: 46px; padding: 5px; }
+  .icon .ic.disc.big { width: 52px; height: 52px; }
+  .win { position: static !important; width: auto !important; height: auto !important; min-width: 0; margin-bottom: 12px; }
+  .win.min, .win[hidden] { display: none !important; }
   .tbar { cursor: default; }
-  .tbar button.mn { display: none; }
-  .pw { grid-template-columns: 110px 1fr; }
-  .sky, .hills { position: fixed; }
+  .tbar button.mn, .tbar button.mx { display: none; }
+  .pw { grid-template-columns: 96px 1fr; gap: 10px; }
+  .pw .sleeve h3 { font-size: .7rem; }
+  .pw .sleeve .top { display: none; }
+  .aotw { grid-template-columns: 130px 1fr; }
+  .record { width: 130px; height: 100px; }
+  .record .cover { width: 90px; height: 90px; }
+  .record .vinyl { left: 48px; top: 5px; width: 85px; height: 85px; }
   .startmenu { width: 100%; }
+  .taskbar .tasks { display: none; }
+  .taskbar .start { flex: 0 0 auto; }
+  .taskbar .tray { margin-left: auto; }
+  .splash .box { width: 92vw; }
+  .splash h1 { font-size: 42px; }
+  /* framed case-study pages: drop the chrome that eats a phone screen */
+  body.framed { padding: 8px 0 44px; }
+  .menubar, .addr { display: none; }
+  .browser { border-radius: 0; }
 }
 
 /* ---------- Browser frame (case study and CV pages) ---------- */
@@ -140,7 +159,7 @@ body.framed .site-header { display: none; }
 .hint .hx { position: absolute; right: 6px; top: 4px; cursor: pointer; font-weight: 700; }
 @media (max-width: 760px) { .hint { position: static; margin-bottom: 4px; } .hint::before, .hint::after { display: none; } }
 
-.wall { position: fixed; inset: 0; z-index: 0; background: #3a7bd5 url("../img/desktop-bg.jpg") center / cover no-repeat; }
+.wall { position: fixed; inset: 0; z-index: 0; pointer-events: none; background: #3a7bd5 url("../img/desktop-bg.jpg") center / cover no-repeat; }
 
 /* Icon discs */
 .icon .ic.disc { width: 64px; height: 64px; background: #fff; border-radius: 50%; padding: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.5); display: flex; align-items: center; justify-content: center; }
@@ -187,3 +206,4 @@ body.framed.embed .page { margin: 0; border: 0; }
 .aotw .sp { font-size: 11px; color: #9fb0cc; margin-left: 8px; text-decoration: underline; }
 .player { background: #111; padding: 0 12px 12px; }
 .player iframe { border-radius: 8px; display: block; }
+@media (max-width: 760px) { .menubar, .addr { display: none; } .browser { border-radius: 0; } .win.min, .win[hidden] { display: none !important; } }

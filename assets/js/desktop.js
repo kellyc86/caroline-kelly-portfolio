@@ -7,7 +7,7 @@
   var mobile = function () { return window.matchMedia('(max-width: 760px)').matches; };
 
   function focus(w) { wins.forEach(function (x) { x.classList.remove('focus'); }); w.classList.add('focus'); w.style.zIndex = ++z; syncTasks(); }
-  function open(id) { var w = document.getElementById(id); if (!w) return; w.classList.remove('min'); w.hidden = false; focus(w); if (!mobile()) w.scrollIntoView && null; }
+  function open(id) { var w = document.getElementById(id); if (!w) return; w.classList.remove('min'); w.hidden = false; focus(w); if (mobile()) setTimeout(function () { w.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 30); }
   function minimise(w) { w.classList.add('min'); syncTasks(); }
   function close(w) { w.hidden = true; w.classList.remove('min'); syncTasks(); }
 
@@ -78,6 +78,7 @@
   var sp = document.getElementById('splash');
   if (sp) { var seen = false; try { seen = sessionStorage.getItem('splash'); } catch (e) {} if (seen) sp.classList.add('off'); else { setTimeout(function () { sp.classList.add('off'); try { sessionStorage.setItem('splash', '1'); } catch (e) {} }, 1500); } }
 
+  if (mobile()) wins.forEach(function (w) { if (['w-readme','w-williams'].indexOf(w.id) < 0) w.hidden = true; });
   syncTasks();
   var first = wins.find(function (w) { return !w.hidden; }); if (first) focus(first);
 })();
