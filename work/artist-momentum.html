@@ -43,41 +43,44 @@
   <div class="psr">
     <div>
       <h2>Problem</h2>
-      <p>An A&amp;R team needs to know which artists are moving, but the signals sit on separate platforms: follower counts, chart entries, press coverage and social engagement. Any single source is biased towards whichever platform an artist is strong on.</p>
-      <p>The pipeline combines them into one weighted momentum score, detecting chart new entrants as they first appear and surfacing a discovery pool of new artists.</p>
+      <p>An A&amp;R team needs to know which artists are moving, but each source favours whichever platform an artist is strong on.</p>
+      <p>The pipeline combines four sources into one weekly score per artist (Spotify velocity 60%, Instagram 30%, press 10%; press 50% for a discovery pool) and sends a Monday digest. The score is version one, and the first run showed why.</p>
     </div>
     <div>
       <h2>Skills</h2>
       <ul>
-        <li><b>Ingestion:</b> Spotify Web API, Instagram public profiles, 16 press RSS feeds with NER entity extraction, Apple Music and Billboard charts via headless Chromium</li>
-        <li><b>Storage:</b> append-only SQLite staging, every row timestamped, then DuckDB and Parquet weekly snapshots</li>
-        <li><b>Scoring:</b> cross-source momentum with different weights for a subscriber pool and a 500-artist discovery pool</li>
-        <li><b>Event time:</b> articles filtered by <code>published_at</code>, not <code>fetched_at</code>, with 14-day recency weighting</li>
-        <li><b>Delivery:</b> FastAPI backend, SendGrid Jinja2 digests, static dashboard with a demo mode</li>
-        <li><b>Resilience:</b> every external call wrapped so one source failing never crashes the pipeline</li>
+        <li><b>Ingestion:</b> Spotify Web API, Instagram, 16 press RSS feeds with NER, Apple Music and Billboard charts via Playwright</li>
+        <li><b>Storage:</b> append-only SQLite staging, DuckDB and Parquet weekly snapshots</li>
+        <li><b>Scoring:</b> separate weights for subscriber and 500-artist discovery pools</li>
+        <li><b>Event time:</b> articles filtered by <code>published_at</code>, not <code>fetched_at</code></li>
+        <li><b>Delivery:</b> FastAPI, SendGrid digests, static dashboard with demo mode</li>
+        <li><b>Resilience:</b> every external call wrapped; one source failing never crashes the run</li>
       </ul>
     </div>
     <div>
       <h2>Results</h2>
       <div class="stats" style="grid-template-columns:1fr;margin:0 0 .8rem">
-        <div><b>5</b><span>data sources merged into one weekly momentum score</span></div>
-        <div><b>16</b><span>music publications ingested, weighted by source tier and recency</span></div>
-        <div><b>15</b><span>API endpoints serving the digest and dashboard</span></div>
+        <div><b>20.0</b><span>momentum for all ten artists in the first digest (4 April 2026): one Spotify snapshot gives 0.0% growth, normalised to 33.3 and weighted at 60%, so everyone scores the same</span></div>
+        <div><b>100 of 100</b><span>Billboard rows flagged as new entries: no prior week stored, so everything is a first appearance</span></div>
+        <div><b>3</b><span>of 16 publications carried a tracked artist's album announcement; the press feed caught it but at 10% weight the score did not move</span></div>
       </div>
     </div>
   </div>
 
   <h2 style="margin-top:3rem">Pipeline</h2>
   <div class="pipeline">
-    <div><b>1 · Charts</b>Apple Music UK and US, Billboard Hot 100; new entrants flagged on first appearance.</div>
-    <div><b>2 · Platforms</b>Spotify followers and popularity; Instagram followers and engagement.</div>
-    <div><b>3 · Press</b>16 RSS feeds, named-entity extraction, false-positive filtering.</div>
-    <div><b>4 · Staging</b>SQLite, append-only, nothing overwritten.</div>
-    <div><b>5 · Score</b>Spotify velocity, Instagram, press and chart bonus; bands from monitoring to breakout.</div>
-    <div><b>6 · Deliver</b>Monday digest by email and a FastAPI dashboard.</div>
+    <div><b>1 · Charts</b>Apple Music UK, US; Billboard Hot 100.</div>
+    <div><b>2 · Platforms</b>Spotify followers, popularity; Instagram engagement.</div>
+    <div><b>3 · Press</b>16 RSS feeds, entity extraction.</div>
+    <div><b>4 · Staging</b>SQLite, append-only.</div>
+    <div><b>5 · Score</b>Weighted signals, chart bonus, three bands.</div>
+    <div><b>6 · Deliver</b>Monday email digest and dashboard.</div>
   </div>
 
-  <div class="limits"><b>Limits.</b> Spotify's Development Mode strips follower counts and popularity scores, so Spotify velocity is effectively zero for most artists, and Instagram's rate limiting means some weeks the data is unavailable. The first rendered digest shows this plainly: every artist at momentum 20.0 and all 100 Billboard rows flagged as new entries. Momentum scores measure current weekly activity only, not predictions. No test suite yet.</div>
+  <h2>What a label would do with this</h2>
+  <p>Release-week measurement: run it the Monday after a Friday release and compare an artist's follower velocity, press count and chart entry against their own previous weeks, not the roster. The press-weighted discovery pool is a shortlist for A&amp;R to check before the charts confirm it.</p>
+
+  <div class="limits"><b>Limits.</b> Spotify's Development Mode strips follower counts and popularity, so velocity is effectively zero; Instagram rate limiting left no Instagram data in the first digest. Fixes: a second weekly snapshot so velocity is a real difference, Spotify Extended Quota Mode for live counts, and the popularity-score fallback now in the code. Scores measure current activity, not predictions. No tests yet.</div>
 </div></section>
 
 <section class="next"><div class="wrap">

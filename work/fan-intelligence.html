@@ -43,41 +43,44 @@
   <div class="psr">
     <div>
       <h2>Problem</h2>
-      <p>Fan communities live on platforms that share no common format, change their APIs without warning, and have rate limits designed for casual developers rather than bulk analytical pipelines. Building something coherent out of that mess is a data engineering problem before it is an analytics one.</p>
-      <p>The goal is a system whose internal logic scales cleanly, not one that works for five artists and falls apart at five hundred.</p>
+      <p>What share of an artist's community are Hardcore, Parasocial, Critical or Casual fans? Merchandise, fan club pricing and tour allocation depend on that split, not on whether the community feels positive.</p>
+      <p>Five platforms, no common format, changing APIs, tight rate limits: getting them into one queryable place is data engineering before it is analytics.</p>
     </div>
     <div>
       <h2>Skills</h2>
       <ul>
-        <li><b>Medallion architecture:</b> immutable Bronze JSON, Iceberg/Parquet Silver under a 12-field PyArrow schema, DuckDB Gold views</li>
-        <li><b>Weak supervision:</b> 12 Snorkel labelling functions across four archetypes: Casual, Hardcore, Parasocial, Critical</li>
-        <li><b>Matrix factorisation:</b> TruncatedSVD on a fans-by-artists engagement matrix</li>
-        <li><b>RAG agent:</b> LangChain ReAct with five tools, 384-dim embeddings in MongoDB Atlas, Presidio PII redaction</li>
-        <li><b>Lineage:</b> W3C PROV documents and OpenLineage events to Marquez at every stage boundary</li>
-        <li><b>DevOps:</b> seven Docker services, Terraform for S3, RDS and ECR, GitHub Actions CI</li>
+        <li><b>Medallion architecture:</b> Bronze JSON, Iceberg/Parquet Silver with a 12-field schema, DuckDB Gold views</li>
+        <li><b>Weak supervision:</b> 12 Snorkel labelling functions, four archetypes</li>
+        <li><b>Matrix factorisation:</b> TruncatedSVD on a fans-by-artists matrix</li>
+        <li><b>RAG agent:</b> LangChain ReAct, five tools, Atlas embeddings, Presidio PII redaction</li>
+        <li><b>Lineage:</b> W3C PROV and OpenLineage to Marquez at every stage</li>
+        <li><b>DevOps:</b> seven Docker services, Terraform, GitHub Actions CI</li>
       </ul>
     </div>
     <div>
       <h2>Results</h2>
       <div class="stats" style="grid-template-columns:1fr;margin:0 0 .8rem">
-        <div><b>67.2%</b><span>of variance explained by three latent factors across 4,827 fans</span></div>
-        <div><b>0.985</b><span>Recall@k, stable across all cut-offs; NDCG@k 0.767</span></div>
-        <div><b>5</b><span>engineering defects found, fixed and documented, including a silent empty Silver write</span></div>
+        <div><b>67.2%</b><span>of variance in 4,827 fans in three factors: breadth across artists (26.2%) and depth within one artist (20.9%), driven by heavy Last.fm listeners</span></div>
+        <div><b>90 to 94%</b><span>positive sentiment on all five artists: too uniform to be a finding about fans, so read as a data-quality signal</span></div>
+        <div><b>89%</b><span>Casual: the archetype split an empty Silver write produced without error. The first distribution reported was wrong, and the Bronze check exists because of it</span></div>
       </div>
     </div>
   </div>
 
   <h2 style="margin-top:3rem">Pipeline</h2>
   <div class="pipeline">
-    <div><b>1 · Collect</b>Five collectors write every API response to Bronze exactly as received.</div>
-    <div><b>2 · Silver</b>Typed PyArrow schema, SHA-256 text hashes, three validation checks on every write.</div>
-    <div><b>3 · Gold</b>Five DuckDB views directly over Silver Parquet.</div>
-    <div><b>4 · Model</b>Snorkel archetypes, SVD factors, RoBERTa sentiment, registered in MLflow.</div>
-    <div><b>5 · Agent</b>ReAct agent over Atlas vector search and a local Llama 3.</div>
-    <div><b>6 · Serve</b>FastAPI REST, WebSocket stream and MCP endpoint.</div>
+    <div><b>1 · Collect</b>Raw API responses to Bronze.</div>
+    <div><b>2 · Silver</b>Typed schema, three checks per write.</div>
+    <div><b>3 · Gold</b>Five DuckDB views over Silver Parquet.</div>
+    <div><b>4 · Model</b>Snorkel archetypes, SVD, RoBERTa sentiment, MLflow.</div>
+    <div><b>5 · Agent</b>ReAct over vector search, local Llama 3.</div>
+    <div><b>6 · Serve</b>FastAPI REST, WebSocket, MCP.</div>
   </div>
 
-  <div class="limits"><b>Limits.</b> Silent failures are more dangerous than loud ones: an empty Silver write produced an archetype distribution that collapsed to 89% Casual and nothing complained until a Bronze existence check was added. Positive sentiment at 90 to 94 per cent across all five artists demands scepticism and likely reflects subreddit self-selection. Llama 3 on CPU takes 8 to 15 seconds per query.</div>
+  <h2>What a label would do with this</h2>
+  <p>Run the archetype split per artist community before a release: a community that is 34% Hardcore and 12% Parasocial gets a different deluxe edition, fan club price and tour allocation from one that is mostly Casual. The breadth and depth factors separate superfans of one act from broad listeners, which is what superfan identification needs.</p>
+
+  <div class="limits"><b>Limits.</b> Silent failures are more dangerous than loud ones: nothing complained about the empty Silver write until validation was added. The uniform positive sentiment likely reflects subreddit self-selection. Recall@k of 0.985 is omitted: with five artists and k of at least 5 it is near 1 by construction. Llama 3 on CPU takes 8 to 15 seconds a query.</div>
 </div></section>
 
 <section class="next"><div class="wrap">

@@ -45,7 +45,7 @@
     <div>
       <h2>Problem</h2>
       <p>An independent promoter with a strong London base has more options for a second city than it can research properly. Which cities have the venues, the audience and the room in the market to support an indie and alternative programme, and how far are they from the existing operation?</p>
-      <p>The aim was a tool that put the whole shortlist on one screen and made the trade-offs visible without opening a spreadsheet.</p>
+      <p>The aim was one screen that showed the whole shortlist and the trade-offs between the five factors.</p>
     </div>
     <div>
       <h2>Skills</h2>
@@ -61,18 +61,21 @@
       <h2>Results</h2>
       <div class="stats" style="grid-template-columns:1fr;margin:0 0 .8rem">
         <div><b>21</b><span>UK cities scored and ranked on one screen</span></div>
-        <div><b>5</b><span>weighted factors, with the weighting shown beside the map</span></div>
-        <div><b>30%</b><span>largest weight, market gap; change it and the order changes for visible reasons</span></div>
+        <div><b>15%</b><span>cultural-fit weight, set by hand; a judgement call, not a measurement</span></div>
+        <div><b>0</b><span>real outcomes the ranking has been checked against; it is unvalidated</span></div>
       </div>
     </div>
   </div>
 
   <h2 style="margin-top:3rem">The weighting</h2>
-  <p>The value is less in any single ranking than in making the weighting explicit and showing where a judgement call is doing the work.</p>
+  <p>Four of the five weights sit on public data; the cultural-fit weight is my own judgement. The ranking has not been validated against any real outcome, so it is a way of framing the question, not an answer to it.</p>
   <div class="figs">
     <div class="embed"><iframe src="https://kellyc86.github.io/FormProjectExample/" title="UK expansion map, live" loading="lazy"></iframe></div>
   <p class="muted" style="font-size:.9rem">The working dashboard, embedded. <a href="https://kellyc86.github.io/FormProjectExample/" style="text-decoration:underline">Open it full screen</a> to click through the cities.</p>
   </div>
+
+  <h2>What a label would do with this</h2>
+  <p>The same scoring approach would serve tour routing or deciding where to spend regional marketing: weight venue supply, student population and local streaming share per city, show the weights beside the map, and move one to see the order change. The weights would need checking against past ticket sales before anyone acted on them.</p>
 
   <div class="limits"><b>Limits.</b> The AI brief button does not work as shipped: it calls the Claude API directly from the browser with no key, so it shows "API unavailable". The MusicBrainz fetch takes around 23 seconds on load. City data is hard-coded, there is no README and no data files, and the cultural-fit weight is my own judgement rather than something measured.</div>
 </div></section>

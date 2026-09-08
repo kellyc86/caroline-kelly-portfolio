@@ -23,7 +23,9 @@ setTimeout(function () { document.querySelectorAll('.reveal').forEach(function (
     var target = parseFloat(m[1].replace(/,/g, '')); if (isNaN(target)) return;
     n.dataset.final = s; n.textContent = fmt(s, 0);
     var run = function () { var t0 = null; var step = function (ts) { if (!t0) t0 = ts; var p = Math.min(1, (ts - t0) / 900); var e = 1 - Math.pow(1 - p, 3); n.textContent = fmt(s, target * e); if (p < 1) requestAnimationFrame(step); else n.textContent = s; }; requestAnimationFrame(step); };
-    if ('IntersectionObserver' in window) { var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { run(); io.unobserve(n); } }); }); io.observe(n); } else run();
+    var done = false; var go = function () { if (done) return; done = true; run(); };
+    if ('IntersectionObserver' in window) { var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { go(); io.unobserve(n); } }); }); io.observe(n); } else go();
+    setTimeout(function () { if (!done) { done = true; n.textContent = s; } }, 2500);
   });
 })();
 // Recent gigs strip (assets/js/gigs.js). Hidden when the list is empty.

@@ -42,7 +42,7 @@
       <p><b>CAROLINE KELLY PORTFOLIO</b><br>UCL MSc Business Analytics · London</p>
       <p>Data and AI products that ship into the tools people already use. Most recently a sponsorship-propensity system for Williams Racing, deployed inside Salesforce and refreshed weekly.</p>
       <p><b>HOW TO NAVIGATE</b><br>Click any icon on the left to open that case study. Each window has an "Open case study" button for the full write-up. The Start menu lists everything, and the CV is its own page.</p>
-      <p><a class="xpbtn" href="cv.html">Open CV</a> &nbsp; <a class="xpbtn" href="#" data-open="w-contact">Email</a> &nbsp; <a class="xpbtn" href="https://www.linkedin.com/in/caroline-kelly-42534a266/">LinkedIn</a> &nbsp; <a class="xpbtn" href="https://github.com/kellyc86">GitHub</a></p>
+      <p><a class="xpbtn" href="cv.html" data-page="cv.html">Open CV</a> &nbsp; <a class="xpbtn" href="assets/Caroline_Kelly_CV.pdf" download="Caroline Kelly CV.pdf">Download CV (PDF)</a> &nbsp; <a class="xpbtn" href="#" data-open="w-contact">Email</a> &nbsp; <a class="xpbtn" href="https://www.linkedin.com/in/caroline-kelly-42534a266/">LinkedIn</a> &nbsp; <a class="xpbtn" href="https://github.com/kellyc86">GitHub</a></p>
     </div>
   </div>
 
@@ -51,7 +51,7 @@
     <div class="wbody"><div class="pw">
       <a class="sleeve grooves" href="work/williams-sponsorship.html" data-page="work/williams-sponsorship.html" style="--sl-bg:#061a3a"><div class="photo" style="background-image:url('assets/img/logos/williams-car.jpg')"></div><div class="top"><span>01</span></div><h3>Where should the next hour of selling go?</h3></a>
       <div><h4>Where should the next hour of selling go?</h4>
-        <p>A weekly refreshed list of 60 ranked companies inside Salesforce, each carrying the evidence behind its rank, plus a model of which open deals will close. MSc dissertation with Williams' commercial team, deployed and in use.</p>
+        <p>A weekly refreshed list of 60 ranked companies inside Salesforce, each carrying the evidence behind its rank, plus a model of which open deals will close. MSc dissertation with Williams' commercial team, deployed on their infrastructure and refreshed weekly.</p>
         <div class="big">84%</div><div class="cap">of future sponsors placed in the top decile before their deals were announced; 13.7% precision against a 1.6% base rate.</div>
         <div class="tags"><span class="tag">LightGBM</span><span class="tag">GDELT</span><span class="tag">survival analysis</span><span class="tag">SHAP</span><span class="tag">Salesforce</span></div>
         <p style="margin-top:12px"><a class="xpbtn primary" href="work/williams-sponsorship.html" data-page="work/williams-sponsorship.html">Open case study</a></p>
@@ -140,14 +140,15 @@
   <div class="win" id="w-aotw" style="left:880px;top:430px;width:380px">
     <div class="tbar"><span class="ti">Album of the week</span><button class="mn">_</button><button class="x">×</button></div>
     <div class="wbody aotw">
-      <div class="record"><div class="vinyl" aria-hidden="true"><div class="label"></div></div><img class="cover" src="assets/img/aotw-cover.jpg" alt="It Goes On, Westside Cowboy, album cover"></div>
+      <div class="record"><div class="vinyl" aria-hidden="true"><div class="label"></div></div><a href="https://open.spotify.com/album/3dWKCKeiWtxjDNPTbGCQTO" target="_blank" rel="noopener"><img class="cover" src="assets/img/aotw-cover.jpg" alt="It Goes On, Westside Cowboy, album cover"></a></div>
       <div>
         <div class="k">Album of the week</div>
         <div class="t">It Goes On</div>
         <div class="a">Westside Cowboy</div>
-        <div class="ctl">◀◀ &nbsp; ▶ &nbsp; ▶▶ &nbsp; ■</div>
+        <div class="ctl"><button class="play" id="play" title="Play on Spotify">▶ Play</button> <a class="sp" href="https://open.spotify.com/album/3dWKCKeiWtxjDNPTbGCQTO" target="_blank" rel="noopener">Open in Spotify ↗</a></div>
       </div>
     </div>
+    <div class="player" id="player" hidden></div>
   </div>
 
   <div class="win" id="w-contact" hidden style="width:420px">
@@ -179,6 +180,7 @@
     </div>
     <div class="col2">
       <a href="cv.html" data-page="cv.html">CV</a>
+      <a href="assets/Caroline_Kelly_CV.pdf" download="Caroline Kelly CV.pdf">Download CV (PDF)</a>
       <a href="practice/dynamic-pricing.html" data-page="practice/dynamic-pricing.html">Practice: pricing</a>
       <a href="practice/churn-prediction.html" data-page="practice/churn-prediction.html">Practice: churn</a>
       <a href="https://github.com/kellyc86">GitHub</a>

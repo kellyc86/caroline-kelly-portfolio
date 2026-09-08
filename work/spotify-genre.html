@@ -42,16 +42,16 @@
   <div class="psr">
     <div>
       <h2>Problem</h2>
-      <p>Musical genre is one of the most commercially consequential labels attached to a track: it shapes playlist placement, licensing decisions and algorithmic recommendation. Can it be predicted reliably from audio alone?</p>
-      <p>The central hypothesis was that a learned autoencoder representation would outperform raw audio features. Three predictions were registered before any modelling, and all three held.</p>
+      <p>A label tags a track with a genre before it decides which playlists to pitch and which chart it competes in. If genre is audible, a model on 13 Spotify audio features should recover it. If it is a positioning choice, the audio will not tell you.</p>
+      <p>The central hypothesis was that a learned autoencoder representation would beat raw audio features. Three predictions were registered before modelling; all three held.</p>
     </div>
     <div>
       <h2>Skills</h2>
       <ul>
-        <li><b>Evaluation design:</b> 70/15/15 stratified split, test set locked and accessed once, StandardScaler fitted on train only</li>
+        <li><b>Evaluation design:</b> 70/15/15 stratified split, test set accessed once, scaler fitted on train only</li>
         <li><b>Model selection:</b> 5-fold CV on macro-F1 across dummy, LogReg, Random Forest, MLP and LightGBM; paired t-test (t = 3.657, p = 0.022)</li>
         <li><b>Tuning:</b> GridSearchCV over learning rate, num_leaves and n_estimators</li>
-        <li><b>Representation learning:</b> PyTorch undercomplete autoencoder with a bottleneck sweep over {4, 6, 8, 10}</li>
+        <li><b>Representation learning:</b> PyTorch undercomplete autoencoder, bottleneck sweep over {4, 6, 8, 10}</li>
         <li><b>Interpretation:</b> permutation importance, PCA of the latent space, calibration curves, confusion matrix</li>
         <li><b>Agent governance:</b> three agent errors caught by human review, none visible to automated testing</li>
       </ul>
@@ -74,6 +74,9 @@
     <figure class="light"><img src="../assets/img/genre-per-class-delta.jpg" alt="Per-genre F1 delta, encoded minus raw; all negative, edm and r-n-b largest"><figcaption>Acoustically extreme genres lose least under encoding; edm, r-n-b and indie lose most.</figcaption></figure>
     <figure class="light"><img src="../assets/img/genre-confusion.jpg" alt="Normalised test confusion matrix; classical near-perfect, indie, pop and hip-hop confused"><figcaption>Classical achieves near-perfect separation; indie, pop and hip-hop form the most confused cluster.</figcaption></figure>
   </div>
+
+  <h2>What a label would do with this</h2>
+  <p>Pop, indie and hip-hop are almost indistinguishable on audio features, so for those three the pitch decides the lane, not the sound. Classify by audio where it holds (classical at 0.930 F1); choose the playlist lane for mid-range tracks by audience and positioning. Do not lean on popularity for unreleased catalogue with no streaming history.</p>
 
   <div class="limits"><b>Limits.</b> A variable that responds to platform promotion rather than acoustic content is endogenous: popularity's contribution may not generalise across time windows or catalogue slices, so the model should be treated as temporally fragile. The dataset is a single snapshot and cannot account for genre drift. Per-class test F1 spans 43 percentage points, from classical (0.930) to indie (0.498).</div>
 </div></section>

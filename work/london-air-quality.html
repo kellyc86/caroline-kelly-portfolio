@@ -29,7 +29,7 @@
 <section class="case-hero"><div class="wrap">
   <div class="eyebrow">Data engineering · UCL · March 2026</div>
   <h1>Does the ULEZ show up in London's air?</h1>
-  <p class="sub">A Medallion pipeline that joins seven London datasets into a borough-month fact table, built to test whether the ULEZ, weather, tree cover and deprivation explain differences in NO2 and PM2.5.</p>
+  <p class="sub">I owned the Silver layer of a Medallion pipeline that joins seven London datasets into a borough-month fact table, built to test whether the ULEZ, weather, tree cover and deprivation explain differences in NO2 and PM2.5.</p>
   <div class="meta">
     <div><b>Role</b>Group of four. I owned <code>pipeline_silver.ipynb</code>, the Spark cleaning of the 102 MB LAQN readings file</div>
     <div><b>Stack</b>Python, Spark, Parquet, DuckDB, MongoDB, TinyDB, GeoPandas, SciPy</div>
@@ -43,25 +43,24 @@
   <div class="psr">
     <div>
       <h2>Problem</h2>
-      <p>Poor air quality is considered the greatest environmental risk to public health in the UK. The open data exists, but these datasets are often distributed across multiple platforms and formats, so a key challenge lies not only in analysing the data but in engineering pipelines capable of collecting, transforming and integrating data sources.</p>
+      <p>My part was the Silver layer: Spark cleaning of the 102 MB LAQN readings file and six smaller sources into seven validated Parquet datasets that every later stage reads from. The sources arrived in different formats, so the joins could not be trusted until the cleaning was.</p>
       <p>The question underneath: did stations inside the ULEZ show lower NO2 in 2024?</p>
     </div>
     <div>
       <h2>Skills</h2>
       <ul>
-        <li><b>Spark cleaning:</b> ~925,000 hourly readings, schema enforcement, type conversion, Title Case borough names as join keys</li>
-        <li><b>Validation gates:</b> three automated checks on row counts, join-key null rates and borough name consistency before any Gold computation</li>
-        <li><b>Medallion architecture:</b> Bronze raw, Silver Parquet, Gold DuckDB SQL over Parquet</li>
-        <li><b>Document stores:</b> TinyDB and MongoDB for variably shaped episode records</li>
-        <li><b>Spatial and statistical tests:</b> GeoPandas point-in-polygon, Welch's t-test, Pearson correlation</li>
+        <li><b>Spark cleaning:</b> ~925,000 hourly readings, schema enforcement, Title Case borough names as join keys</li>
+        <li><b>Validation gates:</b> row counts, join-key null rates, borough name consistency, before any Gold computation</li>
+        <li><b>Medallion:</b> Bronze raw, Silver Parquet, Gold DuckDB SQL over Parquet</li>
+        <li><b>Tests:</b> GeoPandas point-in-polygon, Welch's t-test, Pearson correlation</li>
       </ul>
     </div>
     <div>
       <h2>Results</h2>
       <div class="stats" style="grid-template-columns:1fr;margin:0 0 .8rem">
-        <div><b>22.85 vs 26.57</b><span>mean NO2 μg/m³ inside against outside the ULEZ, directionally consistent but not significant (p = 0.121)</span></div>
-        <div><b>+1.36</b><span>μg/m³ NO2 on atmospheric inversion days</span></div>
-        <div><b>r = −0.026</b><span>tree canopy against PM2.5; deprivation NO2 difference p = 0.841</span></div>
+        <div><b>22.85 vs 26.57</b><span>mean NO2 μg/m³ inside against outside the ULEZ, not significant (p = 0.121)</span></div>
+        <div><b>+1.36</b><span>μg/m³ NO2 on inversion days</span></div>
+        <div><b>r = −0.026</b><span>tree canopy against PM2.5; deprivation p = 0.841</span></div>
       </div>
     </div>
   </div>
@@ -69,14 +68,17 @@
   <h2 style="margin-top:3rem">The pipeline</h2>
   <p>All downstream stages read from Silver rather than re-processing Bronze, which keeps transformations auditable.</p>
   <div class="pipeline">
-    <div><b>Bronze</b>Raw pulls from APIs, scrapes and downloads, stored as received</div>
-    <div><b>Silver</b>Spark cleaning of seven sources to independent Parquet datasets, three validation checks</div>
-    <div><b>NoSQL</b>Pollution episodes and debates in TinyDB and MongoDB</div>
-    <div><b>Gold</b>DuckDB joins to a borough-month fact table</div>
-    <div><b>Analysis</b>ULEZ classification, inversion flag, correlation and t-tests</div>
+    <div><b>Bronze</b>Raw, as received</div>
+    <div><b>Silver</b>Spark cleaning to Parquet, three checks</div>
+    <div><b>NoSQL</b>Episodes in TinyDB and MongoDB</div>
+    <div><b>Gold</b>DuckDB borough-month fact table</div>
+    <div><b>Analysis</b>ULEZ flag, inversion flag, t-tests</div>
   </div>
 
-  <div class="limits"><b>Limits.</b> Only one monitoring station fell outside the ULEZ boundary in 2024, so the comparison is statistically inconclusive. PM2.5 readings are available for only 37 per cent of borough-month combinations, making borough-level correlation analyses unreliable. The proposed next step is a 2023 versus 2024 difference-in-differences around the August 2023 ULEZ expansion.</div>
+  <h2>What a label would do with this</h2>
+  <p>Consumption data arrives the same way, many feeds in many shapes, and a Silver layer with schema enforcement and row-count checks is what stops a silent type coercion corrupting every release-week join downstream.</p>
+
+  <div class="limits"><b>Limits.</b> Only one monitoring station fell outside the ULEZ boundary in 2024, so the comparison is inconclusive. PM2.5 exists for only 37 per cent of borough-months, so borough-level correlations are unreliable. Proposed next step: a 2023 versus 2024 difference-in-differences around the August 2023 ULEZ expansion.</div>
 </div></section>
 
 <section class="next"><div class="wrap">

@@ -29,9 +29,9 @@
 <section class="case-hero"><div class="wrap">
   <div class="eyebrow">Agentic AI · UCL Predictive Analytics · March 2026</div>
   <h1>Does a high rubric score mean a good model?</h1>
-  <p class="sub">Three coding agents were set the same four data-science tasks on NYC Airbnb listings and marked against a shared rubric. The tool with the best rubric total shipped the worst baseline.</p>
+  <p class="sub">Three coding agents were set the same four sequential data-science tasks on NYC Airbnb listings and marked against a shared rubric. I ran the Antigravity arm. The tool with the best rubric total shipped the worst baseline.</p>
   <div class="meta">
-    <div><b>Role</b>Group of five. I operated the Antigravity agent across all four tasks and confirmed the dataset schema</div>
+    <div><b>Role</b>Group of five. I operated the Antigravity agent across all four tasks, owned Task 01 ingestion, confirmed the dataset schema and logged Antigravity's uncleared notebook outputs to the failure catalogue</div>
     <div><b>Stack</b>Python, scikit-learn, Git, Antigravity, Claude, Codex</div>
     <div><b>Data</b>NYC Airbnb Open Data 2019: 48,895 listings, 16 features, nightly price as target</div>
     <div><b>Code</b><a href="https://github.com/dilaracgrl/PredictiveAnalytics-HousePrices">View on GitHub ↗</a></div>
@@ -44,16 +44,16 @@
     <div>
       <h2>Problem</h2>
       <p>Which tool produces the most accurate, reproducible and well-documented outputs on standardised pipeline tasks, and do rubric compliance and model quality point in the same direction?</p>
-      <p>Price is heavily right-skewed (mean $152, median $106). No agent was given guidance on target transformation, making the log transform a test of statistical judgement rather than instruction following.</p>
+      <p>Price is right-skewed (mean $152, median $106). No agent was told to transform the target, so the log transform tested statistical judgement rather than instruction following.</p>
     </div>
     <div>
       <h2>Skills</h2>
       <ul>
-        <li><b>Benchmark design:</b> four sequential tasks, shared <code>evaluate.py</code> rubric with four automated and one manual check per task</li>
-        <li><b>Reproducibility controls:</b> SEED=42 in every split, relative paths, Git branch isolation per agent</li>
-        <li><b>Agent operation:</b> ran Antigravity end to end, Task 01 scored 5/5 in 15 minutes</li>
-        <li><b>Leakage discipline:</b> log1p target and scikit-learn Pipelines so scalers and encoders fit on training data only</li>
-        <li><b>Human review:</b> manual inspection of notebook cell order for leakage boundaries</li>
+        <li><b>Benchmark design:</b> four sequential tasks, shared <code>evaluate.py</code> rubric, four automated and one manual check per task</li>
+        <li><b>Reproducibility controls:</b> SEED=42, relative paths, Git branch per agent</li>
+        <li><b>Agent operation:</b> ran Antigravity end to end; its Task 04 HistGradientBoosting with a target encoder on neighbourhood followed from its own Task 02 finding that location dominates price</li>
+        <li><b>Leakage discipline:</b> log1p target, scikit-learn Pipelines fitted on training data only</li>
+        <li><b>Human review:</b> notebook cell order inspected for leakage boundaries</li>
       </ul>
     </div>
     <div>
@@ -61,21 +61,24 @@
       <div class="stats" style="grid-template-columns:1fr;margin:0 0 .8rem">
         <div><b>19/20</b><span>Codex's rubric total, the highest of the three</span></div>
         <div><b>−0.625</b><span>Codex's baseline R², worse than predicting the mean, reported silently with no error raised</span></div>
-        <div><b>0</b><span>failures self-detected by an agent; every one was found by a human reviewer</span></div>
+        <div><b>0</b><span>failures self-detected by an agent; every one was found by a human</span></div>
       </div>
     </div>
   </div>
 
   <h2 style="margin-top:3rem">Rubric against model quality</h2>
-  <p>Rubric totals were Antigravity 18/20, Claude 16/20 and Codex 19/20. Improved test RMSE and R² were 106.07 and 0.352, 74.87 and 0.485, and 86.53 and 0.463. Claude scored only 2/5 on Task 01 and produced the strongest model; Antigravity completed each task fastest at 25 minutes on average.</p>
+  <p>Rubric totals were Antigravity 18/20, Claude 16/20 and Codex 19/20. Improved test RMSE and R² were 106.07 and 0.352, 74.87 and 0.485, and 86.53 and 0.463. Claude scored 2/5 on Task 01 and produced the strongest model; Antigravity was fastest at 25 minutes a task. My entry in the failure catalogue: Antigravity committed its Task 02 notebook with output cells present, a rubric penalty the agent did not flag.</p>
   <div class="pipeline">
-    <div><b>01 Ingestion</b>Zero nulls, every imputation documented</div>
-    <div><b>02 EDA</b>Training data only, written interpretations</div>
-    <div><b>03 Baseline</b>Preprocessing fitted on training data only</div>
-    <div><b>04 Improvement</b>Above 1 per cent, rejected approaches recorded</div>
+    <div><b>01 Ingestion</b>Zero nulls, imputations documented</div>
+    <div><b>02 EDA</b>Training data only</div>
+    <div><b>03 Baseline</b>Preprocessing fitted on training only</div>
+    <div><b>04 Improvement</b>Above 1 per cent, rejections recorded</div>
   </div>
 
-  <div class="limits"><b>Limits.</b> Rubric-based scoring measures process compliance: files present, schemas valid, SEED documented. It does not measure whether the model is statistically sound. Codex's 42.53 per cent RMSE improvement reflects recovery from a broken baseline, not advancement. Each tool had a different operator, so prompting style is confounded with the tool.</div>
+  <h2>What a label would do with this</h2>
+  <p>A label data team evaluating AI coding assistants should not trust a rubric pass or a clean run. Assert row counts after every load, compare any R² against zero before reporting it, and require a record of what was rejected. On a release-week forecast, a silently broken baseline would read as a result.</p>
+
+  <div class="limits"><b>Limits.</b> Rubric scoring measures process compliance: files present, schemas valid, SEED documented. It does not measure whether the model is statistically sound. Codex's 42.53 per cent RMSE improvement is recovery from a broken baseline, not advancement. Each tool had a different operator, so prompting style is confounded with the tool.</div>
 </div></section>
 
 <section class="next"><div class="wrap">

@@ -68,6 +68,9 @@
     a.addEventListener('click', function (e) { e.preventDefault(); var t = a.closest('.win') ? a.closest('.win').dataset.title : a.textContent.trim(); openPage(a.dataset.page, t); });
   });
   var mx = pw && pw.querySelector('.mx'); if (mx) mx.onclick = function (e) { e.stopPropagation(); pw.querySelector('.tbar').dispatchEvent(new Event('dblclick')); };
+  // Album of the week: Play loads Spotify's official player only when pressed (no external call before that).
+  var play = document.getElementById('play'), player = document.getElementById('player');
+  if (play) play.onclick = function () { if (!player.hidden) { player.hidden = true; play.textContent = '▶ Play'; return; } player.innerHTML = '<iframe src="https://open.spotify.com/embed/album/3dWKCKeiWtxjDNPTbGCQTO?utm_source=generator&theme=0" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Spotify player"></iframe>'; player.hidden = false; play.textContent = '■ Close player'; };
   // Contact: copy address
   var cp = document.getElementById('copy'); if (cp) cp.onclick = function () { var m = document.getElementById('mail').textContent; try { navigator.clipboard.writeText(m); cp.textContent = 'Copied'; setTimeout(function () { cp.textContent = 'Copy'; }, 1500); } catch (e) { window.prompt('Copy the address:', m); } };
 

@@ -33,7 +33,7 @@
   <div class="meta">
     <div><b>Role</b>Sole builder, with the commercial team, CRM admin and data owner</div>
     <div><b>Stack</b>Python, BigQuery (GDELT v2), Salesforce, LightGBM, survival analysis, SHAP, Claude Batch API, DuckDB, Pandera</div>
-    <div><b>Status</b>Deployed and in weekly use on Williams-owned infrastructure</div>
+    <div><b>Status</b>Deployed on Williams-owned infrastructure; weekly refresh from August 2026</div>
     <div><b>Code</b>Private (client data)</div>
   </div>
   <div class="notice">No prospect names, deal values tied to brands, CRM field names or staff names appear on this page. Figures are from the dissertation; market charts are sourced from SponsorUnited (2026).</div>
@@ -43,25 +43,25 @@
   <div class="psr">
     <div>
       <h2>Problem</h2>
-      <p>Formula One teams operate without ticket sales or stadium revenues, and Williams, an independent constructor, has no parent manufacturer to absorb a bad season. Sponsorship is its most stable revenue stream.</p>
-      <p>From 2022 to mid-2026 only 38 of 926 opportunities resulted in a signed deal, a closure rate of 4.1 per cent. With tens of thousands of companies and a team of a few people, the question is where the next hour of selling should go, particularly above £5 million a year.</p>
+      <p>Sponsorship is Williams' most stable revenue stream. From 2022 to mid-2026 only 38 of 926 opportunities signed, a closure rate of 4.1 per cent, so where a small team's next hour of selling goes matters.</p>
+      <p>In review the commercial team restated the target as a floor: £5 million a year and above, not a band capped at £10 million.</p>
     </div>
     <div>
       <h2>Skills</h2>
       <ul>
-        <li><b>Weak supervision:</b> trained on 343,813 cross-sport deal records, Williams' outcomes held back for validation</li>
-        <li><b>Leakage control:</b> every feature as-of 60 days before the deal, asserted in code; forward-time validation</li>
+        <li><b>Weak supervision:</b> 343,813 cross-sport deals as labels; Williams' outcomes held back for validation</li>
+        <li><b>Leakage control:</b> every feature as-of 60 days pre-deal, asserted in code; forward-time validation</li>
         <li><b>News pipeline:</b> GDELT v2 via BigQuery, 60.8M matched rows, LLM classification on the Batch API</li>
         <li><b>Ranking model:</b> calibrated LightGBM with SHAP evidence cards</li>
-        <li><b>Survival analysis:</b> discrete-time hazard model on 926 opportunities, controlling for representative identity</li>
+        <li><b>Survival analysis:</b> discrete-time hazard model on 926 opportunities</li>
         <li><b>Deployment:</b> weekly Salesforce writeback, frozen model, $0.26 per refresh</li>
       </ul>
     </div>
     <div>
       <h2>Results</h2>
       <div class="stats" style="grid-template-columns:1fr;margin:0 0 .8rem">
-        <div><b>84%</b><span>of the 276 future signers placed in the top decile before their deals were announced</span></div>
-        <div><b>13.7%</b><span>top-decile precision against a 1.6 per cent base rate: a pool roughly eight times richer</span></div>
+        <div><b>84%</b><span>of 276 future signers placed in the top decile before their deals were announced</span></div>
+        <div><b>13.7%</b><span>top-decile precision against a 1.6 per cent base rate, about eight times richer</span></div>
         <div><b>2×</b><span>monthly closure rate for renewals (1.89) and warm agency introductions (2.03)</span></div>
       </div>
     </div>
@@ -74,7 +74,7 @@
   </div>
 
   <h2>Finding future sponsors</h2>
-  <p>The model learned from an externally observable target rather than from Williams' own pipeline, since internal data would have taught it the sales team's past preferences rather than market capacity. It used only information available before each deal was signed and was tested on later unseen data.</p>
+  <p>Labels came from the wider market, not Williams' pipeline, so the model learns capacity rather than past preferences. A sales rep reviewing the tool before a call block flagged top-ten names that failed face validity, one a defunct company, and a news box polluted with junk. Fixes followed: a check for dead or merged accounts, junk categories filtered, and cards carrying deal value, owner, last activity and a live Salesforce link.</p>
   <div class="figs">
     <figure><img src="../assets/img/w-censor-timeline.jpg" alt="Timeline: 24-month feature window ending 60 days before the deal; the run-up is excluded"><figcaption>Every feature is measured as-of 60 days before the deal, enforced in code.</figcaption></figure>
     <figure><img src="../assets/img/w-pipeline-wall.jpg" alt="Capacity gate, ranking model, and a wall separating news counts (features) from news text (display only)"><figcaption>News counts may enter the model; news text and LLM verdicts stop at the display.</figcaption></figure>
@@ -83,19 +83,23 @@
   </div>
 
   <h2>Closing the deal</h2>
-  <p>A separate model estimates the monthly probability of an open opportunity progressing, controlling for representative identity and logging habits. Renewals and warm agency introductions roughly double a deal's monthly closure rate, and Grand Prix hospitality points the same way on a sample too small to quantify. The structure of a deal matters more than the volume of logged contact.</p>
+  <p>A second model estimates each open opportunity's monthly closure probability, controlling for representative identity. Renewals and warm agency introductions roughly double it; Grand Prix hospitality points the same way on 13 exposed deals, too few to quantify. Asked why a page said 42 per cent when the team wins about 3, every win rate gained its denominator: 88 of 210 that reached proposal, 47 of 1,009 tracked.</p>
   <div class="figs">
     <figure class="light"><img src="../assets/img/w-hazard-ratios.jpg" alt="Hazard ratios for every engagement lever tested with 95 per cent intervals"><figcaption>Hazard ratios for every engagement lever tested, on 926 opportunities and 38 wins.</figcaption></figure>
     <figure class="light"><img src="../assets/img/w-risk-tertiles.jpg" alt="Closed-won rate by predicted-risk tertile: 1.6, 3.2 and 7.4 per cent"><figcaption>Opportunities sorted into thirds by predicted risk close at 1.6, 3.2 and 7.4 per cent.</figcaption></figure>
   </div>
 
-  <h2>What the news did not do</h2>
+  <h2>The news feature was removed, and why</h2>
+  <p>News volume was removed from the deployed model: it does not predict signing, and the early headline lift was almost entirely a coverage artefact. The team asked for pre-engagement news in the closing model too; built, it returned a null.</p>
   <div class="figs">
     <figure class="light"><img src="../assets/img/w-news-overindex.jpg" alt="News trigger over-index for 692 future signers against 96,889 account-windows: every category over-indexes"><figcaption>Every trigger category over-indexes among future signers, from 2.55× to 4.22×.</figcaption></figure>
     <figure class="light"><img src="../assets/img/w-headline-three-stages.jpg" alt="The headline at three stages: original +0.1886, presence-only control +0.2028, survived the rebuild +0.0213"><figcaption>The original headline was almost entirely a coverage artefact. What survived a strict standard of proof is +0.0213.</figcaption></figure>
   </div>
 
-  <div class="limits"><b>Limits.</b> The intra-engagement analysis rests on 38 signed deals, so its effects indicate direction rather than magnitude. News is blind to most companies before they sign, with only 47.3 per cent of known signers carrying prior coverage. News volume does not predict signing and correlates with it only because larger companies receive more press, so it is excluded from the deployed model.</div>
+  <h2>What a label would do with this</h2>
+  <p>The ranking would order brands and partners worth pitching a sync or partnership to, from public signals as-of the pitch date. The hazard model would estimate which release campaigns in flight are likely to convert, and which listeners are on a superfan trajectory, with the same stated denominators.</p>
+
+  <div class="limits"><b>Limits.</b> The intra-engagement analysis rests on 38 signed deals, so its effects indicate direction rather than magnitude. Only 47.3 per cent of known signers carried any prior news coverage; news volume tracks company size, not signing. The news writeback is live in Salesforce (880 rows, 190 hand-verified triggers); the native score field and ranked view were still with the Salesforce admin at handover, and no count of reps or weeks of use is recorded.</div>
 </div></section>
 
 <section class="next"><div class="wrap">
