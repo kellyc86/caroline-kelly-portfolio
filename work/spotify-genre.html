@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spotify genre classification · Caroline Kelly</title>
+<meta name="description" content="Can genre be predicted from audio alone? LightGBM on 13 Spotify audio features, and an autoencoder hypothesis tested and rejected. Problem, skills, results.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+  <a class="brand" href="../index.html">Caroline <span>Kelly</span></a>
+  <nav class="nav"><a href="../index.html#work">Work</a><a href="../cv.html">CV</a><a href="../index.html#about">About</a><a href="mailto:uceick2@ucl.ac.uk">Contact</a></nav>
+</div></header>
+
+<main>
+<section class="case-hero"><div class="wrap">
+  <div class="eyebrow">Predictive analytics · UCL MSIN0097 · March 2026</div>
+  <h1>Can genre be predicted from audio alone?</h1>
+  <p class="sub">When more structure means less signal: gradient boosting on 13 Spotify audio features, and an autoencoder hypothesis that was tested and rejected with a mechanistic explanation.</p>
+  <div class="meta">
+    <div><b>Role</b>Sole author, individual coursework; agent scaffolding reviewed through a 15-row decision register</div>
+    <div><b>Stack</b>Python, scikit-learn, LightGBM, PyTorch, pandas, Matplotlib, Google Antigravity</div>
+    <div><b>Data</b>Kaggle Spotify Tracks (CC0): 10,000 tracks, 10 genres, 1,000 per class, no missing values</div>
+    <div><b>Code</b><a href="https://github.com/kellyc86/msin0097-predictive-analytics">github.com/kellyc86/msin0097-predictive-analytics</a></div>
+  </div>
+</div></section>
+
+<section class="prose"><div class="wrap">
+  <div class="psr">
+    <div>
+      <h2>Problem</h2>
+      <p>Musical genre is one of the most commercially consequential labels attached to a track: it shapes playlist placement, licensing decisions and algorithmic recommendation. Can it be predicted reliably from audio alone?</p>
+      <p>The central hypothesis was that a learned autoencoder representation would outperform raw audio features. Three predictions were registered before any modelling, and all three held.</p>
+    </div>
+    <div>
+      <h2>Skills</h2>
+      <ul>
+        <li><b>Evaluation design:</b> 70/15/15 stratified split, test set locked and accessed once, StandardScaler fitted on train only</li>
+        <li><b>Model selection:</b> 5-fold CV on macro-F1 across dummy, LogReg, Random Forest, MLP and LightGBM; paired t-test (t = 3.657, p = 0.022)</li>
+        <li><b>Tuning:</b> GridSearchCV over learning rate, num_leaves and n_estimators</li>
+        <li><b>Representation learning:</b> PyTorch undercomplete autoencoder with a bottleneck sweep over {4, 6, 8, 10}</li>
+        <li><b>Interpretation:</b> permutation importance, PCA of the latent space, calibration curves, confusion matrix</li>
+        <li><b>Agent governance:</b> three agent errors caught by human review, none visible to automated testing</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Results</h2>
+      <div class="stats" style="grid-template-columns:1fr;margin:0 0 .8rem">
+        <div><b>0.6565</b><span>test macro-F1 for LightGBM on raw features, against a dummy baseline of 0.018</span></div>
+        <div><b>-0.0975</b><span>F1 delta for the autoencoder representation: hypothesis rejected</span></div>
+        <div><b>3×</b><span>popularity's permutation importance (0.192) over the next feature, liveness (0.063)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h2 style="margin-top:3rem">Figures</h2>
+  <p>MSE reconstruction learns a maximum-variance projection, not a maximum-discriminability one: PC1 captures 78.08 per cent of latent variance against 28.2 per cent for raw features.</p>
+  <div class="figs">
+    <figure class="light"><img src="../assets/img/genre-model-comparison.jpg" alt="Bar chart of 5-fold cross-validation macro-F1 by model; LightGBM highest at 0.6695"><figcaption>LightGBM selected on CV mean (0.6695), not the single validation split where Random Forest scored higher.</figcaption></figure>
+    <figure class="light"><img src="../assets/img/genre-permutation-importance.jpg" alt="Permutation importance bars; popularity far ahead at 0.192"><figcaption>Popularity dominates despite near-zero correlation with every audio feature (max |r| = 0.13).</figcaption></figure>
+    <figure class="light"><img src="../assets/img/genre-per-class-delta.jpg" alt="Per-genre F1 delta, encoded minus raw; all negative, edm and r-n-b largest"><figcaption>Acoustically extreme genres lose least under encoding; edm, r-n-b and indie lose most.</figcaption></figure>
+    <figure class="light"><img src="../assets/img/genre-confusion.jpg" alt="Normalised test confusion matrix; classical near-perfect, indie, pop and hip-hop confused"><figcaption>Classical achieves near-perfect separation; indie, pop and hip-hop form the most confused cluster.</figcaption></figure>
+  </div>
+
+  <div class="limits"><b>Limits.</b> A variable that responds to platform promotion rather than acoustic content is endogenous: popularity's contribution may not generalise across time windows or catalogue slices, so the model should be treated as temporally fragile. The dataset is a single snapshot and cannot account for genre drift. Per-class test F1 spans 43 percentage points, from classical (0.930) to indie (0.498).</div>
+</div></section>
+
+<section class="next"><div class="wrap">
+  <span class="label">Next</span>
+  <a href="agentic-benchmark.html"><h3>Agentic AI benchmarking →</h3></a>
+</div></section>
+</main>
+
+<footer class="site-footer"><div class="wrap">
+  <div>© 2026 Caroline Kelly · London</div>
+  <div><a href="mailto:uceick2@ucl.ac.uk">Email</a><a href="https://www.linkedin.com/in/caroline-kelly-42534a266/">LinkedIn</a><a href="https://github.com/kellyc86">GitHub</a></div>
+</div></footer>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

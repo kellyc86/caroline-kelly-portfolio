@@ -1,425 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="en-GB">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Caroline Kelly — Data Analytics & Machine Learning Portfolio">
-    <title>Caroline Kelly — Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/cv.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caroline Kelly Portfolio</title>
+<meta name="description" content="Portfolio of Caroline Kelly: data and AI products that ship into the tools people already use. Williams Racing sponsorship propensity, fan intelligence, artist momentum, genre classification.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
-
 <body>
+<header class="site-header"><div class="wrap">
+  <a class="brand" href="index.html">Caroline <span>Kelly</span></a>
+  <nav class="nav"><a href="#work" aria-current="page">Work</a><a href="cv.html">CV</a><a href="#about">About</a><a href="mailto:uceick2@ucl.ac.uk">Contact</a></nav>
+</div></header>
 
-    <!-- SVG Filter for enhanced sticky lava lamp gooey effect -->
-    <svg style="position: absolute; width: 0; height: 0;">
-        <defs>
-            <filter id="goo">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="15" result="blur" />
-                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -8"
-                    result="goo" />
-                <feBlend in="SourceGraphic" in2="goo" />
-            </filter>
-        </defs>
-    </svg>
+<main>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur"/><feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -10" result="goo"/><feBlend in="SourceGraphic" in2="goo"/></filter></defs></svg>
+<section class="hero">
+<div class="blobs" aria-hidden="true"><div class="blob"></div><div class="blob"></div><div class="blob"></div><div class="blob"></div><div class="blob"></div><div class="blob"></div><div class="blob"></div></div>
+<div class="wrap">
+  <div class="eyebrow">Data · AI products · Music</div>
+  <h1>Caroline Kelly Portfolio</h1>
+  <p class="lede">Data and AI products that ship into the tools people already use. Most recently a sponsorship-propensity system for Williams Racing, deployed inside Salesforce.</p>
+  <div class="cta">
+    <a class="btn primary" href="work/williams-sponsorship.html">Read the Williams case study</a>
+    <a class="btn" href="cv.html">CV</a>
+  </div>
+</div></section>
 
-    <!-- Floating blobs across entire site -->
-    <div class="data-particles">
-        <span class="particle" style="top: 15%; animation-delay: 0s;"></span>
-        <span class="particle" style="top: 25%; animation-delay: 2s;"></span>
-        <span class="particle" style="top: 35%; animation-delay: 4s;"></span>
-        <span class="particle" style="top: 45%; animation-delay: 1s;"></span>
-        <span class="particle" style="top: 55%; animation-delay: 3s;"></span>
-        <span class="particle" style="top: 65%; animation-delay: 5s;"></span>
-        <span class="particle" style="top: 75%; animation-delay: 2.5s;"></span>
-        <span class="particle" style="top: 85%; animation-delay: 4.5s;"></span>
-        <span class="particle" style="top: 20%; animation-delay: 1.5s;"></span>
-        <span class="particle" style="top: 50%; animation-delay: 3.5s;"></span>
+<div class="marquee" aria-hidden="true"><div class="marquee__track">
+  <span>Python · SQL · BigQuery · LightGBM · survival analysis · weak supervision · SHAP · Salesforce · FastAPI · LangChain · MCP · AWS · Terraform · Spark · DuckDB · </span>
+  <span>Python · SQL · BigQuery · LightGBM · survival analysis · weak supervision · SHAP · Salesforce · FastAPI · LangChain · MCP · AWS · Terraform · Spark · DuckDB · </span>
+</div></div>
+
+<section id="work"><div class="wrap">
+  <div class="section-head"><h2>Work</h2><p>Problem, skills, results.</p></div>
+  <div class="grid">
+    <a class="card feature" href="work/williams-sponsorship.html">
+      <div class="num">01 · Williams Racing · dissertation partnership</div>
+      <h3>Where should the next hour of selling go?</h3>
+      <div class="stat">13.7% <small>of the model's top decile went on to sign, against a 1.6% base rate</small></div>
+      <p>A weekly refreshed list of 60 ranked companies inside Salesforce, each carrying the evidence behind its rank, plus a model of which open deals will close.</p>
+      <div class="tags"><span class="tag">LightGBM</span><span class="tag">GDELT / BigQuery</span><span class="tag">survival analysis</span><span class="tag">SHAP</span><span class="tag">Salesforce</span><span class="tag">Claude Batch API</span></div>
+    </a>
+    <a class="card" href="work/fan-intelligence.html">
+      <div class="num">02 · Independent coursework</div>
+      <h3>Can a label see its fans as segments rather than streams?</h3>
+      <div class="stat">4,827 <small>fans classified into four behavioural archetypes</small></div>
+      <p>Five platforms, weak supervision, sentiment and a RAG agent, served over REST, WebSocket and MCP on AWS.</p>
+      <div class="tags"><span class="tag">Spark</span><span class="tag">Snorkel</span><span class="tag">LangChain</span><span class="tag">FastAPI</span><span class="tag">Terraform</span></div>
+    </a>
+    <a class="card" href="work/artist-momentum.html">
+      <div class="num">03 · Independent coursework</div>
+      <h3>Which artists are gaining momentum this week?</h3>
+      <div class="stat">16 <small>press feeds, two chart sources and Spotify, scored weekly</small></div>
+      <p>Weekly ETL, a cross-source momentum score, a Monday digest and an API. Version one.</p>
+      <div class="tags"><span class="tag">Playwright</span><span class="tag">DuckDB</span><span class="tag">FastAPI</span><span class="tag">Docker</span></div>
+    </a>
+    <a class="card" href="work/spotify-genre.html">
+      <div class="num">04 · Predictive analytics</div>
+      <h3>Does genre live in the audio?</h3>
+      <div class="stat">0.657 <small>macro-F1 across ten genres, against a 0.018 baseline</small></div>
+      <p>Five classifiers and an autoencoder ablation on 10,000 tracks. Raw features beat the learned representation.</p>
+      <div class="tags"><span class="tag">LightGBM</span><span class="tag">PyTorch</span><span class="tag">pre-registered</span></div>
+    </a>
+    <a class="card" href="work/agentic-benchmark.html">
+      <div class="num">05 · Group project</div>
+      <h3>Do AI coding agents know when they are wrong?</h3>
+      <div class="stat">−0.625 <small>R² shipped by the tool with the highest rubric score, without raising an error</small></div>
+      <p>Three agentic tools, six data-science tasks. Rubric score and model quality pointed in different directions.</p>
+      <div class="tags"><span class="tag">Claude</span><span class="tag">Codex</span><span class="tag">Antigravity</span><span class="tag">evaluation</span></div>
+    </a>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="section-head"><h2>Also built</h2><p>Smaller pieces and practice work.</p></div>
+  <div class="list">
+    <a href="work/promoter-expansion.html"><span>Where should an independent promoter expand next?<small>Interactive map scoring 21 UK cities from live venue data and student populations. Concept, v1.</small></span><span>dashboard</span></a>
+    <a href="work/london-air-quality.html"><span>London air quality pipeline<small>Spark, DuckDB and seven public datasets. Group project; I owned the Silver layer.</small></span><span>data engineering</span></a>
+    <a href="https://github.com/kellyc86/Market-Research-Final-Draft"><span>Market research assistant<small>Streamlit and LangChain RAG tool that writes cited industry briefs. Code only.</small></span><span>github ↗</span></a>
+    <a href="practice/dynamic-pricing.html"><span>Ticket pricing model<small>Practice project on synthetic data. Kept for the method.</small></span><span>practice</span></a>
+    <a href="practice/churn-prediction.html"><span>Cost-weighted churn prediction<small>Practice project on synthetic data. Kept for the method.</small></span><span>practice</span></a>
+  </div>
+</div></section>
+
+<section id="about"><div class="wrap">
+  <div class="section-head"><h2>About</h2></div>
+  <div class="two">
+    <div>
+      <p>Engineering at Trinity College Dublin. A year at Arup forecasting EV charging demand for government clients. A year at Northwell Health in New York, rotating through venture investment, business development and a hospital leadership office during a $32M expansion. Then the MSc in Business Analytics at UCL, where the dissertation became the Williams project.</p>
     </div>
-
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="nav__inner">
-            <a href="#home" class="nav__logo">
-                <span class="nav__logo-name">Caroline Kelly</span>
-                <span class="nav__logo-subtitle">Data Analyst</span>
-            </a>
-            <div class="nav__menu">
-                <a href="#home" class="nav__link">Home</a><a href="#projects" class="nav__link">Projects</a><a
-                    href="#cv" class="nav__link">CV</a><a href="#contact" class="nav__link">Contact</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- SECTION 1: HERO -->
-    <section id="home" class="hero-main">
-        <div class="hero-main__content">
-            <h1 class="hero-main__title">
-                CAROLINE<br>
-                KELLY<br>
-                PORTFOLIO
-            </h1>
-        </div>
-    </section>
-
-    <!-- SECTION 2: PROJECTS -->
-    <section id="projects" class="section-projects">
-        <div class="section-header">
-            <div class="container">
-                <p class="section-header__label">CASE STUDIES</p>
-                <h2 class="section-header__title">Analytics Projects</h2>
-                <p class="section-header__subtitle">
-                    End-to-end data analytics and ML projects for an event discovery platform.
-                </p>
-                <p style="font-weight: 700; text-decoration: underline; margin-top: 15px; color: #DC143C;">
-                    Note: All analysis is built on synthetic data sets.
-                </p>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="projects-grid">
-
-                <!-- Project 01 -->
-                <a href="case-study-1.html" class="project-card">
-                    <div class="project-card__image">
-                        <img src="images/case1_main_insight.png" alt="Geographic Demand Heatmap" loading="lazy">
-                    </div>
-                    <div class="project-card__content">
-                        <div class="project-card__number">01</div>
-                        <h3 class="project-card__title">Geographic Demand Heatmap Analysis</h3>
-                        <p class="project-card__desc">Identifying where user demand exceeds event supply to guide market
-                            expansion.</p>
-                        <div class="project-card__tags">
-                            <span>Python</span>
-                            <span>Pandas</span>
-                            <span>Seaborn</span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Project 02 -->
-                <a href="case-study-2.html" class="project-card">
-                    <div class="project-card__image">
-                        <img src="images/case2_main_insight.png" alt="Venue Capacity Optimization" loading="lazy">
-                    </div>
-                    <div class="project-card__content">
-                        <div class="project-card__number">02</div>
-                        <h3 class="project-card__title">Venue Capacity Optimization</h3>
-                        <p class="project-card__desc">Analyzing sellout patterns to right-size venues and maximize
-                            revenue.</p>
-                        <div class="project-card__tags">
-                            <span>Python</span>
-                            <span>Pandas</span>
-                            <span>Statistical Analysis</span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Project 03 -->
-                <a href="case-study-3.html" class="project-card">
-                    <div class="project-card__image">
-                        <img src="images/case3_main_insight.png" alt="Dynamic Pricing Model" loading="lazy">
-                    </div>
-                    <div class="project-card__content">
-                        <div class="project-card__number">03</div>
-                        <h3 class="project-card__title">Dynamic Pricing Intelligence</h3>
-                        <p class="project-card__desc">ML model predicting optimal ticket prices for maximum revenue.</p>
-                        <div class="project-card__tags">
-                            <span>Scikit-Learn</span>
-                            <span>Random Forest</span>
-                            <span>Feature Engineering</span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Project 04 -->
-                <a href="case-study-4.html" class="project-card">
-                    <div class="project-card__image">
-                        <img src="images/case4_main_gap.png" alt="Event Discovery Gap Analysis" loading="lazy">
-                    </div>
-                    <div class="project-card__content">
-                        <div class="project-card__number">04</div>
-                        <h3 class="project-card__title">Event Discovery Gap Analysis</h3>
-                        <p class="project-card__desc">Quantifying underserved markets where demand exceeds supply.</p>
-                        <div class="project-card__tags">
-                            <span>Python</span>
-                            <span>Market Sizing</span>
-                            <span>Gap Analysis</span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Project 05 -->
-                <a href="case-study-5.html" class="project-card">
-                    <div class="project-card__image">
-                        <img src="images/case5_main_insight.png" alt="Churn Prediction Model" loading="lazy">
-                    </div>
-                    <div class="project-card__content">
-                        <div class="project-card__number">05</div>
-                        <h3 class="project-card__title">Churn Prediction Model</h3>
-                        <p class="project-card__desc">Identifying at-risk users for targeted retention campaigns.</p>
-                        <div class="project-card__tags">
-                            <span>Scikit-Learn</span>
-                            <span>Classification</span>
-                            <span>ROC-AUC</span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Project 06 -->
-                <a href="case-study-6.html" class="project-card">
-                    <div class="project-card__image">
-                        <img src="images/case6_market_ranking.png" alt="Spotify Global Expansion" loading="lazy">
-                    </div>
-                    <div class="project-card__content">
-                        <div class="project-card__number">06</div>
-                        <h3 class="project-card__title">Spotify Global Expansion Strategy</h3>
-                        <p class="project-card__desc">Multi-criteria analysis to prioritize international market entry.
-                        </p>
-                        <div class="project-card__tags">
-                            <span>MCDA</span>
-                            <span>Market Sizing</span>
-                            <span>Strategic Analysis</span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Project 07 -->
-                <a href="case-study-7.html" class="project-card">
-                    <div class="project-card__image">
-                        <img src="images/case7_system_architecture.png" alt="Fraud Detection" loading="lazy">
-                    </div>
-                    <div class="project-card__content">
-                        <div class="project-card__number">07</div>
-                        <h3 class="project-card__title">Fraud Detection with RAG</h3>
-                        <p class="project-card__desc">Real-time anomaly detection using RAG knowledge base matching.</p>
-                        <div class="project-card__tags">
-                            <span>RAG</span>
-                            <span>Anomaly Detection</span>
-                            <span>Real-Time ML</span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Project 08 -->
-                <a href="case-study-8.html" class="project-card">
-                    <div class="project-card__image">
-                        <img src="images/case8_embedding_space.png" alt="Collaboration Network" loading="lazy">
-                    </div>
-                    <div class="project-card__content">
-                        <div class="project-card__number">08</div>
-                        <h3 class="project-card__title">Collaboration Network with MCP</h3>
-                        <p class="project-card__desc">Graph network analysis to identify high-impact artist
-                            collaborations.</p>
-                        <div class="project-card__tags">
-                            <span>Graph ML</span>
-                            <span>MCP</span>
-                            <span>Link Prediction</span>
-                        </div>
-                    </div>
-                </a>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 3: CV -->
-    <section id="cv" class="section-cv">
-        <div class="cv-hero">
-            <div class="container--narrow">
-                <p class="cv-hero__label">CURRICULUM VITAE</p>
-                <h2 class="cv-hero__title">Experience & Education</h2>
-            </div>
-        </div>
-
-        <!-- Experience -->
-        <div class="cv-visual-section">
-            <div class="container">
-                <h3 class="cv-visual-section__heading">EXPERIENCE</h3>
-
-                <!-- Northwell Health -->
-                <div class="cv-visual-card">
-                    <a href="https://www.northwell.edu/" target="_blank" rel="noopener noreferrer"
-                        class="cv-visual-card__image">
-                        <img src="Northwell_Health_Logo.png" alt="Northwell Health Logo" loading="lazy">
-                    </a>
-                    <div class="cv-visual-card__content">
-                        <p class="cv-visual-card__date">October 2024 – September 2025</p>
-                        <h4 class="cv-visual-card__title">Administrative Fellowship</h4>
-                        <a href="https://www.northwell.edu/" target="_blank" rel="noopener noreferrer"
-                            class="cv-visual-card__org">
-                            Northwell Health →
-                        </a>
-                        <p class="cv-visual-card__desc">New York's largest healthcare system</p>
-                        <ul class="cv-visual-card__list">
-                            <li>Leading strategic initiatives across operations and analytics</li>
-                            <li>Developing data-driven solutions for healthcare delivery optimization</li>
-                            <li>Collaborating with C-suite executives on organizational transformation</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Arup -->
-                <div class="cv-visual-card">
-                    <a href="https://www.arup.com/" target="_blank" rel="noopener noreferrer"
-                        class="cv-visual-card__image">
-                        <img src="2A.png" alt="Arup Logo" loading="lazy">
-                    </a>
-                    <div class="cv-visual-card__content">
-                        <p class="cv-visual-card__date">August 2023 – August 2024</p>
-                        <h4 class="cv-visual-card__title">Strategy & Transformation Consultant</h4>
-                        <a href="https://www.arup.com/" target="_blank" rel="noopener noreferrer"
-                            class="cv-visual-card__org">
-                            Arup →
-                        </a>
-                        <p class="cv-visual-card__desc">Global engineering and consulting firm</p>
-                        <ul class="cv-visual-card__list">
-                            <li>Delivered business strategy and transformation projects for infrastructure clients</li>
-                            <li>Built financial models and data analytics solutions for project feasibility</li>
-                            <li>Supported major infrastructure programs across transportation and urban development</li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Education -->
-        <div class="cv-visual-section">
-            <div class="container">
-                <h3 class="cv-visual-section__heading">EDUCATION</h3>
-
-                <!-- UCL -->
-                <div class="cv-visual-card">
-                    <a href="https://www.ucl.ac.uk/" target="_blank" rel="noopener noreferrer"
-                        class="cv-visual-card__image">
-                        <img src="University_College_London_logo.svg.png" alt="UCL Logo" loading="lazy">
-                    </a>
-                    <div class="cv-visual-card__content">
-                        <p class="cv-visual-card__date">September 2025 – September 2026</p>
-                        <h4 class="cv-visual-card__title">MSc Business Analytics</h4>
-                        <a href="https://www.ucl.ac.uk/" target="_blank" rel="noopener noreferrer"
-                            class="cv-visual-card__org">
-                            University College London →
-                        </a>
-                        <p class="cv-visual-card__desc">Top 10 global university</p>
-                        <ul class="cv-visual-card__list">
-                            <li><strong>Academic Projects:</strong> Pricing & Demand Analytics, Customer Segmentation &
-                                Lifetime Value Modelling</li>
-                            <li>Advanced coursework in machine learning, causal inference, and statistical modeling</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Trinity College Dublin -->
-                <div class="cv-visual-card">
-                    <a href="https://www.tcd.ie/" target="_blank" rel="noopener noreferrer"
-                        class="cv-visual-card__image">
-                        <img src="Trinity-Main-Logo.jpg" alt="Trinity College Dublin Logo" loading="lazy">
-                    </a>
-                    <div class="cv-visual-card__content">
-                        <p class="cv-visual-card__date">September 2019 – August 2023</p>
-                        <h4 class="cv-visual-card__title">BSc Engineering</h4>
-                        <a href="https://www.tcd.ie/" target="_blank" rel="noopener noreferrer"
-                            class="cv-visual-card__org">
-                            Trinity College Dublin →
-                        </a>
-                        <p class="cv-visual-card__desc">Ireland's leading university, est. 1592</p>
-                        <ul class="cv-visual-card__list">
-                            <li>Specialized in systems engineering and quantitative analysis</li>
-                            <li>Foundation in optimization, modeling, and analytical problem-solving</li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Skills -->
-        <div class="cv-visual-section cv-visual-section--skills">
-            <div class="container">
-                <h3 class="cv-visual-section__heading">SKILLS</h3>
-
-                <div class="skills-grid">
-                    <div class="skill-group">
-                        <p class="skill-group__label">Analytics</p>
-                        <div class="skill-group__tags">
-                            <span>Python</span>
-                            <span>R</span>
-                            <span>SQL</span>
-                            <span>Pandas</span>
-                            <span>NumPy</span>
-                            <span>Scikit-Learn</span>
-                            <span>Matplotlib</span>
-                            <span>Seaborn</span>
-                        </div>
-                    </div>
-
-                    <div class="skill-group">
-                        <p class="skill-group__label">Methods</p>
-                        <div class="skill-group__tags">
-                            <span>Regression</span>
-                            <span>Classification</span>
-                            <span>Clustering</span>
-                            <span>Random Forest</span>
-                            <span>Feature Engineering</span>
-                            <span>A/B Testing</span>
-                            <span>Causal Inference</span>
-                            <span>EDA</span>
-                        </div>
-                    </div>
-
-                    <div class="skill-group">
-                        <p class="skill-group__label">Delivery</p>
-                        <div class="skill-group__tags">
-                            <span>Stakeholder Reporting</span>
-                            <span>KPI Development</span>
-                            <span>Data Storytelling</span>
-                            <span>Presentations</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Contact -->
-        <div class="contact-section" id="contact">
-            <div class="container">
-                <h3 class="contact-section__title">Get in touch</h3>
-                <a href="mailto:uceick2@ucl.ac.uk" class="contact-section__email">uceick2@ucl.ac.uk</a>
-                <p class="contact-section__detail">+44 7886 140357 · London, UK</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer__inner">
-                <span>© 2025 Caroline Kelly</span>
-                <span>London, UK</span>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Animated Marquee at Bottom -->
-    <div class="marquee">
-        <div class="marquee__track">
-            <span class="marquee__text">DATA ANALYTICS · MACHINE LEARNING · BUSINESS STRATEGY · EVENT DISCOVERY ·
-                PRICING OPTIMIZATION · </span>
-            <span class="marquee__text">DATA ANALYTICS · MACHINE LEARNING · BUSINESS STRATEGY · EVENT DISCOVERY ·
-                PRICING OPTIMIZATION · </span>
-        </div>
+    <div>
+      <p>At gigs and showcases most weeks, which is why the side projects here are about fans and artists.</p>
+      <p><a class="btn" href="cv.html">Full CV</a> &nbsp; <a class="btn" href="mailto:uceick2@ucl.ac.uk">Email me</a></p>
     </div>
+  </div>
+</div></section>
+</main>
 
-    <script src="js/main.js"></script>
+<footer class="site-footer"><div class="wrap">
+  <div>© 2026 Caroline Kelly · London</div>
+  <div><a href="mailto:uceick2@ucl.ac.uk">Email</a><a href="https://www.linkedin.com/in/caroline-kelly-42534a266/">LinkedIn</a><a href="https://github.com/kellyc86">GitHub</a></div>
+</div></footer>
+<script src="assets/js/main.js"></script>
 </body>
-
 </html>

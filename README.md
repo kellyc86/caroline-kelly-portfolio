@@ -1,29 +1,9 @@
-# Caroline Kelly - Data Analytics Portfolio
+# caroline-kelly-portfolio
 
-A professional portfolio website showcasing data analytics and machine learning case studies. Built with HTML5, CSS3, and JavaScript.
+Static portfolio site. Plain HTML and CSS, one small script for scroll reveals, no build step, no analytics, no external calls other than Google Fonts.
 
-## Features
-- **Professional Design**: Clean, light-themed aesthetic with crimson accents.
-- **Responsive**: Fully responsive layout that works on desktop, tablet, and mobile.
-- **Project Showcase**: Specific grid layout for case studies.
-- **Code Viewer**: Dedicated pages to view analysis code with syntax highlighting.
+- `index.html` home, `cv.html` CV
+- `work/` case studies, `practice/` practice projects on synthetic data
+- `assets/css/style.css`, `assets/js/main.js`, `assets/img/`
 
-## Getting Started
-
-1. **Open the website**: Double-click `index.html` to view the site in your browser.
-2. **Deploy**: Upload this entire folder to Netlify, GitHub Pages, or any static host.
-
-## Project Structure
-- `index.html`: The main homepage (Hero, Experience, Education).
-- `projects.html`: Portfolio grid of case studies.
-- `cv.html`: Detailed curriculum vitae.
-- `case-study-X.html`: Individual case study presentation pages.
-- `code-case-study-X.html`: Code viewer pages for each case study.
-- `css/`: Stylesheets (`styles.css`, `case-study.css`, `code-viewer.css`).
-- `js/`: Interactive logic (`main.js`).
-- `*.png`: Project images and logos.
-
-## Customization
-- **Content**: Edit HTML files directly.
-- **Styles**: Edit `css/styles.css` for main theme, `css/case-study.css` for case studies.
-- **Images**: Replace the `.png` files in the root folder.
+Figures from the Williams Racing project are reproduced from the dissertation write-up and contain no company, deal or personal data.
