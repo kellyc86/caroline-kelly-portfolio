@@ -26,8 +26,8 @@ body.desktop { background: #3a7bd5; overflow: hidden; height: 100vh; margin: 0; 
 .desk { position: fixed; inset: 0 0 34px 0; z-index: 1; }
 
 /* Desktop icons */
-.icons { position: absolute; top: 10px; left: 12px; display: grid; gap: 5px; width: 108px; z-index: 2; }
-.icon { text-align: center; color: #fff; font-size: 11px; line-height: 1.15; text-shadow: 1px 1px 2px rgba(0,0,0,.8); cursor: pointer; padding: 4px; border: 1px dotted transparent; user-select: none; }
+.icons { position: absolute; top: 10px; left: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 4px; width: 236px; z-index: 2; align-content: start; }
+.icon { text-align: center; color: #fff; font-size: 11px; line-height: 1.15; text-shadow: 0 0 3px #000, 0 0 6px #000, 1px 1px 2px #000; font-weight: 600; cursor: pointer; padding: 4px; border: 1px dotted transparent; user-select: none; }
 .icon:hover, .icon:focus { border-color: rgba(255,255,255,.6); background: rgba(10,36,106,.35); outline: none; }
 .icon .ic { width: 34px; height: 34px; margin: 0 auto 6px; image-rendering: pixelated; }
 .icon .ic svg { width: 100%; height: 100%; }
@@ -134,10 +134,50 @@ body.framed .site-header { display: none; }
 @media (max-width: 760px) { body.framed { padding: 8px 0 40px; } .addr .nb a span { display: none; } }
 
 /* Start-here balloon */
-.hint { position: absolute; left: 130px; bottom: 16px; background: #ffffe1; color: #111; border: 1px solid #000; border-radius: 6px; padding: 10px 26px 10px 12px; font-size: 12px; line-height: 1.45; z-index: 30; box-shadow: 2px 2px 0 rgba(0,0,0,.25); max-width: 240px; }
+.hint { position: absolute; left: 262px; bottom: 16px; z-index: 3; background: #ffffe1; color: #111; border: 1px solid #000; border-radius: 6px; padding: 10px 26px 10px 12px; font-size: 12px; line-height: 1.45; box-shadow: 2px 2px 0 rgba(0,0,0,.25); max-width: 240px; }
 .hint::before { content: ""; position: absolute; left: -12px; top: 18px; border: 6px solid transparent; border-right-color: #000; }
 .hint::after { content: ""; position: absolute; left: -10px; top: 19px; border: 5px solid transparent; border-right-color: #ffffe1; }
 .hint .hx { position: absolute; right: 6px; top: 4px; cursor: pointer; font-weight: 700; }
 @media (max-width: 760px) { .hint { position: static; margin-bottom: 4px; } .hint::before, .hint::after { display: none; } }
 
 .wall { position: fixed; inset: 0; z-index: 0; background: #3a7bd5 url("../img/desktop-bg.jpg") center / cover no-repeat; }
+
+/* Icon discs */
+.icon .ic.disc { width: 64px; height: 64px; background: #fff; border-radius: 50%; padding: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.5); display: flex; align-items: center; justify-content: center; }
+.icon .ic.disc.big { width: 80px; height: 80px; padding: 8px; }
+.icon .ic.disc img { object-fit: contain; }
+
+/* Album of the week */
+.aotw { display: grid; grid-template-columns: 170px 1fr; gap: 14px; align-items: center; background: #111; color: #eee; }
+.record { position: relative; width: 170px; height: 120px; }
+.record .cover { position: absolute; left: 0; top: 0; width: 110px; height: 110px; object-fit: cover; box-shadow: 2px 2px 8px rgba(0,0,0,.6); z-index: 2; }
+.record .vinyl { position: absolute; left: 58px; top: 5px; width: 105px; height: 105px; z-index: 1; }
+.vinyl { width: 105px; height: 105px; border-radius: 50%; background: radial-gradient(circle, #ff3a1a 0 28%, #d52a10 28% 30%, #ff3a1a 30% 33%, #d52a10 33% 35%, #ff3a1a 35% 46%, #d52a10 46% 48%, #ff3a1a 48% 62%, #d52a10 62% 64%, #ff3a1a 64% 78%, #d52a10 78% 80%, #ff3a1a 80% 100%); box-shadow: 0 0 0 2px #200, 0 6px 14px rgba(0,0,0,.6); position: relative; animation: spin 3.2s linear infinite; }
+.vinyl .label { position: absolute; left: 50%; top: 50%; width: 36px; height: 36px; margin: -18px 0 0 -18px; border-radius: 50%; background: #fff; }
+.vinyl .label::after { content: ""; position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: #111; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.aotw .k { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #9fb0cc; }
+.aotw .t { font-family: var(--pixel); font-size: 26px; color: #4ade80; line-height: 1; margin: 6px 0 2px; }
+.aotw .a { font-size: 13px; color: #ddd; }
+.aotw .ctl { margin-top: 10px; font-size: 13px; color: #9fb0cc; }
+@media (prefers-reduced-motion: reduce) { .vinyl { animation: none; } }
+
+/* Case-study window on the desktop */
+.page-win { min-width: 320px; }
+.page-win .wbody { overflow: hidden; }
+.page-win iframe { width: 100%; height: 100%; border: 0; display: block; background: #fff; }
+.page-win .tbar button.mx { display: inline-block; }
+
+/* Meta links: stop long URLs colliding */
+.meta div { min-width: 0; }
+.meta a { display: inline-block; max-width: 100%; overflow-wrap: anywhere; word-break: break-word; }
+
+/* Framed pages over the wallpaper, taskbar below, page scrolls */
+body.framed { background: #3a7bd5 url("../img/desktop-bg.jpg") center / cover fixed no-repeat; padding: 22px 0 60px; }
+body.framed .taskbar { position: fixed; }
+body.framed .taskbar .task { pointer-events: none; }
+/* Embedded inside a desktop window: hide the chrome and wallpaper */
+body.framed.embed { background: #fff; padding: 0; }
+body.framed.embed .browser { max-width: none; border: 0; box-shadow: none; border-radius: 0; }
+body.framed.embed .browser > .tbar, body.framed.embed .menubar, body.framed.embed .addr, body.framed.embed .status, body.framed.embed .taskbar { display: none; }
+body.framed.embed .page { margin: 0; border: 0; }

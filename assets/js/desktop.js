@@ -40,7 +40,7 @@
 
   // Icons open windows
   document.querySelectorAll('[data-open]').forEach(function (el) {
-    el.addEventListener('click', function () { open(el.dataset.open); closeStart(); });
+    el.addEventListener('click', function (e) { if (el.tagName === 'A') e.preventDefault(); open(el.dataset.open); closeStart(); });
     el.addEventListener('keydown', function (e) { if (e.key === 'Enter') open(el.dataset.open); });
   });
 
@@ -55,9 +55,21 @@
   function tick() { var d = new Date(); clock.textContent = d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }); }
   tick(); setInterval(tick, 15000);
 
-  // Now playing: cycle project titles
-  var np = document.getElementById('np'); var npi = 0;
-  if (np) { var names = wins.filter(function (w) { return w.classList.contains('proj'); }).map(function (w) { return w.dataset.title; }); setInterval(function () { npi = (npi + 1) % names.length; np.textContent = names[npi]; }, 4000); }
+  // Case studies open inside a desktop window (iframe). Direct links still work without JS.
+  var pw = document.getElementById('w-page'), pf = document.getElementById('page-frame');
+  function openPage(href, title) {
+    if (mobile()) { location.href = href; return; }
+    pf.src = href + (href.indexOf('?') < 0 ? '?embed=1' : '&embed=1');
+    pw.querySelector('.ti').textContent = title; pw.dataset.title = title;
+    pw.style.left = '60px'; pw.style.top = '20px'; pw.style.width = 'calc(100vw - 120px)'; pw.style.height = 'calc(100vh - 34px - 40px)';
+    open('w-page'); closeStart();
+  }
+  document.querySelectorAll('[data-page]').forEach(function (a) {
+    a.addEventListener('click', function (e) { e.preventDefault(); var t = a.closest('.win') ? a.closest('.win').dataset.title : a.textContent.trim(); openPage(a.dataset.page, t); });
+  });
+  var mx = pw && pw.querySelector('.mx'); if (mx) mx.onclick = function (e) { e.stopPropagation(); pw.querySelector('.tbar').dispatchEvent(new Event('dblclick')); };
+  // Contact: copy address
+  var cp = document.getElementById('copy'); if (cp) cp.onclick = function () { var m = document.getElementById('mail').textContent; try { navigator.clipboard.writeText(m); cp.textContent = 'Copied'; setTimeout(function () { cp.textContent = 'Copy'; }, 1500); } catch (e) { window.prompt('Copy the address:', m); } };
 
   // Splash
   var sp = document.getElementById('splash');
