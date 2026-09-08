@@ -8,8 +8,9 @@
 
   function focus(w) { wins.forEach(function (x) { x.classList.remove('focus'); }); w.classList.add('focus'); w.style.zIndex = ++z; syncTasks(); }
   function open(id) { var w = document.getElementById(id); if (!w) return; w.classList.remove('min'); w.hidden = false; focus(w); if (mobile()) setTimeout(function () { w.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 30); }
-  function minimise(w) { w.classList.add('min'); syncTasks(); }
-  function close(w) { w.hidden = true; w.classList.remove('min'); syncTasks(); }
+  function stopPlayer(w) { if (w.id !== 'w-aotw') return; var pl = document.getElementById('player'), pb = document.getElementById('play'); if (pl) { pl.innerHTML = ''; pl.hidden = true; } if (pb) pb.textContent = '▶ Play'; }
+  function minimise(w) { stopPlayer(w); w.classList.add('min'); syncTasks(); }
+  function close(w) { stopPlayer(w); w.hidden = true; w.classList.remove('min'); syncTasks(); }
 
   function syncTasks() {
     tasks.innerHTML = '';
