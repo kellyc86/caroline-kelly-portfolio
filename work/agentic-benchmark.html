@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agentic AI Benchmarking · Caroline Kelly</title>
+<meta name="description" content="A group benchmark of three coding agents on NYC Airbnb price prediction, where rubric scores and model quality pulled apart. Problem, skills, results.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/retro.css">
+</head>
+<body class="framed">
+<header class="site-header"><div class="wrap">
+  <a class="brand" href="../index.html">Caroline <span>Kelly</span></a>
+  <nav class="nav"><a href="../index.html#work">Work</a><a href="../cv.html">CV</a><a href="../index.html#about">About</a><a href="mailto:uceick2@ucl.ac.uk">Contact</a></nav>
+</div></header>
+<div class="browser">
+  <div class="tbar"><span class="ti">Agentic coding benchmark - Caroline Kelly Portfolio</span><button onclick="history.back()">_</button><button>□</button><button class="x" onclick="location.href='../index.html'">×</button></div>
+  <div class="menubar"><span>File</span><span>Edit</span><span>View</span><span>Favorites</span><span>Tools</span><span>Help</span></div>
+  <div class="addr">
+    <div class="nb"><a href="javascript:history.back()">◀ <span>Back</span></a><a class="dis" href="#">▶ <span>Forward</span></a><a href="../index.html">⌂ <span>Home</span></a></div>
+    <div class="field"><span class="lbl">Address</span><span>C:\Portfolio\Work\Agentic benchmark</span></div><a class="go" href="../index.html#work">Go</a>
+  </div>
+  <div class="page">
+
+<main data-accent="mono">
+<section class="case-hero"><div class="wrap">
+  <div class="eyebrow">Agentic AI · UCL Predictive Analytics · March 2026</div>
+  <h1>Does a high rubric score mean a good model?</h1>
+  <p class="sub">Three coding agents were set the same four data-science tasks on NYC Airbnb listings and marked against a shared rubric. The tool with the best rubric total shipped the worst baseline.</p>
+  <div class="meta">
+    <div><b>Role</b>Group of five. I operated the Antigravity agent across all four tasks and confirmed the dataset schema</div>
+    <div><b>Stack</b>Python, scikit-learn, Git, Antigravity, Claude, Codex</div>
+    <div><b>Data</b>NYC Airbnb Open Data 2019: 48,895 listings, 16 features, nightly price as target</div>
+    <div><b>Code</b><a href="https://github.com/dilaracgrl/PredictiveAnalytics-HousePrices">github.com/dilaracgrl/PredictiveAnalytics-HousePrices</a></div>
+  </div>
+  <div class="notice">Group project. The repository is hosted by a group member; the Antigravity branch and its task outputs are my work. Other members ran the Claude and Codex agents and carried out the reviews.</div>
+</div></section>
+
+<section class="prose"><div class="wrap">
+  <div class="psr">
+    <div>
+      <h2>Problem</h2>
+      <p>Which tool produces the most accurate, reproducible and well-documented outputs on standardised pipeline tasks, and do rubric compliance and model quality point in the same direction?</p>
+      <p>Price is heavily right-skewed (mean $152, median $106). No agent was given guidance on target transformation, making the log transform a test of statistical judgement rather than instruction following.</p>
+    </div>
+    <div>
+      <h2>Skills</h2>
+      <ul>
+        <li><b>Benchmark design:</b> four sequential tasks, shared <code>evaluate.py</code> rubric with four automated and one manual check per task</li>
+        <li><b>Reproducibility controls:</b> SEED=42 in every split, relative paths, Git branch isolation per agent</li>
+        <li><b>Agent operation:</b> ran Antigravity end to end, Task 01 scored 5/5 in 15 minutes</li>
+        <li><b>Leakage discipline:</b> log1p target and scikit-learn Pipelines so scalers and encoders fit on training data only</li>
+        <li><b>Human review:</b> manual inspection of notebook cell order for leakage boundaries</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Results</h2>
+      <div class="stats" style="grid-template-columns:1fr;margin:0 0 .8rem">
+        <div><b>19/20</b><span>Codex's rubric total, the highest of the three</span></div>
+        <div><b>−0.625</b><span>Codex's baseline R², worse than predicting the mean, reported silently with no error raised</span></div>
+        <div><b>0</b><span>failures self-detected by an agent; every one was found by a human reviewer</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h2 style="margin-top:3rem">Rubric against model quality</h2>
+  <p>Rubric totals were Antigravity 18/20, Claude 16/20 and Codex 19/20. Improved test RMSE and R² were 106.07 and 0.352, 74.87 and 0.485, and 86.53 and 0.463. Claude scored only 2/5 on Task 01 and produced the strongest model; Antigravity completed each task fastest at 25 minutes on average.</p>
+  <div class="pipeline">
+    <div><b>01 Ingestion</b>Zero nulls, every imputation documented</div>
+    <div><b>02 EDA</b>Training data only, written interpretations</div>
+    <div><b>03 Baseline</b>Preprocessing fitted on training data only</div>
+    <div><b>04 Improvement</b>Above 1 per cent, rejected approaches recorded</div>
+  </div>
+
+  <div class="limits"><b>Limits.</b> Rubric-based scoring measures process compliance: files present, schemas valid, SEED documented. It does not measure whether the model is statistically sound. Codex's 42.53 per cent RMSE improvement reflects recovery from a broken baseline, not advancement. Each tool had a different operator, so prompting style is confounded with the tool.</div>
+</div></section>
+
+<section class="next"><div class="wrap">
+  <span class="label">Next</span>
+  <a href="promoter-expansion.html"><h3>Where should an independent promoter expand next? →</h3></a>
+</div></section>
+</main>
+
+<footer class="site-footer"><div class="wrap">
+  <div>© 2026 Caroline Kelly · London</div>
+  <div><a href="mailto:uceick2@ucl.ac.uk">Email</a><a href="https://www.linkedin.com/in/caroline-kelly-42534a266/">LinkedIn</a><a href="https://github.com/kellyc86">GitHub</a></div>
+</div></footer>
+  </div>
+  <div class="status"><span>Done</span><span>Static page · no cookies · no tracking</span><span>© 2026 Caroline Kelly</span></div>
+</div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

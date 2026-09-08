@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fan intelligence platform · Caroline Kelly</title>
+<meta name="description" content="A data engineering pipeline giving a record label a structured, queryable view of fan behaviour across five platforms. Problem, skills, results.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/retro.css">
+</head>
+<body class="framed">
+<header class="site-header"><div class="wrap">
+  <a class="brand" href="../index.html">Caroline <span>Kelly</span></a>
+  <nav class="nav"><a href="../index.html#work">Work</a><a href="../cv.html">CV</a><a href="../index.html#about">About</a><a href="mailto:uceick2@ucl.ac.uk">Contact</a></nav>
+</div></header>
+<div class="browser">
+  <div class="tbar"><span class="ti">Fan intelligence platform - Caroline Kelly Portfolio</span><button onclick="history.back()">_</button><button>□</button><button class="x" onclick="location.href='../index.html'">×</button></div>
+  <div class="menubar"><span>File</span><span>Edit</span><span>View</span><span>Favorites</span><span>Tools</span><span>Help</span></div>
+  <div class="addr">
+    <div class="nb"><a href="javascript:history.back()">◀ <span>Back</span></a><a class="dis" href="#">▶ <span>Forward</span></a><a href="../index.html">⌂ <span>Home</span></a></div>
+    <div class="field"><span class="lbl">Address</span><span>C:\Portfolio\Work\Fan intelligence</span></div><a class="go" href="../index.html#work">Go</a>
+  </div>
+  <div class="page">
+
+<main data-accent="umg">
+<section class="case-hero"><div class="wrap">
+  <div class="eyebrow">Data engineering · UCL MSIN0166 · April 2026</div>
+  <h1>What do a label's fans actually want?</h1>
+  <p class="sub">A pipeline that gives a record label a structured, queryable view of fan behaviour across five social media and streaming platforms, served through REST, WebSocket and MCP.</p>
+  <div class="meta">
+    <div><b>Role</b>Sole builder, individual coursework</div>
+    <div><b>Stack</b>Python, PyArrow, Apache Iceberg, DuckDB, MongoDB Atlas, PostgreSQL 15, Snorkel, MLflow, LangChain, Llama 3 via Ollama, FastAPI, Docker, Terraform</div>
+    <div><b>Data</b>Reddit, YouTube, Spotify, Last.fm and Fandom Wiki for five artists; 4,827 fans</div>
+    <div><b>Code</b>Private repository (33 commits, 57 tests). Walkthrough on request.</div>
+  </div>
+  <div class="notice">Independent coursework built around a UMG-style brief. Not commissioned by Universal Music Group.</div>
+</div></section>
+
+<section class="prose"><div class="wrap">
+  <div class="psr">
+    <div>
+      <h2>Problem</h2>
+      <p>Fan communities live on platforms that share no common format, change their APIs without warning, and have rate limits designed for casual developers rather than bulk analytical pipelines. Building something coherent out of that mess is a data engineering problem before it is an analytics one.</p>
+      <p>The goal is a system whose internal logic scales cleanly, not one that works for five artists and falls apart at five hundred.</p>
+    </div>
+    <div>
+      <h2>Skills</h2>
+      <ul>
+        <li><b>Medallion architecture:</b> immutable Bronze JSON, Iceberg/Parquet Silver under a 12-field PyArrow schema, DuckDB Gold views</li>
+        <li><b>Weak supervision:</b> 12 Snorkel labelling functions across four archetypes: Casual, Hardcore, Parasocial, Critical</li>
+        <li><b>Matrix factorisation:</b> TruncatedSVD on a fans-by-artists engagement matrix</li>
+        <li><b>RAG agent:</b> LangChain ReAct with five tools, 384-dim embeddings in MongoDB Atlas, Presidio PII redaction</li>
+        <li><b>Lineage:</b> W3C PROV documents and OpenLineage events to Marquez at every stage boundary</li>
+        <li><b>DevOps:</b> seven Docker services, Terraform for S3, RDS and ECR, GitHub Actions CI</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Results</h2>
+      <div class="stats" style="grid-template-columns:1fr;margin:0 0 .8rem">
+        <div><b>67.2%</b><span>of variance explained by three latent factors across 4,827 fans</span></div>
+        <div><b>0.985</b><span>Recall@k, stable across all cut-offs; NDCG@k 0.767</span></div>
+        <div><b>5</b><span>engineering defects found, fixed and documented, including a silent empty Silver write</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h2 style="margin-top:3rem">Pipeline</h2>
+  <div class="pipeline">
+    <div><b>1 · Collect</b>Five collectors write every API response to Bronze exactly as received.</div>
+    <div><b>2 · Silver</b>Typed PyArrow schema, SHA-256 text hashes, three validation checks on every write.</div>
+    <div><b>3 · Gold</b>Five DuckDB views directly over Silver Parquet.</div>
+    <div><b>4 · Model</b>Snorkel archetypes, SVD factors, RoBERTa sentiment, registered in MLflow.</div>
+    <div><b>5 · Agent</b>ReAct agent over Atlas vector search and a local Llama 3.</div>
+    <div><b>6 · Serve</b>FastAPI REST, WebSocket stream and MCP endpoint.</div>
+  </div>
+
+  <div class="limits"><b>Limits.</b> Silent failures are more dangerous than loud ones: an empty Silver write produced an archetype distribution that collapsed to 89% Casual and nothing complained until a Bronze existence check was added. Positive sentiment at 90 to 94 per cent across all five artists demands scepticism and likely reflects subreddit self-selection. Llama 3 on CPU takes 8 to 15 seconds per query.</div>
+</div></section>
+
+<section class="next"><div class="wrap">
+  <span class="label">Next</span>
+  <a href="artist-momentum.html"><h3>Artist momentum tracker →</h3></a>
+</div></section>
+</main>
+
+<footer class="site-footer"><div class="wrap">
+  <div>© 2026 Caroline Kelly · London</div>
+  <div><a href="mailto:uceick2@ucl.ac.uk">Email</a><a href="https://www.linkedin.com/in/caroline-kelly-42534a266/">LinkedIn</a><a href="https://github.com/kellyc86">GitHub</a></div>
+</div></footer>
+  </div>
+  <div class="status"><span>Done</span><span>Static page · no cookies · no tracking</span><span>© 2026 Caroline Kelly</span></div>
+</div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dynamic Pricing Practice · Caroline Kelly</title>
+<meta name="description" content="A practice project on synthetic data: a Random Forest predicting event sellout rate across price points, with a chronological split and a cost-aware read of the errors.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/retro.css">
+</head>
+<body class="framed">
+<header class="site-header"><div class="wrap">
+  <a class="brand" href="../index.html">Caroline <span>Kelly</span></a>
+  <nav class="nav"><a href="../index.html#work">Work</a><a href="../cv.html">CV</a><a href="../index.html#about">About</a><a href="mailto:uceick2@ucl.ac.uk">Contact</a></nav>
+</div></header>
+<div class="browser">
+  <div class="tbar"><span class="ti">Practice: ticket pricing - Caroline Kelly Portfolio</span><button onclick="history.back()">_</button><button>□</button><button class="x" onclick="location.href='../index.html'">×</button></div>
+  <div class="menubar"><span>File</span><span>Edit</span><span>View</span><span>Favorites</span><span>Tools</span><span>Help</span></div>
+  <div class="addr">
+    <div class="nb"><a href="javascript:history.back()">◀ <span>Back</span></a><a class="dis" href="#">▶ <span>Forward</span></a><a href="../index.html">⌂ <span>Home</span></a></div>
+    <div class="field"><span class="lbl">Address</span><span>C:\Portfolio\Practice\Pricing</span></div><a class="go" href="../index.html#work">Go</a>
+  </div>
+  <div class="page">
+
+<main data-accent="mono">
+<section class="case-hero"><div class="wrap">
+  <div class="eyebrow">Practice · Synthetic data</div>
+  <h1>Can a model predict which ticket price sells out?</h1>
+  <p class="sub">A Random Forest regressor on 2,800 synthetic events predicting sellout rate from venue, genre, price and timing, then turned into a price-by-revenue curve a promoter could read.</p>
+  <div class="meta">
+    <div><b>Role</b>Individual, self-directed practice</div>
+    <div><b>Stack</b>Python, pandas, scikit-learn</div>
+    <div><b>Data</b>2,800 generated events, 2023 to early 2024</div>
+  </div>
+  <div class="notice warn">Practice project. The dataset is synthetic and the scenario is fictional; no client was involved. Kept here because the method (chronological validation of a tree ensemble, then translating error into a revenue curve) is one I use in real work.</div>
+</div></section>
+
+<section class="prose"><div class="wrap">
+  <div class="psr">
+    <div>
+      <h2>Problem</h2>
+      <p>A promoter on a fictional event-discovery platform prices tickets by copying competitors or applying a flat markup, and wants the sellout probability at each price point before committing.</p>
+      <p>The task was to build a model that predicts sellout rate well enough to guide that decision, and to be clear about how much to trust it.</p>
+    </div>
+    <div>
+      <h2>Skills</h2>
+      <ul>
+        <li><b>Model choice:</b> Random Forest over linear regression because the price effect is non-linear: a £5 rise at £35 drops demand 12%, at £15 only 3%</li>
+        <li><b>Chronological split:</b> train on 2,000 events from 2023, test on 800 from 2024 Q1, as the model would be used</li>
+        <li><b>Tuning:</b> 5-fold cross-validation on the training set (max_depth 10, min_samples_split 20, 200 trees)</li>
+        <li><b>Feature importance:</b> venue capacity 34.2%, genre 25.1%, days until event 18.6%, price 14.2%</li>
+        <li><b>Decision layer:</b> a sellout curve across £15 to £45 picking the price maximising price × capacity × predicted sellout</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Results</h2>
+      <div class="stats" style="grid-template-columns:1fr;margin:0 0 .8rem">
+        <div><b>0.836</b><span>test R², against 0.923 on training</span></div>
+        <div><b>0.076</b><span>test RMSE, so a true 70% sellout is predicted between 62% and 78%</span></div>
+        <div><b>58%</b><span>error reduction against a naive model predicting the 68% platform average (RMSE 0.18)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h2 style="margin-top:3rem">What it told the promoter</h2>
+  <p>For a 500-capacity techno event 30 days out, £25 (88% predicted sellout, £11,000) and £30 (74%, £11,100) sat at the top of the curve. Venue size mattered more than price: right-sizing the room does more than tuning the ticket within it.</p>
+
+  <div class="limits"><b>Limits.</b> An RMSE of 7.6 percentage points is decision support, not autopilot. XGBoost reached test R² 0.842, a 0.6-point gain that did not justify the extra complexity. New artists with no promoter history revert to genre averages. Because the data is synthetic, the price elasticities are whatever the generator encoded; the numbers demonstrate the method, not the market.</div>
+</div></section>
+
+<section class="next"><div class="wrap">
+  <span class="label">Next</span>
+  <a href="churn-prediction.html"><h3>Which users will stop buying tickets? →</h3></a>
+</div></section>
+</main>
+
+<footer class="site-footer"><div class="wrap">
+  <div>© 2026 Caroline Kelly · London</div>
+  <div><a href="mailto:uceick2@ucl.ac.uk">Email</a><a href="https://www.linkedin.com/in/caroline-kelly-42534a266/">LinkedIn</a><a href="https://github.com/kellyc86">GitHub</a></div>
+</div></footer>
+  </div>
+  <div class="status"><span>Done</span><span>Static page · no cookies · no tracking</span><span>© 2026 Caroline Kelly</span></div>
+</div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
