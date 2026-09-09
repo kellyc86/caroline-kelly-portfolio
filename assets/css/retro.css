@@ -26,7 +26,7 @@ body.desktop { background: #3a7bd5; overflow: hidden; height: 100vh; margin: 0; 
 .desk { position: fixed; inset: 0 0 34px 0; z-index: 1; }
 
 /* Desktop icons */
-.icons { position: absolute; top: 10px; left: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 4px; width: 236px; z-index: 2; align-content: start; }
+.icons { position: absolute; top: 44px; bottom: 12px; left: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 0 4px; width: 236px; z-index: 2; align-content: space-evenly; }
 .icon { text-align: center; color: #fff; font-size: 11px; line-height: 1.15; text-shadow: 0 0 3px #000, 0 0 6px #000, 1px 1px 2px #000; font-weight: 600; cursor: pointer; padding: 4px; border: 1px dotted transparent; user-select: none; }
 .icon:hover, .icon:focus { border-color: rgba(255,255,255,.6); background: rgba(10,36,106,.35); outline: none; }
 .icon .ic { width: 34px; height: 34px; margin: 0 auto 6px; image-rendering: pixelated; }
@@ -153,7 +153,7 @@ body.framed .site-header { display: none; }
 @media (max-width: 760px) { body.framed { padding: 8px 0 40px; } .addr .nb a span { display: none; } }
 
 /* Start-here balloon */
-.hint { position: absolute; left: 262px; bottom: 16px; z-index: 3; background: #ffffe1; color: #111; border: 1px solid #000; border-radius: 6px; padding: 10px 26px 10px 12px; font-size: 12px; line-height: 1.45; box-shadow: 2px 2px 0 rgba(0,0,0,.25); max-width: 240px; }
+.hint { position: absolute; left: 262px; top: 56px; z-index: 3; background: #ffffe1; color: #111; border: 1px solid #000; border-radius: 6px; padding: 10px 26px 10px 12px; font-size: 12px; line-height: 1.45; box-shadow: 2px 2px 0 rgba(0,0,0,.25); max-width: 240px; }
 .hint::before { content: ""; position: absolute; left: -12px; top: 18px; border: 6px solid transparent; border-right-color: #000; }
 .hint::after { content: ""; position: absolute; left: -10px; top: 19px; border: 5px solid transparent; border-right-color: #ffffe1; }
 .hint .hx { position: absolute; right: 6px; top: 4px; cursor: pointer; font-weight: 700; }
@@ -164,6 +164,7 @@ body.framed .site-header { display: none; }
 /* Icon discs */
 .icon .ic.disc { width: 64px; height: 64px; background: #fff; border-radius: 50%; padding: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.5); display: flex; align-items: center; justify-content: center; }
 .icon .ic.disc.big { width: 80px; height: 80px; padding: 8px; }
+.icon .ic.disc.dark { background: #0a0a0a; padding: 6px; }
 .icon .ic.disc img { object-fit: contain; }
 
 /* Album of the week */
