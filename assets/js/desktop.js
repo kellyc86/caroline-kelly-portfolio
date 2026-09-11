@@ -7,10 +7,16 @@
   var mobile = function () { return window.matchMedia('(max-width: 760px)').matches; };
 
   function focus(w) { wins.forEach(function (x) { x.classList.remove('focus'); }); w.classList.add('focus'); w.style.zIndex = ++z; syncTasks(); }
-  function open(id) { var w = document.getElementById(id); if (!w) return; w.classList.remove('min'); w.hidden = false; focus(w); if (mobile()) setTimeout(function () { w.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 30); }
-  function stopPlayer(w) { if (w.id !== 'w-aotw') return; var pl = document.getElementById('player'), pb = document.getElementById('play'); if (pl) { pl.innerHTML = ''; pl.hidden = true; } if (pb) pb.textContent = '▶ Play'; }
+  function open(id) { var w = document.getElementById(id); if (!w) return; var wasHidden = w.hidden || w.classList.contains('min'); w.classList.remove('min'); w.hidden = false; if (wasHidden) { w.classList.remove('closing'); w.classList.add('opening'); setTimeout(function () { w.classList.remove('opening'); }, 200); } focus(w); if (mobile()) setTimeout(function () { w.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 30); }
+  function stopPlayer(w) { if (w.id !== 'w-aotw') return; var pl = document.getElementById('player'), pb = document.getElementById('play'); if (pl) { pl.innerHTML = ''; pl.hidden = true; } if (pb) pb.textContent = '▶ Play'; w.classList.remove('playing'); setSpeaker(false); }
+  function setSpeaker(on) { var s = document.getElementById('spk'); if (s) s.classList.toggle('on', !!on); }
   function minimise(w) { stopPlayer(w); w.classList.add('min'); syncTasks(); }
-  function close(w) { stopPlayer(w); w.hidden = true; w.classList.remove('min'); syncTasks(); }
+  function close(w) {
+    stopPlayer(w);
+    var finish = function () { w.classList.remove('closing'); w.hidden = true; w.classList.remove('min'); syncTasks(); };
+    if (mobile() || window.matchMedia('(prefers-reduced-motion: reduce)').matches) { finish(); return; }
+    w.classList.add('closing'); setTimeout(finish, 140);
+  }
 
   function syncTasks() {
     tasks.innerHTML = '';
@@ -45,11 +51,20 @@
     el.addEventListener('keydown', function (e) { if (e.key === 'Enter') open(el.dataset.open); });
   });
 
+  // Tooltips: the icon's own label, nothing new.
+  document.querySelectorAll('.icon').forEach(function (el) {
+    var t = el.textContent.replace(/\s+/g, ' ').trim(); if (t) el.dataset.tip = t;
+  });
+
+  // Recycle bin: decorative, does nothing but acknowledge the click.
+  var bin = document.getElementById('bin');
+  if (bin) bin.addEventListener('click', function () { bin.classList.add('nudge'); setTimeout(function () { bin.classList.remove('nudge'); }, 200); });
+
   // Start menu
   var sm = document.getElementById('startmenu'), sb = document.getElementById('startbtn');
   function closeStart() { sm.classList.remove('open'); }
-  sb.onclick = function (e) { e.stopPropagation(); sm.classList.toggle('open'); };
-  document.addEventListener('click', function (e) { if (!sm.contains(e.target)) closeStart(); });
+  sb.onclick = function (e) { e.stopPropagation(); sm.classList.toggle('open'); sb.classList.toggle('on', sm.classList.contains('open')); };
+  document.addEventListener('click', function (e) { if (!sm.contains(e.target)) { closeStart(); sb.classList.remove('on'); } });
 
   // Clock
   var clock = document.getElementById('clock');
@@ -71,7 +86,7 @@
   var mx = pw && pw.querySelector('.mx'); if (mx) mx.onclick = function (e) { e.stopPropagation(); pw.querySelector('.tbar').dispatchEvent(new Event('dblclick')); };
   // Album of the week: Play loads Spotify's official player only when pressed (no external call before that).
   var play = document.getElementById('play'), player = document.getElementById('player');
-  if (play) play.onclick = function () { if (!player.hidden) { player.hidden = true; play.textContent = '▶ Play'; return; } player.innerHTML = '<iframe src="https://open.spotify.com/embed/album/3dWKCKeiWtxjDNPTbGCQTO?utm_source=generator&theme=0" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Spotify player"></iframe>'; player.hidden = false; play.textContent = '■ Close player'; };
+  if (play) play.onclick = function () { var aw2 = document.getElementById('w-aotw'); if (!player.hidden) { player.hidden = true; play.textContent = '▶ Play'; if (aw2) aw2.classList.remove('playing'); setSpeaker(false); return; } player.innerHTML = '<iframe src="https://open.spotify.com/embed/album/3dWKCKeiWtxjDNPTbGCQTO?utm_source=generator&theme=0" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Spotify player"></iframe>'; player.hidden = false; play.textContent = '■ Close player'; if (aw2) aw2.classList.add('playing'); setSpeaker(true); };
   // Contact: copy address
   var cp = document.getElementById('copy'); if (cp) cp.onclick = function () { var m = document.getElementById('mail').textContent; try { navigator.clipboard.writeText(m); cp.textContent = 'Copied'; setTimeout(function () { cp.textContent = 'Copy'; }, 1500); } catch (e) { window.prompt('Copy the address:', m); } };
 
@@ -83,6 +98,18 @@
   var aw = document.getElementById('w-aotw');
   if (aw && !mobile()) { aw.style.top = Math.max(120, window.innerHeight - 34 - 40 - aw.offsetHeight) + 'px'; }
   if (mobile()) wins.forEach(function (w) { if (['w-readme','w-williams','w-aotw'].indexOf(w.id) < 0) w.hidden = true; });
+  // Screensaver: 60 seconds idle, clears on any input.
+  var scr = document.getElementById('scr');
+  if (scr && !mobile()) {
+    var idle = null;
+    var wake = function () { if (scr.classList.contains('on')) scr.classList.remove('on'); arm(); };
+    var arm = function () { clearTimeout(idle); idle = setTimeout(function () { scr.classList.add('on'); }, 60000); };
+    ['mousemove', 'mousedown', 'keydown', 'wheel', 'touchstart'].forEach(function (ev) {
+      window.addEventListener(ev, wake, { passive: true });
+    });
+    arm();
+  }
+
   syncTasks();
   var first = wins.find(function (w) { return !w.hidden; }); if (first) focus(first);
 })();
