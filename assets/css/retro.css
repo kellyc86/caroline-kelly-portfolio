@@ -379,3 +379,7 @@ body.desktop a, body.desktop button, body.desktop .icon, body.desktop [data-open
   .win.opening, .win.closing, .startmenu.open, .bar i, .prog i, .bin.nudge { animation: none !important; }
   .prog i { width: 100%; } .bar i { width: 100%; }
 }
+
+/* v20: commercial impact on desktop cards */
+.pw .impact-card b { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: #6b7385; margin-bottom: 4px; }
+.pw .impact-card em { display: block; margin-top: 6px; font-size: 11px; color: #6b7385; font-style: italic; }

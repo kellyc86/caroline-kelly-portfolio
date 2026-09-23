@@ -312,3 +312,8 @@ main[data-accent] .case-hero { background: linear-gradient(to bottom, color-mix(
   .page .psr > div:first-child { border-top: 0; }
   .page .case-hero .meta div { border-left: 0; padding-left: 0; }
 }
+
+/* v20: commercial impact block */
+.page .case-hero .impact { margin-top: 1.5rem; max-width: 72ch; padding: 1rem 1.25rem; border: 1px solid var(--line); border-left: 5px solid var(--acc, var(--green)); background: color-mix(in srgb, var(--acc, var(--green)) 7%, #fff); }
+.page .case-hero .impact b { display: block; font-size: .68rem; letter-spacing: .13em; text-transform: uppercase; color: #6b7385; margin-bottom: .4rem; }
+.page .case-hero .impact p { margin: 0; font-size: 1.02rem; line-height: 1.55; color: var(--text); }

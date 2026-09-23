@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&family=VT323&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=19">
-<link rel="stylesheet" href="assets/css/retro.css?v=19">
+<link rel="stylesheet" href="assets/css/style.css?v=20">
+<link rel="stylesheet" href="assets/css/retro.css?v=20">
 </head>
 <body class="desktop">
 
@@ -53,7 +53,7 @@
     <div class="wbody"><div class="pw">
       <a class="sleeve grooves" href="work/williams-sponsorship.html" data-page="work/williams-sponsorship.html" style="--sl-bg:#061a3a"><div class="photo" style="background-image:url('assets/img/logos/williams-car.jpg')"></div><div class="top"><span>01</span></div><h3>Where should the next hour of selling go?</h3></a>
       <div><h4>Where should the next hour of selling go?</h4>
-        <p>A weekly refreshed list of 60 ranked companies inside Salesforce, each carrying the evidence behind its rank, plus a model of which open deals will close. MSc dissertation with Williams' commercial team, deployed on their infrastructure and refreshed weekly.</p>
+        <p class="impact-card"><b>Commercial impact</b> The commercial team has limited time and a target of new sponsors at £5 million a year and above. I used machine learning to make sure that time went to the companies most likely to sign, ranked weekly inside Salesforce with the evidence behind each one, and analysed which behaviours in a live deal actually move it to signature. The reps now open the week with a list they trust, and the findings on renewals and warm introductions tell them which kind of conversation to have next.</p>
         <div class="big">84%</div><div class="cap">of future sponsors placed in the top decile before their deals were announced; 13.7% precision against a 1.6% base rate.</div>
         <div class="tags"><span class="tag">LightGBM</span><span class="tag">GDELT</span><span class="tag">survival analysis</span><span class="tag">SHAP</span><span class="tag">Salesforce</span></div>
         <p style="margin-top:12px"><a class="xpbtn primary" href="work/williams-sponsorship.html" data-page="work/williams-sponsorship.html">Open case study</a> &nbsp; <a class="xpbtn" href="demo/williams-tool.html" target="_blank" rel="noopener">Launch demo tool ↗</a></p>
@@ -66,7 +66,7 @@
     <div class="wbody"><div class="pw">
       <a class="sleeve grooves light-sl" href="work/fan-intelligence.html" data-page="work/fan-intelligence.html" style="--sl-bg:#f4efe6"><div class="top"><span>02</span><img class="badge" src="assets/img/logos/umg-globe-black.png" alt="UMG-style brief" style="height:30px"></div><h3>What do a label's fans actually want?</h3></a>
       <div><h4>What do a label's fans actually want?</h4>
-        <p>Five platforms, a Medallion pipeline, weak supervision into four fan archetypes, sentiment, and a RAG agent served over REST, WebSocket and MCP on AWS. Independent coursework built around a UMG-style brief, not commissioned.</p>
+        <p class="impact-card"><b>Commercial impact</b> A label decides merchandise, fan club pricing and tour allocation for a community it cannot see clearly. I pulled five platforms into one place and sorted fans into four types, so the label can see what share of an artist's community are superfans, casual listeners or critics, and price and plan for each artist's community rather than for an average fan. <em>Independent coursework built around a UMG-style brief, not commissioned.</em></p>
         <div class="big">4,827</div><div class="cap">fans classified; 57 passing tests; seven Docker services.</div>
         <div class="tags"><span class="tag">Spark</span><span class="tag">Snorkel</span><span class="tag">LangChain</span><span class="tag">FastAPI</span><span class="tag">Terraform</span></div>
         <p style="margin-top:12px"><a class="xpbtn primary" href="work/fan-intelligence.html" data-page="work/fan-intelligence.html">Open case study</a></p>
@@ -79,7 +79,7 @@
     <div class="wbody"><div class="pw">
       <a class="sleeve grooves" href="work/artist-momentum.html" data-page="work/artist-momentum.html" style="--sl-bg:#3b0764"><div class="top"><span>03</span><img class="badge" src="assets/img/logos/billboard.png" alt="Billboard charts" style="filter:invert(1)"></div><h3>Who is gaining momentum this week?</h3></a>
       <div><h4>Who is gaining momentum this week?</h4>
-        <p>Weekly ETL over two chart sources, Spotify, Instagram and 16 press feeds into a cross-source momentum score, a Monday digest and an API. Version one, limitations written down. Independent coursework.</p>
+        <p class="impact-card"><b>Commercial impact</b> An A&amp;R team wants to know which artists are moving this week, before the charts confirm it. I built a pipeline that combines streaming, social and press into one weekly score per artist and delivers it as a Monday digest, so the team reads one email instead of checking four platforms and can spot an artist gaining ground while there is still time to act on it. <em>Independent coursework.</em></p>
         <div class="big">16</div><div class="cap">press feeds with entity extraction; 15 API endpoints.</div>
         <div class="tags"><span class="tag">Playwright</span><span class="tag">DuckDB</span><span class="tag">FastAPI</span><span class="tag">Docker</span></div>
         <p style="margin-top:12px"><a class="xpbtn primary" href="work/artist-momentum.html" data-page="work/artist-momentum.html">Open case study</a></p>
@@ -92,7 +92,7 @@
     <div class="wbody"><div class="pw">
       <a class="sleeve grooves" href="work/spotify-genre.html" data-page="work/spotify-genre.html" style="--sl-bg:#0f2a1a"><div class="top"><span>04</span><img class="badge round" src="assets/img/logos/spotify.jpg" alt="Spotify audio features"></div><h3>Does genre live in the audio?</h3></a>
       <div><h4>Does genre live in the audio?</h4>
-        <p>Five classifiers and an autoencoder ablation on 10,000 tracks. Raw features beat the learned representation; popularity beat every audio feature; pop, indie and hip-hop are a positioning choice.</p>
+        <p class="impact-card"><b>Commercial impact</b> Before a label pitches a track it has to decide which playlists and charts it competes in. I tested whether a track's genre can be heard in the audio or is a choice the label makes. For pop, indie and hip-hop it is a choice, so the analysis gives the marketing team permission to pitch a track into the neighbouring genre's bigger playlists where the audio will not give it away.</p>
         <div class="big">0.657</div><div class="cap">macro-F1 across ten genres against a 0.018 baseline.</div>
         <div class="tags"><span class="tag">LightGBM</span><span class="tag">PyTorch</span><span class="tag">pre-registered</span></div>
         <p style="margin-top:12px"><a class="xpbtn primary" href="work/spotify-genre.html" data-page="work/spotify-genre.html">Open case study</a></p>
@@ -105,7 +105,7 @@
     <div class="wbody"><div class="pw">
       <a class="sleeve grooves light-sl" href="work/promoter-expansion.html" data-page="work/promoter-expansion.html" style="--sl-bg:#c8f240"><div class="top"><span>05</span><img class="badge" src="assets/img/logos/form.png" alt="FORM Presents, analysed independently"></div><h3>Where should an indie promoter go next?</h3></a>
       <div><h4>Where should an indie promoter go next?</h4>
-        <p>21 UK cities scored on MusicBrainz venue counts, HESA student population, market gap and cultural fit. A working map you can click. Unaffiliated with the promoter analysed.</p>
+        <p class="impact-card"><b>Commercial impact</b> An independent promoter with a strong London base needs to pick a second city without the budget to research all of them. I scored 21 UK cities on venues, audience, market gap, fit and distance, and put the whole shortlist on one screen with the weights visible. The promoter can see the trade-offs at a glance and change a weight to see how the order moves, instead of arguing from anecdote.</p>
         <div class="big">21</div><div class="cap">cities, five weighted factors, live dashboard.</div>
         <div class="tags"><span class="tag">Leaflet</span><span class="tag">MusicBrainz</span><span class="tag">HESA</span></div>
         <p style="margin-top:12px"><a class="xpbtn primary" href="work/promoter-expansion.html" data-page="work/promoter-expansion.html">Open case study</a> &nbsp; <a class="xpbtn" href="https://kellyc86.github.io/FormProjectExample/">Launch map</a></p>
@@ -118,7 +118,7 @@
     <div class="wbody"><div class="pw">
       <a class="sleeve grooves" href="work/agentic-benchmark.html" data-page="work/agentic-benchmark.html" style="--sl-bg:#1a1a1a"><div class="top"><span>06</span><span>Group</span></div><h3>Do coding agents know when they're wrong?</h3></a>
       <div><h4>Do coding agents know when they're wrong?</h4>
-        <p>Three agentic tools, six data-science tasks, one rubric. Rubric score and model quality pointed in different directions and no agent caught its own failure. Group of five; I ran the Antigravity arm.</p>
+        <p class="impact-card"><b>Commercial impact</b> Any data team is now being asked to let AI coding agents build its models. I tested whether a clean, high-scoring run from an agent means the model underneath is sound. It does not, and the agents did not catch their own failures. The benefit to a business is a simple rule for using these tools: a human checks the model before an AI-generated number goes in front of a decision-maker.</p>
         <div class="big">−0.625</div><div class="cap">R² shipped by the highest-scoring tool, without raising an error.</div>
         <div class="tags"><span class="tag">Claude</span><span class="tag">Codex</span><span class="tag">Antigravity</span></div>
         <p style="margin-top:12px"><a class="xpbtn primary" href="work/agentic-benchmark.html" data-page="work/agentic-benchmark.html">Open case study</a></p>
@@ -131,7 +131,7 @@
     <div class="wbody"><div class="pw">
       <a class="sleeve grooves light-sl" href="work/london-air-quality.html" data-page="work/london-air-quality.html" style="--sl-bg:#dfe7ee"><div class="top"><span>07</span><span>Group</span></div><h3>What drives London's air quality?</h3></a>
       <div><h4>What drives London's air quality?</h4>
-        <p>Seven public datasets through Spark and DuckDB into a borough-month fact table. Group of four; I owned the Silver layer. Mostly null results, reported as such.</p>
+        <p class="impact-card"><b>Commercial impact</b> Seven public datasets that disagreed on format, borough names and time periods, and a question that could only be answered once they were joined without error. I built the layer that made them trustworthy, with checks that stop a bad join before it reaches the analysis. A large venue or a label has this problem every week. Ticketing, streaming, social and merch data all arrive in different shapes, and one silent mismatch in the join means the release-week report or the settlement figures are wrong and nobody knows. This is the work that makes every number after it believable, and it is the part most teams skip.</p>
         <div class="big">925k</div><div class="cap">hourly readings cleaned and schema-checked in Spark.</div>
         <div class="tags"><span class="tag">Spark</span><span class="tag">DuckDB</span><span class="tag">GeoPandas</span></div>
         <p style="margin-top:12px"><a class="xpbtn primary" href="work/london-air-quality.html" data-page="work/london-air-quality.html">Open case study</a></p>
@@ -142,12 +142,12 @@
   <div class="win" id="w-aotw" style="right:24px;top:480px;width:380px">
     <div class="tbar"><span class="ti">Album of the week</span><button class="mn">_</button><button class="x">×</button></div>
     <div class="wbody aotw">
-      <div class="record"><div class="vinyl" aria-hidden="true"><div class="label"></div></div><a href="https://open.spotify.com/album/3dWKCKeiWtxjDNPTbGCQTO" target="_blank" rel="noopener"><img class="cover" src="assets/img/aotw-cover.jpg" alt="It Goes On, Westside Cowboy, album cover"></a></div>
+      <div class="record"><div class="vinyl" aria-hidden="true"><div class="label"></div></div><a href="https://open.spotify.com/album/1KR1VedU3v1ZeVz0S1HPDL" target="_blank" rel="noopener"><img class="cover" src="assets/img/aotw-cover.jpg" alt="NEVER ENOUGH: VERSIONS, Turnstile, album cover"></a></div>
       <div>
         <div class="k">Album of the week</div>
-        <div class="t">It Goes On</div>
-        <div class="a">Westside Cowboy</div>
-        <div class="ctl"><button class="play" id="play" title="Play on Spotify">▶ Play</button> <a class="sp" href="https://open.spotify.com/album/3dWKCKeiWtxjDNPTbGCQTO" target="_blank" rel="noopener">Open in Spotify ↗</a><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+        <div class="t">NEVER ENOUGH: VERSIONS</div>
+        <div class="a">Turnstile</div>
+        <div class="ctl"><button class="play" id="play" title="Play on Spotify">▶ Play</button> <a class="sp" href="https://open.spotify.com/album/1KR1VedU3v1ZeVz0S1HPDL" target="_blank" rel="noopener">Open in Spotify ↗</a><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
       </div>
     </div>
     <div class="player" id="player" hidden></div>
@@ -157,8 +157,8 @@
     <div class="tbar"><span class="ti">Contact</span><button class="mn">_</button><button class="x">×</button></div>
     <div class="wbody">
       <p><b>Caroline Kelly</b> · London</p>
-      <p>Email: <code id="mail">uceick2@ucl.ac.uk</code> <button class="xpbtn" id="copy">Copy</button></p>
-      <p><a class="xpbtn" href="mailto:uceick2@ucl.ac.uk">Open in mail app</a> &nbsp; <a class="xpbtn" href="https://www.linkedin.com/in/caroline-kelly-42534a266/">LinkedIn</a> &nbsp; <a class="xpbtn" href="https://github.com/kellyc86">GitHub</a></p>
+      <p>Email: <code id="mail">carolinekelly1251@gmail.com</code> <button class="xpbtn" id="copy">Copy</button></p>
+      <p><a class="xpbtn" href="mailto:carolinekelly1251@gmail.com">Open in mail app</a> &nbsp; <a class="xpbtn" href="https://www.linkedin.com/in/caroline-kelly-42534a266/">LinkedIn</a> &nbsp; <a class="xpbtn" href="https://github.com/kellyc86">GitHub</a></p>
     </div>
   </div>
 
@@ -169,7 +169,7 @@
 </div>
 
 <div class="startmenu" id="startmenu">
-  <div class="sm-head">Caroline Kelly<small>uceick2@ucl.ac.uk · London</small></div>
+  <div class="sm-head">Caroline Kelly<small>carolinekelly1251@gmail.com · London</small></div>
   <div class="sm-body">
     <div>
       <a data-open="w-williams" href="#">Williams Racing</a>
@@ -200,6 +200,6 @@
 
 <div class="scr" id="scr" aria-hidden="true"><div class="stars"></div><div class="disc"><div class="vinyl" style="width:140px;height:140px"><div class="label"></div></div></div></div>
 
-<script src="assets/js/desktop.js?v=19"></script>
+<script src="assets/js/desktop.js?v=20"></script>
 </body>
 </html>
